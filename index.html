@@ -499,6 +499,28 @@
       });
     }
 
+    function recalculateScoreboard() {
+      let demEV = 0;
+      let gopEV = 0;
+
+      registryData.forEach(item => {
+        const ev = parseInt(item.icon) || 0;
+        if (item.type === 'dem') demEV += ev;
+        if (item.type === 'gop') gopEV += ev;
+      });
+
+      const demEl = document.getElementById('ev-dem-count');
+      const gopEl = document.getElementById('ev-gop-count');
+      const demBar = document.getElementById('ev-bar-dem');
+      const gopBar = document.getElementById('ev-bar-gop');
+
+      if (demEl) demEl.textContent = demEV;
+      if (gopEl) gopEl.textContent = gopEV;
+
+      if (demBar) demBar.style.width = `${(demEV / 538) * 100}%`;
+      if (gopBar) gopBar.style.width = `${(gopEV / 538) * 100}%`;
+    }
+
     function updateTelemetryPanel(item) {
       const badge = document.getElementById('threat-badge');
       if (badge) {
@@ -663,10 +685,34 @@
       }
     }
 
+    // AUTOMATED LIVE ELECTION RESULTS FETCH FUNCTION
+    async function fetchLiveElectionResults() {
+      try {
+        // Query live results API endpoint
+        const response = await fetch('https://civicapi.org/api/results');
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          // Process live feed updates dynamically
+          renderLeafletMarkers(currentActiveCategory);
+          recalculateScoreboard();
+          loadCategoryNews(currentActiveCategory);
+          updateLiveTicker();
+        }
+      } catch (err) {
+        console.error("Live Election Feed API Fetch Error:", err);
+      }
+    }
+
     window.addEventListener('load', () => {
       initLeafletMap();
+      recalculateScoreboard();
       loadCategoryNews(currentActiveCategory);
       updateLiveTicker();
+      fetchLiveElectionResults();
+      
+      // Automatically refresh live vote tallies every 60 seconds
+      setInterval(fetchLiveElectionResults, 60000);
     });
   </script>
 </body>
