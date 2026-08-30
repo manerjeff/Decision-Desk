@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Election Night Decision Desk</title>
+  <title>2026 Midterm Election Decision Desk</title>
+  <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
@@ -202,7 +203,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 8.5px;
       font-weight: bold;
       cursor: pointer;
       user-select: none;
@@ -235,7 +236,7 @@
       height: 140px;
       width: 100%;
       display: grid;
-      grid-template-columns: 220px 1fr 1fr;
+      grid-template-columns: 240px 1fr 1fr;
       gap: 6px;
       padding: 5px 8px;
       background: #0d1117;
@@ -263,14 +264,11 @@
       margin-bottom: 3px;
     }
 
-    /* ELECTORAL COLLEGE SCOREBOARD */
-    .ev-scoreboard { display: flex; flex-direction: column; gap: 4px; justify-content: center; flex: 1; }
-    .ev-row { display: flex; justify-content: space-between; align-items: center; }
-    .ev-candidate { font-size: 9px; font-weight: bold; }
-    .ev-score { font-size: 16px; font-weight: bold; }
-    .ev-bar-container { background: #21262d; height: 6px; border-radius: 3px; overflow: hidden; display: flex; width: 100%; }
-    .ev-bar-dem { background: #388bfd; height: 100%; transition: width 0.4s ease; }
-    .ev-bar-gop { background: #f85149; height: 100%; transition: width 0.4s ease; }
+    /* CONGRESSIONAL BALANCE OF POWER PANEL */
+    .chamber-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex: 1; align-items: center; }
+    .chamber-card { background: #0d1117; border: 1px solid #21262d; border-radius: 4px; padding: 4px; text-align: center; }
+    .chamber-title { font-size: 7.5px; color: #8b949e; text-transform: uppercase; margin-bottom: 2px; }
+    .chamber-split { font-size: 13px; font-weight: bold; }
 
     .threat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
     .badge { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; border: 1px solid; }
@@ -281,12 +279,6 @@
     .bar-bg { background: #21262d; height: 4px; border-radius: 2px; overflow: hidden; margin-bottom: 3px; }
     .bar-fill { height: 100%; background: #388bfd; width: 50%; transition: width 0.4s ease, background-color 0.4s ease; }
 
-    /* CONGRESSIONAL BALANCE PANEL */
-    .chamber-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex: 1; align-items: center; }
-    .chamber-card { background: #0d1117; border: 1px solid #21262d; border-radius: 4px; padding: 4px; text-align: center; }
-    .chamber-title { font-size: 7.5px; color: #8b949e; text-transform: uppercase; margin-bottom: 2px; }
-    .chamber-split { font-size: 11px; font-weight: bold; }
-
     @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
     @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(210, 153, 34, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(210, 153, 34, 0); } 100% { box-shadow: 0 0 0 0 rgba(210, 153, 34, 0); } }
   </style>
@@ -295,11 +287,11 @@
 
   <div id="app-container">
     <div class="ticker-wrap">
-      <div class="ticker-title">RACE CALLS & POLLS</div>
+      <div class="ticker-title">MIDTERM POLLS</div>
       <div class="ticker-container">
         <div id="tickerTrack" class="ticker-track">
-          <div id="tickerBlock1" class="ticker-content">INITIALIZING ELECTION DECISION DESK FEEDS...</div>
-          <div id="tickerBlock2" class="ticker-content">INITIALIZING ELECTION DECISION DESK FEEDS...</div>
+          <div id="tickerBlock1" class="ticker-content">INITIALIZING 2026 MIDTERM POLLING FEEDS...</div>
+          <div id="tickerBlock2" class="ticker-content">INITIALIZING 2026 MIDTERM POLLING FEEDS...</div>
         </div>
       </div>
     </div>
@@ -307,75 +299,74 @@
     <header>
       <div class="title-group">
         <div class="status-dot"></div>
-        <h1>Election Night Decision Desk</h1>
+        <h1>2026 Midterm Election Decision Desk</h1>
       </div>
       <div class="header-actions">
-        <span style="font-size:9.5px; color:#388bfd;">CHOROPLETH MAP ACTIVE | 270 TO WIN</span>
+        <span style="font-size:9.5px; color:#388bfd;">CONGRESSIONAL MAP ACTIVE</span>
       </div>
     </header>
 
     <div class="app-viewport">
       <nav class="side-menu">
-        <div class="side-menu-header">MAP LAYERS</div>
-        <div class="menu-item active" onclick="filterCategory('ALL', this)">🌐 All States</div>
-        <div class="menu-item" onclick="filterCategory('battleground', this)">🟡 Key Battlegrounds</div>
-        <div class="menu-item" onclick="filterCategory('dem', this)">🔵 Called / Lead Blue</div>
-        <div class="menu-item" onclick="filterCategory('gop', this)">🔴 Called / Lead Red</div>
+        <div class="side-menu-header">MIDTERM RACES</div>
+        <div class="menu-item active" onclick="filterCategory('ALL', this)">🌐 All Key Contests</div>
+        <div class="menu-item" onclick="filterCategory('battleground', this)">🟡 Battleground Seats</div>
+        <div class="menu-item" onclick="filterCategory('dem', this)">🔵 Leaning Dem</div>
+        <div class="menu-item" onclick="filterCategory('gop', this)">🔴 Leaning GOP</div>
 
         <div class="sidebar-divider"></div>
 
         <div class="sidebar-news-container">
-          <div class="side-menu-header" style="margin-top:0;">PROJECTED CALLS & POLLS</div>
+          <div class="side-menu-header" style="margin-top:0;">POLLING DISPATCHES</div>
           <div id="region-title" style="color:#58a6ff; font-size: 9px; font-weight:bold; margin-bottom: 1px;">National Summary</div>
-          <div id="region-coords" style="font-size:7px; color:#8b949e; margin-bottom: 4px;">Live Matchup Feed</div>
+          <div id="region-coords" style="font-size:7px; color:#8b949e; margin-bottom: 4px;">Senate & House Surveys</div>
           <div id="news-feed" class="news-list"></div>
         </div>
       </nav>
 
       <div class="stage-container">
+        <!-- LEAFLET MAP STAGE -->
         <div id="leafletMap"></div>
 
         <div class="dashboard-grid">
+          <!-- CONGRESSIONAL BALANCE OF POWER -->
           <div class="panel-box">
-            <div class="panel-header">Electoral College (270 to Win)</div>
-            <div class="ev-scoreboard">
-              <div class="ev-row">
-                <span class="ev-candidate" style="color:#388bfd;">DEMOCRAT</span>
-                <span id="ev-dem-count" class="ev-score" style="color:#388bfd;">0</span>
-              </div>
-              <div class="ev-bar-container">
-                <div id="ev-bar-dem" class="ev-bar-dem" style="width: 0%;"></div>
-                <div id="ev-bar-gop" class="ev-bar-gop" style="width: 0%;"></div>
-              </div>
-              <div class="ev-row">
-                <span class="ev-candidate" style="color:#f85149;">REPUBLICAN</span>
-                <span id="ev-gop-count" class="ev-score" style="color:#f85149;">0</span>
+            <div class="panel-header">Battle for Senate Control (51 Seats)</div>
+            <div class="chamber-grid" style="grid-template-columns: 1fr;">
+              <div class="chamber-card">
+                <div class="chamber-title">Projected Senate Balance</div>
+                <div class="chamber-split">
+                  <span style="color:#388bfd;">DEM: 47</span> &nbsp;|&nbsp; 
+                  <span style="color:#d29922;">3 TOSS-UPS</span> &nbsp;|&nbsp; 
+                  <span style="color:#f85149;">GOP: 50</span>
+                </div>
               </div>
             </div>
           </div>
 
+          <!-- STATE TELEMETRY PANEL -->
           <div class="panel-box">
-            <div class="panel-header">State Telemetry</div>
+            <div class="panel-header">Race Matchup Telemetry</div>
             <div class="threat-row">
               <span style="font-size:8px;">Status:</span>
-              <span id="threat-badge" class="badge badge-tossup">SELECT STATE</span>
+              <span id="threat-badge" class="badge badge-tossup">SELECT A RACE</span>
             </div>
             <div class="bar-bg">
               <div id="threat-bar" class="bar-fill"></div>
             </div>
-            <p id="threat-desc" style="font-size:7.5px; color:#8b949e; margin-top:2px;">Click any state polygon or marker to view live polling / result telemetry.</p>
+            <p id="threat-desc" style="font-size:7.5px; color:#8b949e; margin-top:2px;">Click any state boundary or marker to inspect candidate polling matchups.</p>
           </div>
 
+          <!-- HOUSE GENERIC BALLOT -->
           <div class="panel-box">
-            <div class="panel-header" style="color:#58a6ff;">🏛️ Congressional Balance</div>
-            <div class="chamber-grid">
+            <div class="panel-header" style="color:#58a6ff;">🏛️ House Generic Ballot Average</div>
+            <div class="chamber-grid" style="grid-template-columns: 1fr;">
               <div class="chamber-card">
-                <div class="chamber-title">U.S. Senate (51 for Majority)</div>
-                <div class="chamber-split"><span style="color:#388bfd;">47</span> - <span style="color:#f85149;">48</span></div>
-              </div>
-              <div class="chamber-card">
-                <div class="chamber-title">U.S. House (218 for Majority)</div>
-                <div class="chamber-split"><span style="color:#388bfd;">198</span> - <span style="color:#f85149;">204</span></div>
+                <div class="chamber-title">218 Seats Needed for House Majority</div>
+                <div class="chamber-split">
+                  <span style="color:#388bfd;">DEM: 46.8%</span> &nbsp;vs.&nbsp; 
+                  <span style="color:#f85149;">GOP: 45.9%</span>
+                </div>
               </div>
             </div>
           </div>
@@ -390,71 +381,54 @@
     let geojsonLayer;
     let currentActiveCategory = 'ALL';
 
-    // ELECTION STATE REGISTRY DATA WITH CANDIDATE MATCHUPS
+    // 2026 MIDTERM CANDIDATE MATCHUPS REGISTRY DATA
     let registryData = [
       {
-        id: "st-mi", type: "battleground", icon: "15", name: "Michigan", lat: 44.3148, lng: -85.6024,
+        id: "sen-mi", type: "battleground", icon: "SEN", name: "Michigan U.S. Senate", lat: 44.3148, lng: -85.6024,
         threatLevel: "POLL LEAD: EL-SAYED +1.8%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "Michigan Senate Matchup: Abdul El-Sayed (D) 46.3% vs. Mike Rogers (R) 44.5%. Margin remains within statistical toss-up range.",
         news: [
-          { time: "EPIC-MRA Poll", headline: "El-Sayed leads Rogers 47% to 43% in latest state survey." },
+          { time: "EPIC-MRA", headline: "El-Sayed leads Rogers 47% to 43% in latest state survey." },
           { time: "AARP Poll", headline: "Poll shows tight margin among likely voters; Rogers retains edge with 50+ demographic." },
           { time: "RealClearPolling", headline: "Aggregate average puts Senate match-up at El-Sayed +1.8%." }
         ]
       },
       {
-        id: "st-pa", type: "battleground", icon: "19", name: "Pennsylvania", lat: 40.8781, lng: -77.7996,
-        threatLevel: "POLL LEAD: TOSS-UP (+0.8%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
-        threatDesc: "Pennsylvania Senate & Presidential Matchup: Key bellwether state within +0.8% polling margin.",
+        id: "sen-nc", type: "battleground", icon: "SEN", name: "North Carolina U.S. Senate", lat: 35.7596, lng: -79.0193,
+        threatLevel: "POLL LEAD: COOPER +2.1%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "North Carolina Senate Matchup: Roy Cooper (D) 47.5% vs. Michael Whatley (R) 45.4%. Open seat contest.",
         news: [
-          { time: "Quinnipiac", headline: "Pennsylvania poll shows head-to-head race tied within margin of error." },
-          { time: "Emerson", headline: "Keystone State turnout models indicate record suburban engagement." }
+          { time: "Marist Poll", headline: "Roy Cooper maintains narrow lead over Whatley in high-budget contest." }
         ]
       },
       {
-        id: "st-ga", type: "battleground", icon: "16", name: "Georgia", lat: 32.6782, lng: -83.2229,
-        threatLevel: "POLL LEAD: GOP +1.4%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup",
-        threatDesc: "Georgia Battleground: Polls indicate +1.4% margin across Metro Atlanta and rural sectors.",
+        id: "sen-ga", type: "battleground", icon: "SEN", name: "Georgia U.S. Senate", lat: 32.6782, lng: -83.2229,
+        threatLevel: "POLL LEAD: COLLINS +1.2%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "Georgia Senate Matchup: Jon Ossoff (D) 45.8% vs. Mike Collins (R) 47.0%. High turnout expected across Metro Atlanta.",
         news: [
-          { time: "AJC Poll", headline: "Georgia polling highlights tight split between suburban and rural voter groups." }
+          { time: "AJC Poll", headline: "Collins surges slightly in suburban precincts; Ossoff holding youth margins." }
         ]
       },
       {
-        id: "st-ca", type: "dem", icon: "54", name: "California", lat: 36.7783, lng: -119.4179,
-        threatLevel: "PROJECTED DEMOCRAT", threatPercent: "100%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "California: Solid Democratic baseline projection (+54 Electoral Votes).",
+        id: "sen-oh", type: "gop", icon: "SEN", name: "Ohio U.S. Senate", lat: 40.4173, lng: -82.9071,
+        threatLevel: "POLL LEAD: HUSTED +4.5%", threatPercent: "55%", barColor: "#f85149", threatClass: "badge-gop",
+        threatDesc: "Ohio Special Senate Matchup: Appointed Sen. Jon Husted (R) leads Democratic challenger in statewide aggregate.",
         news: [
-          { time: "State Aggregate", headline: "California polling averages maintain double-digit Democratic margin." }
+          { time: "Suffolk Poll", headline: "Husted retains 4.5% polling cushion in special election." }
         ]
       },
       {
-        id: "st-tx", type: "gop", icon: "40", name: "Texas", lat: 31.9686, lng: -99.9018,
-        threatLevel: "PROJECTED REPUBLICAN", threatPercent: "100%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Texas: Solid Republican baseline projection (+40 Electoral Votes).",
+        id: "sen-me", type: "dem", icon: "SEN", name: "Maine U.S. Senate", lat: 45.2538, lng: -69.4455,
+        threatLevel: "POLL LEAD: COLLINS +3.1%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem",
+        threatDesc: "Maine Senate Matchup: Susan Collins (R) vs. Democratic Challenger. Ranked-choice voting active.",
         news: [
-          { time: "UT/Texas Politics", headline: "Texas polling averages indicate steady Republican lead across statewide races." }
-        ]
-      },
-      {
-        id: "st-fl", type: "gop", icon: "30", name: "Florida", lat: 27.6648, lng: -81.5158,
-        threatLevel: "PROJECTED REPUBLICAN", threatPercent: "100%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Florida: Strong Republican lead in state polling aggregate (+30 Electoral Votes).",
-        news: [
-          { time: "FAU Poll", headline: "Florida polling average maintains +8 point margin for Republican candidates." }
-        ]
-      },
-      {
-        id: "st-ny", type: "dem", icon: "28", name: "New York", lat: 40.7128, lng: -74.0060,
-        threatLevel: "PROJECTED DEMOCRAT", threatPercent: "100%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "New York: Solid Democratic baseline projection (+28 Electoral Votes).",
-        news: [
-          { time: "Siena Poll", headline: "New York statewide aggregate holds comfortable Democratic advantage." }
+          { time: "Pan Atlantic", headline: "Statewide poll shows independent voters tilting towards incumbent." }
         ]
       }
     ];
 
     function getStateColor(stateName) {
-      const item = registryData.find(d => d.name.toLowerCase() === stateName.toLowerCase());
+      const item = registryData.find(d => d.name.toLowerCase().includes(stateName.toLowerCase()));
       if (!item) return '#21262d';
       if (item.type === 'dem') return '#388bfd';
       if (item.type === 'gop') return '#f85149';
@@ -493,7 +467,7 @@
 
     function onStateClick(e) {
       const stateName = e.target.feature.properties.name;
-      const item = registryData.find(d => d.name.toLowerCase() === stateName.toLowerCase());
+      const item = registryData.find(d => d.name.toLowerCase().includes(stateName.toLowerCase()));
       if (item) {
         selectEvent(item);
       }
@@ -563,28 +537,6 @@
       });
     }
 
-    function recalculateScoreboard() {
-      let demEV = 0;
-      let gopEV = 0;
-
-      registryData.forEach(item => {
-        const ev = parseInt(item.icon) || 0;
-        if (item.type === 'dem') demEV += ev;
-        if (item.type === 'gop') gopEV += ev;
-      });
-
-      const demEl = document.getElementById('ev-dem-count');
-      const gopEl = document.getElementById('ev-gop-count');
-      const demBar = document.getElementById('ev-bar-dem');
-      const gopBar = document.getElementById('ev-bar-gop');
-
-      if (demEl) demEl.textContent = demEV;
-      if (gopEl) gopEl.textContent = gopEV;
-
-      if (demBar) demBar.style.width = `${(demEV / 538) * 100}%`;
-      if (gopBar) gopBar.style.width = `${(gopEV / 538) * 100}%`;
-    }
-
     function updateTelemetryPanel(item) {
       const badge = document.getElementById('threat-badge');
       if (badge) {
@@ -621,22 +573,22 @@
       if (category === 'ALL') {
         if (map) map.flyTo([38, -96], 4);
         if (titleEl) { titleEl.textContent = "National Summary"; titleEl.style.color = "#58a6ff"; }
-        if (coordsEl) coordsEl.textContent = "Live Matchup Feed";
+        if (coordsEl) coordsEl.textContent = "Senate & House Surveys";
         loadCategoryNews('ALL');
       } else if (category === 'battleground') {
         if (map) map.flyTo([39, -84], 4.5);
-        if (titleEl) { titleEl.textContent = "Key Battlegrounds"; titleEl.style.color = "#d29922"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: Toss-Up States";
+        if (titleEl) { titleEl.textContent = "Battleground Seats"; titleEl.style.color = "#d29922"; }
+        if (coordsEl) coordsEl.textContent = "Filtered: Toss-Up Contests";
         loadCategoryNews('battleground');
       } else if (category === 'dem') {
         if (map) map.flyTo([38, -96], 4);
-        if (titleEl) { titleEl.textContent = "Blue State Projections"; titleEl.style.color = "#388bfd"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: Called / Lead Dem";
+        if (titleEl) { titleEl.textContent = "Leaning Dem Seats"; titleEl.style.color = "#388bfd"; }
+        if (coordsEl) coordsEl.textContent = "Filtered: Dem Poll Lead";
         loadCategoryNews('dem');
       } else if (category === 'gop') {
         if (map) map.flyTo([38, -96], 4);
-        if (titleEl) { titleEl.textContent = "Red State Projections"; titleEl.style.color = "#f85149"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: Called / Lead GOP";
+        if (titleEl) { titleEl.textContent = "Leaning GOP Seats"; titleEl.style.color = "#f85149"; }
+        if (coordsEl) coordsEl.textContent = "Filtered: GOP Poll Lead";
         loadCategoryNews('gop');
       }
     }
@@ -736,7 +688,7 @@
       }
 
       const coordsEl = document.getElementById('region-coords');
-      if (coordsEl) coordsEl.textContent = `ELECTORAL VOTES: ${item.icon}`;
+      if (coordsEl) coordsEl.textContent = `LAT: ${item.lat.toFixed(2)} | LNG: ${item.lng.toFixed(2)}`;
 
       const newsFeed = document.getElementById('news-feed');
       if (newsFeed) {
@@ -749,42 +701,10 @@
       }
     }
 
-    // AUTOMATED ELECTION DATA ENGINE (SWITCHES FROM POLLS TO LIVE VOTES ON ELECTION DAY)
-    async function fetchLiveElectionResults() {
-      const currentDate = new Date();
-      const electionDay = new Date('2026-11-03T00:00:00');
-
-      try {
-        if (currentDate < electionDay) {
-          // Pre-Election Polling Mode Sync
-          recalculateScoreboard();
-          loadCategoryNews(currentActiveCategory);
-          updateLiveTicker();
-        } else {
-          // Live Election Night Vote Return Fetch
-          const response = await fetch('https://civicapi.org/api/live-results');
-          const voteData = await response.json();
-
-          if (voteData) {
-            renderLeafletMarkers(currentActiveCategory);
-            recalculateScoreboard();
-            loadCategoryNews(currentActiveCategory);
-            updateLiveTicker();
-          }
-        }
-      } catch (err) {
-        console.error("Election Data Fetch Error:", err);
-      }
-    }
-
     window.addEventListener('load', () => {
       initLeafletMap();
-      recalculateScoreboard();
       loadCategoryNews(currentActiveCategory);
       updateLiveTicker();
-      fetchLiveElectionResults();
-      
-      setInterval(fetchLiveElectionResults, 60000);
     });
   </script>
 </body>
