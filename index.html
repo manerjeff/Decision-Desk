@@ -384,19 +384,19 @@
 
     // 50-STATE BASELINE STATE-COLOR DICTIONARY
     const stateBaselineColors = {
-      "Alabama": "#f85149", "Alaska": "#d29922", "Arizona": "#d29922", "Arkansas": "#f85149",
-      "California": "#388bfd", "Colorado": "#388bfd", "Connecticut": "#388bfd", "Delaware": "#388bfd",
-      "Florida": "#f85149", "Georgia": "#d29922", "Hawaii": "#388bfd", "Idaho": "#f85149",
-      "Illinois": "#388bfd", "Indiana": "#f85149", "Iowa": "#f85149", "Kansas": "#d29922",
-      "Kentucky": "#f85149", "Louisiana": "#f85149", "Maine": "#d29922", "Maryland": "#388bfd",
-      "Massachusetts": "#388bfd", "Michigan": "#d29922", "Minnesota": "#388bfd", "Mississippi": "#f85149",
-      "Missouri": "#f85149", "Montana": "#d29922", "Nebraska": "#f85149", "Nevada": "#d29922",
-      "New Hampshire": "#388bfd", "New Jersey": "#388bfd", "New Mexico": "#388bfd", "New York": "#388bfd",
-      "North Carolina": "#d29922", "North Dakota": "#f85149", "Ohio": "#f85149", "Oklahoma": "#f85149",
-      "Oregon": "#388bfd", "Pennsylvania": "#388bfd", "Rhode Island": "#388bfd", "South Carolina": "#f85149",
-      "South Dakota": "#f85149", "Tennessee": "#f85149", "Texas": "#f85149", "Utah": "#f85149",
-      "Vermont": "#f85149", "Virginia": "#388bfd", "Washington": "#388bfd", "West Virginia": "#f85149",
-      "Wisconsin": "#d29922", "Wyoming": "#f85149"
+      "alabama": "#f85149", "alaska": "#d29922", "arizona": "#d29922", "arkansas": "#f85149",
+      "california": "#388bfd", "colorado": "#388bfd", "connecticut": "#388bfd", "delaware": "#388bfd",
+      "florida": "#f85149", "georgia": "#d29922", "hawaii": "#388bfd", "idaho": "#f85149",
+      "illinois": "#388bfd", "indiana": "#f85149", "iowa": "#f85149", "kansas": "#d29922",
+      "kentucky": "#f85149", "louisiana": "#f85149", "maine": "#d29922", "maryland": "#388bfd",
+      "massachusetts": "#388bfd", "michigan": "#d29922", "minnesota": "#388bfd", "mississippi": "#f85149",
+      "missouri": "#f85149", "montana": "#d29922", "nebraska": "#f85149", "nevada": "#d29922",
+      "new hampshire": "#388bfd", "new jersey": "#388bfd", "new mexico": "#388bfd", "new york": "#388bfd",
+      "north carolina": "#d29922", "north dakota": "#f85149", "ohio": "#f85149", "oklahoma": "#f85149",
+      "oregon": "#388bfd", "pennsylvania": "#388bfd", "rhode island": "#388bfd", "south carolina": "#f85149",
+      "south dakota": "#f85149", "tennessee": "#f85149", "texas": "#f85149", "utah": "#f85149",
+      "vermont": "#f85149", "virginia": "#388bfd", "washington": "#388bfd", "west virginia": "#f85149",
+      "wisconsin": "#d29922", "wyoming": "#f85149"
     };
 
     // NATIONWIDE CANDIDATE MATCHUPS REGISTRY
@@ -404,6 +404,7 @@
       { id: "ca", state: "California", type: "dem", category: "gov", icon: "CA", name: "California Governor", lat: 36.7783, lng: -119.4179, threatLevel: "POLL LEAD: BECERRA +19.0%", threatPercent: "61%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Xavier Becerra (D) 55.0% vs. Steve Hilton (R) 36.0%. Open race.", news: [{ time: "PPIC Survey", headline: "Becerra leads Hilton 61% to 36% statewide." }] },
       { id: "ak", state: "Alaska", type: "battleground", category: "senate", icon: "AK", name: "Alaska U.S. Senate", lat: 64.2008, lng: -149.4937, threatLevel: "POLL LEAD: TOSS-UP (+1.2%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Dan Sullivan (R) vs. Mary Peltola (D). Ranked-choice primary.", news: [{ time: "Alaska Survey", headline: "Peltola and Sullivan neck-and-neck." }] },
       { id: "az", state: "Arizona", type: "battleground", category: "gov", icon: "AZ", name: "Arizona Governor", lat: 34.0489, lng: -111.0937, threatLevel: "POLL LEAD: HOBBS +1.4%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Katie Hobbs (D) vs. Andy Biggs (R). Maricopa battleground.", news: [{ time: "OH Predictive", headline: "Hobbs holds narrow lead in Maricopa county." }] },
+      { id: "nv", state: "Nevada", type: "battleground", category: "gov", icon: "NV", name: "Nevada Governor", lat: 38.8026, lng: -116.4194, threatLevel: "POLL LEAD: LOMBARDO +0.8%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Joe Lombardo (R) vs. Democratic Challenger. Clark County lead key.", news: [{ time: "Nevada Poll", headline: "Lombardo tied in Clark County aggregate." }] },
       { id: "mi-sen", state: "Michigan", type: "battleground", category: "senate", icon: "MI-SEN", name: "Michigan U.S. Senate", lat: 44.3148, lng: -85.6024, threatLevel: "POLL LEAD: EL-SAYED +1.8%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Abdul El-Sayed (D) vs. Mike Rogers (R).", news: [{ time: "EPIC-MRA", headline: "El-Sayed leads Rogers 47% to 43%." }] },
       { id: "mi-gov", state: "Michigan", type: "battleground", category: "gov", icon: "MI-GOV", name: "Michigan Governor", lat: 42.7325, lng: -84.5555, threatLevel: "POLL LEAD: BENSON +2.5%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Jocelyn Benson (D) vs. John James (R). Open contest.", news: [{ time: "Detroit News", headline: "Benson holds 2.5% lead over John James." }] },
       { id: "mi07", state: "Michigan", type: "battleground", category: "house", icon: "MI-07", name: "Michigan 7th District", lat: 42.5000, lng: -84.3000, threatLevel: "POLL LEAD: LAWRENCE +1.5%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "William Lawrence (D) vs. Tom Barrett (R).", news: [{ time: "Mid-MI Poll", headline: "Lawrence holds 1.5% edge." }] },
@@ -429,13 +430,16 @@
     ];
 
     function getStateColor(stateName) {
+      if (!stateName) return '#21262d';
+      const normalized = stateName.trim().toLowerCase();
+
       // 1. Direct 50-State Dictionary Lookup
-      if (stateBaselineColors[stateName]) {
-        return stateBaselineColors[stateName];
+      if (stateBaselineColors[normalized]) {
+        return stateBaselineColors[normalized];
       }
       
       // 2. Fallback Registry Data Lookup
-      const item = registryData.find(d => d.state.toLowerCase() === stateName.toLowerCase() || d.name.toLowerCase().includes(stateName.toLowerCase()));
+      const item = registryData.find(d => d.state.toLowerCase() === normalized || d.name.toLowerCase().includes(normalized));
       if (!item) return '#21262d';
       if (item.type === 'dem') return '#388bfd';
       if (item.type === 'gop') return '#f85149';
@@ -474,7 +478,8 @@
 
     function onStateClick(e) {
       const stateName = e.target.feature.properties.name;
-      const item = registryData.find(d => d.state.toLowerCase() === stateName.toLowerCase() || d.name.toLowerCase().includes(stateName.toLowerCase()));
+      const normalized = stateName ? stateName.trim().toLowerCase() : '';
+      const item = registryData.find(d => d.state.toLowerCase() === normalized || d.name.toLowerCase().includes(normalized));
       if (item) {
         selectEvent(item);
       }
