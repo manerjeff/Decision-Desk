@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>2026 Midterm Election Polling Desk</title>
+  <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
@@ -289,8 +290,8 @@
       <div class="ticker-title">2026 MIDTERM FEEDS</div>
       <div class="ticker-container">
         <div id="tickerTrack" class="ticker-track">
-          <div id="tickerBlock1" class="ticker-content">INITIALIZING FULL NATIONWIDE FEEDS...</div>
-          <div id="tickerBlock2" class="ticker-content">INITIALIZING FULL NATIONWIDE FEEDS...</div>
+          <div id="tickerBlock1" class="ticker-content">INITIALIZING FULL 50-STATE FEEDS...</div>
+          <div id="tickerBlock2" class="ticker-content">INITIALIZING FULL 50-STATE FEEDS...</div>
         </div>
       </div>
     </div>
@@ -325,9 +326,11 @@
       </nav>
 
       <div class="stage-container">
+        <!-- LEAFLET MAP STAGE -->
         <div id="leafletMap"></div>
 
         <div class="dashboard-grid">
+          <!-- SENATE BALANCE OF POWER -->
           <div class="panel-box">
             <div class="panel-header">Senate Control Battle (51 Seats)</div>
             <div class="chamber-grid" style="grid-template-columns: 1fr;">
@@ -342,6 +345,7 @@
             </div>
           </div>
 
+          <!-- STATE TELEMETRY PANEL -->
           <div class="panel-box">
             <div class="panel-header">Candidate Matchup Telemetry</div>
             <div class="threat-row">
@@ -354,6 +358,7 @@
             <p id="threat-desc" style="font-size:7.5px; color:#8b949e; margin-top:2px;">Click any state boundary or marker to inspect candidate polling matchups.</p>
           </div>
 
+          <!-- HOUSE GENERIC BALLOT -->
           <div class="panel-box">
             <div class="panel-header" style="color:#58a6ff;">🏛️ House Generic Ballot Average</div>
             <div class="chamber-grid" style="grid-template-columns: 1fr;">
@@ -377,61 +382,60 @@
     let geojsonLayer;
     let currentActiveCategory = 'ALL';
 
-    // COMPLETE 50-STATE REGISTRY DATA (SENATE, HOUSE & GOVERNOR COVERAGE)
+    // 50-STATE BASELINE STATE-COLOR DICTIONARY
+    const stateBaselineColors = {
+      "Alabama": "#f85149", "Alaska": "#d29922", "Arizona": "#d29922", "Arkansas": "#f85149",
+      "California": "#388bfd", "Colorado": "#388bfd", "Connecticut": "#388bfd", "Delaware": "#388bfd",
+      "Florida": "#f85149", "Georgia": "#d29922", "Hawaii": "#388bfd", "Idaho": "#f85149",
+      "Illinois": "#388bfd", "Indiana": "#f85149", "Iowa": "#f85149", "Kansas": "#d29922",
+      "Kentucky": "#f85149", "Louisiana": "#f85149", "Maine": "#d29922", "Maryland": "#388bfd",
+      "Massachusetts": "#388bfd", "Michigan": "#d29922", "Minnesota": "#388bfd", "Mississippi": "#f85149",
+      "Missouri": "#f85149", "Montana": "#d29922", "Nebraska": "#f85149", "Nevada": "#d29922",
+      "New Hampshire": "#388bfd", "New Jersey": "#388bfd", "New Mexico": "#388bfd", "New York": "#388bfd",
+      "North Carolina": "#d29922", "North Dakota": "#f85149", "Ohio": "#f85149", "Oklahoma": "#f85149",
+      "Oregon": "#388bfd", "Pennsylvania": "#388bfd", "Rhode Island": "#388bfd", "South Carolina": "#f85149",
+      "South Dakota": "#f85149", "Tennessee": "#f85149", "Texas": "#f85149", "Utah": "#f85149",
+      "Vermont": "#f85149", "Virginia": "#388bfd", "Washington": "#388bfd", "West Virginia": "#f85149",
+      "Wisconsin": "#d29922", "Wyoming": "#f85149"
+    };
+
+    // NATIONWIDE CANDIDATE MATCHUPS REGISTRY
     let registryData = [
-      { id: "al", type: "gop", category: "senate", icon: "AL", name: "Alabama", lat: 32.3182, lng: -86.9023, threatLevel: "POLL LEAD: GOP +19.0%", threatPercent: "69%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Barry Moore (R) vs. Everett Wess (D). Open Governor & Senate seats.", news: [{ time: "State Poll", headline: "Solid Republican advantage across all state districts." }] },
-      { id: "ak", type: "battleground", category: "senate", icon: "AK", name: "Alaska", lat: 64.2008, lng: -149.4937, threatLevel: "POLL LEAD: TOSS-UP (+1.2%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Dan Sullivan (R) vs. Mary Peltola (D). Ranked-choice primary.", news: [{ time: "Alaska Survey", headline: "Peltola and Sullivan neck-and-neck." }] },
-      { id: "az", type: "battleground", category: "gov", icon: "AZ", name: "Arizona", lat: 34.0489, lng: -111.0937, threatLevel: "POLL LEAD: HOBBS +1.4%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Katie Hobbs (D) vs. Andy Biggs (R). Maricopa battleground.", news: [{ time: "OH Predictive", headline: "Hobbs holds narrow lead in Maricopa county." }] },
-      { id: "ar", type: "gop", category: "gov", icon: "AR", name: "Arkansas", lat: 34.7465, lng: -92.2896, threatLevel: "POLL LEAD: SANDERS +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Sarah Huckabee Sanders (R) holds solid lead.", news: [{ time: "AR Survey", headline: "Sanders commands 18-point lead." }] },
-      { id: "ca", type: "dem", category: "gov", icon: "CA", name: "California", lat: 36.7783, lng: -119.4179, threatLevel: "POLL LEAD: BECERRA +19.0%", threatPercent: "61%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Xavier Becerra (D) 55.0% vs. Steve Hilton (R) 36.0%.", news: [{ time: "PPIC Survey", headline: "Becerra leads Hilton 61% to 36% statewide." }] },
-      { id: "co", type: "dem", category: "senate", icon: "CO", name: "Colorado", lat: 39.5501, lng: -105.7821, threatLevel: "POLL LEAD: HICKENLOOPER +8.5%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "John Hickenlooper (D) leads Mark Baisley (R).", news: [{ time: "Keating Poll", headline: "Hickenlooper holds solid lead in Denver Metro." }] },
-      { id: "ct", type: "dem", category: "gov", icon: "CT", name: "Connecticut", lat: 41.6032, lng: -73.0877, threatLevel: "POLL LEAD: LAMONT +11.0%", threatPercent: "61%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Ned Lamont (D) holds comfortable lead.", news: [{ time: "Quinnipiac", headline: "Lamont maintains double-digit polling advantage." }] },
-      { id: "de", type: "dem", category: "senate", icon: "DE", name: "Delaware", lat: 38.9108, lng: -75.5277, threatLevel: "POLL LEAD: DEM +16.0%", threatPercent: "66%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Chris Coons (D) leads Republican challenger.", news: [{ time: "DE Survey", headline: "Democratic baseline holds strong." }] },
-      { id: "fl", type: "gop", category: "gov", icon: "FL", name: "Florida", lat: 27.6648, lng: -81.5158, threatLevel: "POLL LEAD: DONALDS +5.8%", threatPercent: "56%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Byron Donalds (R) vs. David Jolly (D). Open race.", news: [{ time: "Mason-Dixon", headline: "Donalds commands 5.8% polling advantage." }] },
-      { id: "ga", type: "battleground", category: "gov", icon: "GA", name: "Georgia", lat: 32.6782, lng: -83.2229, threatLevel: "POLL LEAD: BOTTOMS +1.1%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Keisha Lance Bottoms (D) vs. Rick Jackson (R).", news: [{ time: "AJC Survey", headline: "Statistical tie across Metro Atlanta districts." }] },
-      { id: "hi", type: "dem", category: "gov", icon: "HI", name: "Hawaii", lat: 19.8987, lng: -155.6659, threatLevel: "POLL LEAD: GREEN +22.0%", threatPercent: "72%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Josh Green (D) holds solid lead statewide.", news: [{ time: "Honolulu Poll", headline: "Green maintains strong approval rating." }] },
-      { id: "id", type: "gop", category: "gov", icon: "ID", name: "Idaho", lat: 44.0682, lng: -114.7420, threatLevel: "POLL LEAD: LITTLE +22.0%", threatPercent: "72%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Brad Little (R) commands strong lead statewide.", news: [{ time: "Boise State", headline: "Little leads across all rural districts." }] },
-      { id: "il", type: "dem", category: "gov", icon: "IL", name: "Illinois", lat: 40.6331, lng: -89.3985, threatLevel: "POLL LEAD: PRITZKER +9.5%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "JB Pritzker (D) leads Republican Challenger.", news: [{ time: "Chicago Sun", headline: "Pritzker holds steady lead in Cook county." }] },
-      { id: "in", type: "gop", category: "house", icon: "IN", name: "Indiana", lat: 40.2672, lng: -86.1349, threatLevel: "POLL LEAD: GOP +12.0%", threatPercent: "62%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Solid Republican congressional baseline across state.", news: [{ time: "Indy Survey", headline: "Republican candidates hold lead in key districts." }] },
-      { id: "ia", type: "gop", category: "gov", icon: "IA", name: "Iowa", lat: 41.8780, lng: -93.0977, threatLevel: "POLL LEAD: REYNOLDS +7.5%", threatPercent: "57%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Kim Reynolds (R) leads Democratic Challenger.", news: [{ time: "Des Moines Register", headline: "Reynolds holds lead across rural counties." }] },
-      { id: "ks", type: "battleground", category: "gov", icon: "KS", name: "Kansas", lat: 38.5266, lng: -96.7265, threatLevel: "POLL LEAD: TOSS-UP (+0.5%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Open seat contest following Laura Kelly (D).", news: [{ time: "KS Politics", headline: "Statistical tie in open governor race." }] },
-      { id: "ky", type: "gop", category: "senate", icon: "KY", name: "Kentucky", lat: 37.8393, lng: -84.2700, threatLevel: "POLL LEAD: BARR +14.0%", threatPercent: "64%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Andy Barr (R) vs. Charles Booker (D). McConnell open seat.", news: [{ time: "Bluegrass Poll", headline: "Barr leads Booker in open seat contest." }] },
-      { id: "la", type: "gop", category: "senate", icon: "LA", name: "Louisiana", lat: 30.9843, lng: -91.9623, threatLevel: "POLL LEAD: LETLOW +18.5%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Julia Letlow (R) vs. Jamie Davis (D). Jungle primary.", news: [{ time: "LSU Survey", headline: "Letlow clear frontrunner in jungle primary." }] },
-      { id: "me", type: "battleground", category: "senate", icon: "ME", name: "Maine", lat: 45.2538, lng: -69.4455, threatLevel: "POLL LEAD: TOSS-UP (+1.0%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Susan Collins (R) vs. Troy Jackson (D). Ranked-choice.", news: [{ time: "Pan Atlantic", headline: "Collins personal approval rating key." }] },
-      { id: "md", type: "dem", category: "gov", icon: "MD", name: "Maryland", lat: 39.0458, lng: -76.6413, threatLevel: "POLL LEAD: MOORE +18.5%", threatPercent: "68%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Wes Moore (D) commands solid lead statewide.", news: [{ time: "Goucher Poll", headline: "Moore holds high approval across Maryland." }] },
-      { id: "ma", type: "dem", category: "gov", icon: "MA", name: "Massachusetts", lat: 42.4072, lng: -71.3824, threatLevel: "POLL LEAD: HEALEY +16.0%", threatPercent: "66%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Maura Healey (D) holds commanding margin.", news: [{ time: "Boston Globe", headline: "Healey maintains double-digit lead." }] },
-      { id: "mi", type: "battleground", category: "senate", icon: "MI", name: "Michigan", lat: 44.3148, lng: -85.6024, threatLevel: "POLL LEAD: EL-SAYED +1.8%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Abdul El-Sayed (D) vs. Mike Rogers (R).", news: [{ time: "EPIC-MRA", headline: "El-Sayed leads Rogers 47% to 43%." }] },
-      { id: "mn", type: "dem", category: "gov", icon: "MN", name: "Minnesota", lat: 46.7296, lng: -94.6859, threatLevel: "POLL LEAD: WALZ +5.5%", threatPercent: "55%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Tim Walz (D) leads Republican Challenger.", news: [{ time: "Star Tribune", headline: "Walz holds 5.5-point margin in Twin Cities." }] },
-      { id: "ms", type: "gop", category: "house", icon: "MS", name: "Mississippi", lat: 32.3547, lng: -89.3985, threatLevel: "POLL LEAD: GOP +15.0%", threatPercent: "65%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Solid Republican congressional baseline.", news: [{ time: "MS Poll", headline: "Republican candidates hold lead statewide." }] },
-      { id: "mo", type: "gop", category: "house", icon: "MO", name: "Missouri", lat: 37.9643, lng: -91.8318, threatLevel: "POLL LEAD: GOP +12.5%", threatPercent: "62%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Republican congressional baseline holds steady.", news: [{ time: "MO Survey", headline: "GOP leads in suburban and rural districts." }] },
-      { id: "mt", type: "battleground", category: "senate", icon: "MT", name: "Montana", lat: 46.8797, lng: -110.3626, threatLevel: "POLL LEAD: SHEEHY +2.4%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Tim Sheehy (R) vs. Democratic Challenger.", news: [{ time: "MSU Poll", headline: "Sheehy retains slight margin across rural counties." }] },
-      { id: "ne", type: "gop", category: "gov", icon: "NE", name: "Nebraska", lat: 41.4925, lng: -99.9018, threatLevel: "POLL LEAD: PILLEN +14.0%", threatPercent: "64%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Jim Pillen (R) holds commanding margin.", news: [{ time: "Omaha World", headline: "Pillens maintains strong lead." }] },
-      { id: "nh", type: "dem", category: "senate", icon: "NH", name: "New Hampshire", lat: 43.1939, lng: -71.5724, threatLevel: "POLL LEAD: DEM +3.4%", threatPercent: "53%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Open seat contest following Shaheen retirement.", news: [{ time: "UNH Survey", headline: "Democratic nominee maintains narrow lead." }] },
-      { id: "nj", type: "dem", category: "house", icon: "NJ", name: "New Jersey", lat: 40.0583, lng: -74.4057, threatLevel: "POLL LEAD: DEM +7.0%", threatPercent: "57%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Democratic congressional baseline holds lead.", news: [{ time: "Monmouth Poll", headline: "Democrats lead in suburban North Jersey." }] },
-      { id: "nm", type: "dem", category: "senate", icon: "NM", name: "New Mexico", lat: 34.5199, lng: -105.8701, threatLevel: "POLL LEAD: LUJÁN +6.8%", threatPercent: "56%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Ben Ray Luján (D) vs. Larry Marker (R).", news: [{ time: "Research & Polling", headline: "Luján leads statewide survey by nearly 7 points." }] },
-      { id: "ny", type: "dem", category: "gov", icon: "NY", name: "New York", lat: 42.8000, lng: -75.5000, threatLevel: "POLL LEAD: HOCHUL +7.2%", threatPercent: "57%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Kathy Hochul (D) leads Republican Challenger.", news: [{ time: "Siena Poll", headline: "Hochul holds 7.2% margin statewide." }] },
-      { id: "nc", type: "battleground", category: "senate", icon: "NC", name: "North Carolina", lat: 35.7596, lng: -79.0193, threatLevel: "POLL LEAD: COOPER +2.1%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Roy Cooper (D) vs. Michael Whatley (R).", news: [{ time: "Marist Poll", headline: "Roy Cooper maintains narrow lead over Whatley." }] },
-      { id: "nd", type: "gop", category: "senate", icon: "ND", name: "North Dakota", lat: 47.5515, lng: -101.0020, threatLevel: "POLL LEAD: CRAMER +22.0%", threatPercent: "71%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Kevin Cramer (R) holds decisive lead.", news: [{ time: "ND Poll", headline: "Cramer holds major advantage." }] },
-      { id: "oh", type: "gop", category: "senate", icon: "OH", name: "Ohio", lat: 40.4173, lng: -82.9071, threatLevel: "POLL LEAD: HUSTED +4.5%", threatPercent: "55%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Appointed Sen. Jon Husted (R) leads.", news: [{ time: "Suffolk Poll", headline: "Husted retains 4.5% polling cushion." }] },
-      { id: "ok", type: "gop", category: "gov", icon: "OK", name: "Oklahoma", lat: 35.5000, lng: -97.5164, threatLevel: "POLL LEAD: GOP +16.0%", threatPercent: "66%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open term-limited contest following Kevin Stitt.", news: [{ time: "Tulsa World", headline: "Republican candidate commands major lead." }] },
-      { id: "or", type: "dem", category: "gov", icon: "OR", name: "Oregon", lat: 43.8041, lng: -120.5542, threatLevel: "POLL LEAD: KOTEK +4.5%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Tina Kotek (D) 48.0% vs. Republican Challenger 43.5%.", news: [{ time: "DHM Research", headline: "Kotek maintains lead in Willamette Valley." }] },
-      { id: "pa", type: "dem", category: "gov", icon: "PA", name: "Pennsylvania", lat: 40.8781, lng: -77.7996, threatLevel: "POLL LEAD: SHAPIRO +8.4%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Josh Shapiro (D) 51.2% vs. GOP Challenger 42.8%.", news: [{ time: "F&M Poll", headline: "Shapiro maintains strong job approval and lead." }] },
-      { id: "ri", type: "dem", category: "gov", icon: "RI", name: "Rhode Island", lat: 41.5801, lng: -71.4774, threatLevel: "POLL LEAD: MCKEE +12.0%", threatPercent: "62%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Dan McKee (D) holds solid lead statewide.", news: [{ time: "RI Survey", headline: "McKee leads in Providence area." }] },
-      { id: "sc", type: "gop", category: "gov", icon: "SC", name: "South Carolina", lat: 33.8361, lng: -81.1637, threatLevel: "POLL LEAD: GOP +14.0%", threatPercent: "64%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open seat following McMaster term limit.", news: [{ time: "SC Poll", headline: "Republican frontrunner holds double-digit lead." }] },
-      { id: "sd", type: "gop", category: "gov", icon: "SD", name: "South Dakota", lat: 43.9695, lng: -99.9018, threatLevel: "POLL LEAD: GOP +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Republican nominee holds solid margin.", news: [{ time: "Argus Leader", headline: "Solid Republican lead statewide." }] },
-      { id: "tn", type: "gop", category: "gov", icon: "TN", name: "Tennessee", lat: 35.5175, lng: -86.5804, threatLevel: "POLL LEAD: GOP +16.0%", threatPercent: "66%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open seat following Bill Lee term limit.", news: [{ time: "TN Survey", headline: "GOP candidate leads in open race." }] },
-      { id: "tx", type: "gop", category: "senate", icon: "TX", name: "Texas", lat: 31.9686, lng: -99.9018, threatLevel: "POLL LEAD: PAXTON +4.2%", threatPercent: "54%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Ken Paxton (R) vs. James Talarico (D).", news: [{ time: "UT/Texas Politics", headline: "Paxton holds lead following primary runoff." }] },
-      { id: "ut", type: "gop", category: "house", icon: "UT", name: "Utah", lat: 39.3210, lng: -111.0937, threatLevel: "POLL LEAD: GOP +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Solid Republican congressional baseline.", news: [{ time: "Salt Lake Poll", headline: "GOP candidates lead statewide." }] },
-      { id: "vt", type: "gop", category: "gov", icon: "VT", name: "Vermont", lat: 44.0000, lng: -72.7000, threatLevel: "POLL LEAD: SCOTT +24.0%", threatPercent: "74%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Incumbent Phil Scott (R) commands major lead.", news: [{ time: "VT Survey", headline: "Scott holds high bipartisan approval." }] },
-      { id: "va", type: "dem", category: "senate", icon: "VA", name: "Virginia", lat: 37.4316, lng: -78.6569, threatLevel: "POLL LEAD: WARNER +7.2%", threatPercent: "57%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Mark Warner (D) leads Republican challenger.", news: [{ time: "Roanoke Poll", headline: "Warner maintains solid lead in NoVA." }] },
-      { id: "wa", type: "dem", category: "house", icon: "WA", name: "Washington", lat: 47.7511, lng: -120.7401, threatLevel: "POLL LEAD: DEM +10.0%", threatPercent: "60%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Democratic congressional baseline holds strong lead.", news: [{ time: "Seattle Survey", headline: "Democrats hold comfortable margin." }] },
-      { id: "wv", type: "gop", category: "senate", icon: "WV", name: "West Virginia", lat: 38.5976, lng: -80.4549, threatLevel: "POLL LEAD: JUSTICE +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Jim Justice (R) holds major lead.", news: [{ time: "MetroNews", headline: "Justice commands major lead statewide." }] },
-      { id: "wi", type: "battleground", category: "gov", icon: "WI", name: "Wisconsin", lat: 43.7844, lng: -88.7879, threatLevel: "POLL LEAD: EVERS +1.2%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Tony Evers (D) vs. GOP Challenger.", news: [{ time: "Marquette Law", headline: "Evers leads within margin of error." }] },
-      { id: "wy", type: "gop", category: "gov", icon: "WY", name: "Wyoming", lat: 43.0759, lng: -107.2903, threatLevel: "POLL LEAD: GOP +25.0%", threatPercent: "75%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open term-limited contest following Mark Gordon.", news: [{ time: "WY Survey", headline: "Solid Republican advantage statewide." }] }
+      { id: "ca", state: "California", type: "dem", category: "gov", icon: "CA", name: "California Governor", lat: 36.7783, lng: -119.4179, threatLevel: "POLL LEAD: BECERRA +19.0%", threatPercent: "61%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Xavier Becerra (D) 55.0% vs. Steve Hilton (R) 36.0%. Open race.", news: [{ time: "PPIC Survey", headline: "Becerra leads Hilton 61% to 36% statewide." }] },
+      { id: "ak", state: "Alaska", type: "battleground", category: "senate", icon: "AK", name: "Alaska U.S. Senate", lat: 64.2008, lng: -149.4937, threatLevel: "POLL LEAD: TOSS-UP (+1.2%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Dan Sullivan (R) vs. Mary Peltola (D). Ranked-choice primary.", news: [{ time: "Alaska Survey", headline: "Peltola and Sullivan neck-and-neck." }] },
+      { id: "az", state: "Arizona", type: "battleground", category: "gov", icon: "AZ", name: "Arizona Governor", lat: 34.0489, lng: -111.0937, threatLevel: "POLL LEAD: HOBBS +1.4%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Katie Hobbs (D) vs. Andy Biggs (R). Maricopa battleground.", news: [{ time: "OH Predictive", headline: "Hobbs holds narrow lead in Maricopa county." }] },
+      { id: "mi-sen", state: "Michigan", type: "battleground", category: "senate", icon: "MI-SEN", name: "Michigan U.S. Senate", lat: 44.3148, lng: -85.6024, threatLevel: "POLL LEAD: EL-SAYED +1.8%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Abdul El-Sayed (D) vs. Mike Rogers (R).", news: [{ time: "EPIC-MRA", headline: "El-Sayed leads Rogers 47% to 43%." }] },
+      { id: "mi-gov", state: "Michigan", type: "battleground", category: "gov", icon: "MI-GOV", name: "Michigan Governor", lat: 42.7325, lng: -84.5555, threatLevel: "POLL LEAD: BENSON +2.5%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Jocelyn Benson (D) vs. John James (R). Open contest.", news: [{ time: "Detroit News", headline: "Benson holds 2.5% lead over John James." }] },
+      { id: "mi07", state: "Michigan", type: "battleground", category: "house", icon: "MI-07", name: "Michigan 7th District", lat: 42.5000, lng: -84.3000, threatLevel: "POLL LEAD: LAWRENCE +1.5%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "William Lawrence (D) vs. Tom Barrett (R).", news: [{ time: "Mid-MI Poll", headline: "Lawrence holds 1.5% edge." }] },
+      { id: "wi", state: "Wisconsin", type: "battleground", category: "gov", icon: "WI", name: "Wisconsin Governor", lat: 43.7844, lng: -88.7879, threatLevel: "POLL LEAD: EVERS +1.2%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Tony Evers (D) vs. GOP Challenger. Dane county lead.", news: [{ time: "Marquette Law", headline: "Evers leads within margin of error." }] },
+      { id: "il", state: "Illinois", type: "dem", category: "gov", icon: "IL", name: "Illinois Governor", lat: 40.6331, lng: -89.3985, threatLevel: "POLL LEAD: PRITZKER +9.5%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "JB Pritzker (D) leads Republican Challenger.", news: [{ time: "Chicago Sun", headline: "Pritzker holds steady lead in Cook county." }] },
+      { id: "oh-sen", state: "Ohio", type: "gop", category: "senate", icon: "OH-SEN", name: "Ohio U.S. Senate (Special)", lat: 40.4173, lng: -82.9071, threatLevel: "POLL LEAD: HUSTED +4.5%", threatPercent: "55%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Appointed Sen. Jon Husted (R) leads.", news: [{ time: "Suffolk Poll", headline: "Husted retains 4.5% polling cushion." }] },
+      { id: "oh-gov", state: "Ohio", type: "gop", category: "gov", icon: "OH-GOV", name: "Ohio Governor", lat: 40.1000, lng: -82.9071, threatLevel: "POLL LEAD: YOST +6.2%", threatPercent: "56%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Dave Yost (R) vs. Democratic Challenger.", news: [{ time: "Ohio Poll", headline: "Yost maintains 6-point lead." }] },
+      { id: "ks", state: "Kansas", type: "battleground", category: "gov", icon: "KS", name: "Kansas Governor", lat: 38.5266, lng: -96.7265, threatLevel: "POLL LEAD: TOSS-UP (+0.5%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Open seat contest following Laura Kelly (D).", news: [{ time: "KS Politics", headline: "Statistical tie in open governor race." }] },
+      { id: "tx-sen", state: "Texas", type: "gop", category: "senate", icon: "TX-SEN", name: "Texas U.S. Senate", lat: 31.9686, lng: -99.9018, threatLevel: "POLL LEAD: PAXTON +4.2%", threatPercent: "54%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Ken Paxton (R) vs. James Talarico (D).", news: [{ time: "UT/Texas Politics", headline: "Paxton holds lead following primary runoff." }] },
+      { id: "fl", state: "Florida", type: "gop", category: "gov", icon: "FL", name: "Florida Governor", lat: 27.6648, lng: -81.5158, threatLevel: "POLL LEAD: DONALDS +5.8%", threatPercent: "56%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Byron Donalds (R) vs. David Jolly (D). Open race.", news: [{ time: "Mason-Dixon", headline: "Donalds commands 5.8% polling advantage." }] },
+      { id: "nc", state: "North Carolina", type: "battleground", category: "senate", icon: "NC", name: "North Carolina U.S. Senate", lat: 35.7596, lng: -79.0193, threatLevel: "POLL LEAD: COOPER +2.1%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Roy Cooper (D) vs. Michael Whatley (R).", news: [{ time: "Marist Poll", headline: "Roy Cooper maintains narrow lead over Whatley." }] },
+      { id: "ga-sen", state: "Georgia", type: "dem", category: "senate", icon: "GA-SEN", name: "Georgia U.S. Senate", lat: 33.7490, lng: -84.3880, threatLevel: "POLL LEAD: OSSOFF +7.0%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Jon Ossoff (D) vs. Mike Collins (R). Metro Atlanta lead.", news: [{ time: "InsiderAdvantage", headline: "Ossoff maintains 7-point lead over Mike Collins." }] },
+      { id: "ga-gov", state: "Georgia", type: "battleground", category: "gov", icon: "GA-GOV", name: "Georgia Governor", lat: 32.6782, lng: -83.2229, threatLevel: "POLL LEAD: BOTTOMS +1.1%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Keisha Lance Bottoms (D) vs. Rick Jackson (R).", news: [{ time: "AJC Survey", headline: "Statistical tie across Metro Atlanta districts." }] },
+      { id: "pa-gov", state: "Pennsylvania", type: "dem", category: "gov", icon: "PA-GOV", name: "Pennsylvania Governor", lat: 40.8781, lng: -77.7996, threatLevel: "POLL LEAD: SHAPIRO +8.4%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Josh Shapiro (D) 51.2% vs. GOP Challenger 42.8%.", news: [{ time: "F&M Poll", headline: "Shapiro maintains strong job approval and lead." }] },
+      { id: "pa08", state: "Pennsylvania", type: "battleground", category: "house", icon: "PA-08", name: "Pennsylvania 8th District", lat: 41.4089, lng: -75.6624, threatLevel: "POLL LEAD: COGNETTI +0.8%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Paige Cognetti (D) vs. Rob Bresnahan (R).", news: [{ time: "Scranton Survey", headline: "Cognetti and Bresnahan locked in tie." }] },
+      { id: "ny17", state: "New York", type: "dem", category: "house", icon: "NY-17", name: "New York 17th District", lat: 41.1412, lng: -73.9857, threatLevel: "POLL LEAD: CONLEY +2.4%", threatPercent: "52%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Cait Conley (D) vs. Rep. Mike Lawler (R).", news: [{ time: "Hudson Valley Poll", headline: "Conley leads Lawler by 2.4%." }] },
+      { id: "me", state: "Maine", type: "battleground", category: "senate", icon: "ME", name: "Maine U.S. Senate", lat: 45.2538, lng: -69.4455, threatLevel: "POLL LEAD: TOSS-UP (+1.0%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Susan Collins (R) vs. Troy Jackson (D).", news: [{ time: "Pan Atlantic", headline: "Collins personal approval rating key." }] },
+      { id: "mt", state: "Montana", type: "battleground", category: "senate", icon: "MT", name: "Montana U.S. Senate", lat: 46.8797, lng: -110.3626, threatLevel: "POLL LEAD: SHEEHY +2.4%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Tim Sheehy (R) vs. Democratic Challenger.", news: [{ time: "MSU Poll", headline: "Sheehy retains slight margin across rural counties." }] },
+      { id: "or", state: "Oregon", type: "dem", category: "gov", icon: "OR", name: "Oregon Governor", lat: 43.8041, lng: -120.5542, threatLevel: "POLL LEAD: KOTEK +4.5%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Tina Kotek (D) 48.0% vs. Republican Challenger.", news: [{ time: "DHM Research", headline: "Kotek maintains lead in Willamette Valley." }] },
+      { id: "id", state: "Idaho", type: "gop", category: "gov", icon: "ID", name: "Idaho Governor", lat: 44.0682, lng: -114.7420, threatLevel: "POLL LEAD: LITTLE +22.0%", threatPercent: "72%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Brad Little (R) commands strong lead statewide.", news: [{ time: "Boise State", headline: "Little leads across all rural districts." }] },
+      { id: "sd", state: "South Dakota", type: "gop", category: "gov", icon: "SD", name: "South Dakota Governor", lat: 43.9695, lng: -99.9018, threatLevel: "POLL LEAD: GOP +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Republican nominee holds solid margin.", news: [{ time: "Argus Leader", headline: "Solid Republican lead statewide." }] },
+      { id: "mn", state: "Minnesota", type: "dem", category: "gov", icon: "MN", name: "Minnesota Governor", lat: 46.7296, lng: -94.6859, threatLevel: "POLL LEAD: WALZ +5.5%", threatPercent: "55%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Tim Walz (D) leads Republican Challenger.", news: [{ time: "Star Tribune", headline: "Walz holds 5.5-point margin in Twin Cities." }] }
     ];
 
     function getStateColor(stateName) {
-      const item = registryData.find(d => d.name.toLowerCase().includes(stateName.toLowerCase()));
+      // 1. Direct 50-State Dictionary Lookup
+      if (stateBaselineColors[stateName]) {
+        return stateBaselineColors[stateName];
+      }
+      
+      // 2. Fallback Registry Data Lookup
+      const item = registryData.find(d => d.state.toLowerCase() === stateName.toLowerCase() || d.name.toLowerCase().includes(stateName.toLowerCase()));
       if (!item) return '#21262d';
       if (item.type === 'dem') return '#388bfd';
       if (item.type === 'gop') return '#f85149';
@@ -470,7 +474,7 @@
 
     function onStateClick(e) {
       const stateName = e.target.feature.properties.name;
-      const item = registryData.find(d => d.name.toLowerCase().includes(stateName.toLowerCase()));
+      const item = registryData.find(d => d.state.toLowerCase() === stateName.toLowerCase() || d.name.toLowerCase().includes(stateName.toLowerCase()));
       if (item) {
         selectEvent(item);
       }
