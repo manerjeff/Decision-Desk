@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>2026 Midterm Polling Dashboard</title>
+  <title>2026 Midterm Election Polling Desk</title>
   <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -418,6 +418,22 @@
         news: [
           { time: "Pan Atlantic", headline: "Collins personal approval rating creates ticket-splitting dynamic." },
           { time: "State Aggregate", headline: "Troy Jackson within 1 point of Collins in recent Pine Tree State survey." }
+        ]
+      },
+      {
+        id: "sen-ak", type: "battleground", icon: "AK-SEN", name: "Alaska U.S. Senate", lat: 64.2008, lng: -149.4937,
+        threatLevel: "POLL LEAD: TOSS-UP (+1.2%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "Alaska Senate Matchup: Dan Sullivan (R) vs. Mary Peltola (D). Ranked-choice voting primary outcome.",
+        news: [
+          { time: "Alaska Survey", headline: "Peltola and Sullivan neck-and-neck following high primary turnout." }
+        ]
+      },
+      {
+        id: "sen-oh", type: "gop", icon: "OH-SEN", name: "Ohio U.S. Senate (Special)", lat: 40.4173, lng: -82.9071,
+        threatLevel: "POLL LEAD: HUSTED +4.5%", threatPercent: "55%", barColor: "#f85149", threatClass: "badge-gop",
+        threatDesc: "Ohio Special Senate Matchup: Appointed Sen. Jon Husted (R) vs. Sherrod Brown (D).",
+        news: [
+          { time: "Suffolk Poll", headline: "Husted retains 4.5% polling cushion in special election contest." }
         ]
       },
       {
