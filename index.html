@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>2026 Midterm Election Polling Desk</title>
-  <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
@@ -326,11 +325,9 @@
       </nav>
 
       <div class="stage-container">
-        <!-- LEAFLET MAP STAGE -->
         <div id="leafletMap"></div>
 
         <div class="dashboard-grid">
-          <!-- SENATE BALANCE OF POWER -->
           <div class="panel-box">
             <div class="panel-header">Senate Control Battle (51 Seats)</div>
             <div class="chamber-grid" style="grid-template-columns: 1fr;">
@@ -345,7 +342,6 @@
             </div>
           </div>
 
-          <!-- STATE TELEMETRY PANEL -->
           <div class="panel-box">
             <div class="panel-header">Candidate Matchup Telemetry</div>
             <div class="threat-row">
@@ -358,7 +354,6 @@
             <p id="threat-desc" style="font-size:7.5px; color:#8b949e; margin-top:2px;">Click any state boundary or marker to inspect candidate polling matchups.</p>
           </div>
 
-          <!-- HOUSE GENERIC BALLOT -->
           <div class="panel-box">
             <div class="panel-header" style="color:#58a6ff;">🏛️ House Generic Ballot Average</div>
             <div class="chamber-grid" style="grid-template-columns: 1fr;">
