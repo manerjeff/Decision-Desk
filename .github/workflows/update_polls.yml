@@ -5,12 +5,16 @@ on:
     - cron: '0 */4 * * *'  # Runs automatically every 4 hours
   workflow_dispatch:        # Allows manual triggering from GitHub UI
 
+# GRANT WRITE PERMISSIONS TO COMMIT FILES
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
