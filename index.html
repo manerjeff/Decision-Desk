@@ -287,11 +287,11 @@
 
   <div id="app-container">
     <div class="ticker-wrap">
-      <div class="ticker-title">2026 CONGRESSIONAL POLLS</div>
+      <div class="ticker-title">2026 MIDTERM FEEDS</div>
       <div class="ticker-container">
         <div id="tickerTrack" class="ticker-track">
-          <div id="tickerBlock1" class="ticker-content">INITIALIZING 2026 MIDTERM POLLING FEEDS...</div>
-          <div id="tickerBlock2" class="ticker-content">INITIALIZING 2026 MIDTERM POLLING FEEDS...</div>
+          <div id="tickerBlock1" class="ticker-content">INITIALIZING SENATE, HOUSE & GUBERNATORIAL FEEDS...</div>
+          <div id="tickerBlock2" class="ticker-content">INITIALIZING SENATE, HOUSE & GUBERNATORIAL FEEDS...</div>
         </div>
       </div>
     </div>
@@ -302,7 +302,7 @@
         <h1>2026 Midterm Election Polling Desk</h1>
       </div>
       <div class="header-actions">
-        <span style="font-size:9.5px; color:#388bfd;">CLASS 2 SENATE MAP ACTIVE</span>
+        <span style="font-size:9.5px; color:#388bfd;">SENATE, HOUSE & GOVERNOR RACES</span>
       </div>
     </header>
 
@@ -311,6 +311,7 @@
         <div class="side-menu-header">MIDTERM CONTESTS</div>
         <div class="menu-item active" onclick="filterCategory('ALL', this)">🌐 All Key Contests</div>
         <div class="menu-item" onclick="filterCategory('battleground', this)">🟡 Toss-Up Races</div>
+        <div class="menu-item" onclick="filterCategory('gov', this)">🏛️ Governor Races</div>
         <div class="menu-item" onclick="filterCategory('dem', this)">🔵 Dem Poll Lead</div>
         <div class="menu-item" onclick="filterCategory('gop', this)">🔴 GOP Poll Lead</div>
 
@@ -319,7 +320,7 @@
         <div class="sidebar-news-container">
           <div class="side-menu-header" style="margin-top:0;">CANDIDATE DISPATCHES</div>
           <div id="region-title" style="color:#58a6ff; font-size: 9px; font-weight:bold; margin-bottom: 1px;">National Summary</div>
-          <div id="region-coords" style="font-size:7px; color:#8b949e; margin-bottom: 4px;">Senate & House Surveys</div>
+          <div id="region-coords" style="font-size:7px; color:#8b949e; margin-bottom: 4px;">Senate, House & Governor Surveys</div>
           <div id="news-feed" class="news-list"></div>
         </div>
       </nav>
@@ -381,10 +382,10 @@
     let geojsonLayer;
     let currentActiveCategory = 'ALL';
 
-    // 2026 SENATE (CLASS 2) & HOUSE CANDIDATE MATCHUPS
+    // 2026 SENATE, HOUSE & GUBERNATORIAL CANDIDATE MATCHUPS
     let registryData = [
       {
-        id: "sen-mi", type: "battleground", icon: "MI-SEN", name: "Michigan U.S. Senate", lat: 44.3148, lng: -85.6024,
+        id: "sen-mi", type: "battleground", category: "senate", icon: "MI-SEN", name: "Michigan U.S. Senate", lat: 44.3148, lng: -85.6024,
         threatLevel: "POLL LEAD: EL-SAYED +1.8%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "Michigan Senate Matchup: Abdul El-Sayed (D) 46.3% vs. Mike Rogers (R) 44.5%. Toss-up margin.",
         news: [
@@ -393,7 +394,39 @@
         ]
       },
       {
-        id: "sen-nc", type: "battleground", icon: "NC-SEN", name: "North Carolina U.S. Senate", lat: 35.7596, lng: -79.0193,
+        id: "gov-mi", type: "battleground", category: "gov", icon: "MI-GOV", name: "Michigan Governor", lat: 42.7325, lng: -84.5555,
+        threatLevel: "POLL LEAD: BENSON +2.5%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "Michigan Governor Matchup: Jocelyn Benson (D) 47.8% vs. John James (R) 45.3%. Open term-limited contest.",
+        news: [
+          { time: "Detroit News", headline: "Benson holds 2.5% lead over John James in statewide polling aggregate." }
+        ]
+      },
+      {
+        id: "gov-ca", type: "dem", category: "gov", icon: "CA-GOV", name: "California Governor", lat: 36.7783, lng: -119.4179,
+        threatLevel: "POLL LEAD: BECERRA +12.0%", threatPercent: "62%", barColor: "#388bfd", threatClass: "badge-dem",
+        threatDesc: "California Governor Matchup: Xavier Becerra (D) 52.0% vs. Steve Hilton (R) 40.0%. Open term-limited race.",
+        news: [
+          { time: "PPIC Survey", headline: "Becerra leads top-two nonpartisan primary preference polling." }
+        ]
+      },
+      {
+        id: "gov-fl", type: "gop", category: "gov", icon: "FL-GOV", name: "Florida Governor", lat: 27.6648, lng: -81.5158,
+        threatLevel: "POLL LEAD: DONALDS +5.8%", threatPercent: "56%", barColor: "#f85149", threatClass: "badge-gop",
+        threatDesc: "Florida Governor Matchup: Byron Donalds (R) 49.0% vs. David Jolly (D) 43.2%. Open term-limited race.",
+        news: [
+          { time: "Mason-Dixon", headline: "Donalds commands 5.8% polling advantage in Sunshine State primary aggregate." }
+        ]
+      },
+      {
+        id: "gov-ga", type: "battleground", category: "gov", icon: "GA-GOV", name: "Georgia Governor", lat: 32.6782, lng: -83.2229,
+        threatLevel: "POLL LEAD: BOTTOMS +1.1%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "Georgia Governor Matchup: Keisha Lance Bottoms (D) 46.5% vs. Rick Jackson (R) 45.4%. Open term-limited seat.",
+        news: [
+          { time: "AJC Survey", headline: "Statistical tie maintained across Metro Atlanta and rural primary districts." }
+        ]
+      },
+      {
+        id: "sen-nc", type: "battleground", category: "senate", icon: "NC-SEN", name: "North Carolina U.S. Senate", lat: 35.7596, lng: -79.0193,
         threatLevel: "POLL LEAD: COOPER +2.1%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "North Carolina Senate Matchup: Roy Cooper (D) 47.5% vs. Michael Whatley (R) 45.4%. Open seat contest.",
         news: [
@@ -401,7 +434,7 @@
         ]
       },
       {
-        id: "sen-ga", type: "dem", icon: "GA-SEN", name: "Georgia U.S. Senate", lat: 32.6782, lng: -83.2229,
+        id: "sen-ga", type: "dem", category: "senate", icon: "GA-SEN", name: "Georgia U.S. Senate", lat: 33.7490, lng: -84.3880,
         threatLevel: "POLL LEAD: OSSOFF +7.0%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem",
         threatDesc: "Georgia Senate Matchup: Jon Ossoff (D) 48.5% vs. Mike Collins (R) 41.5%. Metro Atlanta lead.",
         news: [
@@ -409,7 +442,7 @@
         ]
       },
       {
-        id: "sen-me", type: "battleground", icon: "ME-SEN", name: "Maine U.S. Senate", lat: 45.2538, lng: -69.4455,
+        id: "sen-me", type: "battleground", category: "senate", icon: "ME-SEN", name: "Maine U.S. Senate", lat: 45.2538, lng: -69.4455,
         threatLevel: "POLL LEAD: TOSS-UP (+1.0%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "Maine Senate Matchup: Susan Collins (R) 45.2% vs. Troy Jackson (D) 44.2%. Ranked-choice voting active.",
         news: [
@@ -417,7 +450,7 @@
         ]
       },
       {
-        id: "sen-ak", type: "battleground", icon: "AK-SEN", name: "Alaska U.S. Senate", lat: 64.2008, lng: -149.4937,
+        id: "sen-ak", type: "battleground", category: "senate", icon: "AK-SEN", name: "Alaska U.S. Senate", lat: 64.2008, lng: -149.4937,
         threatLevel: "POLL LEAD: TOSS-UP (+1.2%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "Alaska Senate Matchup: Dan Sullivan (R) 46.1% vs. Mary Peltola (D) 44.9%. Ranked-choice primary.",
         news: [
@@ -425,7 +458,7 @@
         ]
       },
       {
-        id: "sen-mt", type: "battleground", icon: "MT-SEN", name: "Montana U.S. Senate", lat: 46.8797, lng: -110.3626,
+        id: "sen-mt", type: "battleground", category: "senate", icon: "MT-SEN", name: "Montana U.S. Senate", lat: 46.8797, lng: -110.3626,
         threatLevel: "POLL LEAD: SHEEHY +2.4%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "Montana Senate Matchup: Tim Sheehy (R) 47.8% vs. Democratic Challenger 45.4%.",
         news: [
@@ -433,111 +466,7 @@
         ]
       },
       {
-        id: "sen-co", type: "dem", icon: "CO-SEN", name: "Colorado U.S. Senate", lat: 39.5501, lng: -105.7821,
-        threatLevel: "POLL LEAD: HICKENLOOPER +8.5%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "Colorado Senate Matchup: John Hickenlooper (D) 51.2% vs. Mark Baisley (R) 42.7%. Denver suburban lead.",
-        news: [
-          { time: "Keating Research", headline: "Hickenlooper holds comfortable lead in statewide survey." }
-        ]
-      },
-      {
-        id: "sen-mn", type: "dem", icon: "MN-SEN", name: "Minnesota U.S. Senate", lat: 46.7296, lng: -94.6859,
-        threatLevel: "POLL LEAD: FLANAGAN +5.2%", threatPercent: "55%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "Minnesota Senate Matchup: Peggy Flanagan (D) 48.5% vs. Michele Tafoya (R) 43.3%. Twin Cities turnout key.",
-        news: [
-          { time: "Star Tribune", headline: "Flanagan maintains 5-point cushion in statewide poll." }
-        ]
-      },
-      {
-        id: "sen-nh", type: "dem", icon: "NH-SEN", name: "New Hampshire U.S. Senate", lat: 43.1939, lng: -71.5724,
-        threatLevel: "POLL LEAD: DEM +3.4%", threatPercent: "53%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "New Hampshire Senate Matchup: Open seat contest following Shaheen retirement.",
-        news: [
-          { time: "UNH Survey", headline: "Democratic primary winner maintains narrow lead in Granite State aggregate." }
-        ]
-      },
-      {
-        id: "sen-nm", type: "dem", icon: "NM-SEN", name: "New Mexico U.S. Senate", lat: 34.5199, lng: -105.8701,
-        threatLevel: "POLL LEAD: LUJÁN +6.8%", threatPercent: "56%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "New Mexico Senate Matchup: Ben Ray Luján (D) 50.1% vs. Larry Marker (R) 43.3%. Albuquerque base strong.",
-        news: [
-          { time: "Research & Polling", headline: "Luján leads statewide survey by nearly 7 points." }
-        ]
-      },
-      {
-        id: "sen-va", type: "dem", icon: "VA-SEN", name: "Virginia U.S. Senate", lat: 37.4316, lng: -78.6569,
-        threatLevel: "POLL LEAD: WARNER +7.2%", threatPercent: "57%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "Virginia Senate Matchup: Mark Warner (D) 51.0% vs. Republican Challenger 43.8%. Northern Virginia lead.",
-        news: [
-          { time: "Roanoke College", headline: "Warner maintains solid lead in statewide poll." }
-        ]
-      },
-      {
-        id: "sen-tx", type: "gop", icon: "TX-SEN", name: "Texas U.S. Senate", lat: 31.9686, lng: -99.9018,
-        threatLevel: "POLL LEAD: PAXTON +4.2%", threatPercent: "54%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Texas Senate Matchup: Ken Paxton (R) 48.2% vs. James Talarico (D) 44.0%. Statewide survey aggregate.",
-        news: [
-          { time: "UT/Texas Politics", headline: "Paxton holds lead following primary runoff." }
-        ]
-      },
-      {
-        id: "sen-fl", type: "gop", icon: "FL-SEN", name: "Florida U.S. Senate (Special)", lat: 27.6648, lng: -81.5158,
-        threatLevel: "POLL LEAD: GOP +6.5%", threatPercent: "56%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Florida Special Senate Matchup: Special election following appointment fill.",
-        news: [
-          { time: "FAU Poll", headline: "Republican candidate retains comfortable lead across central Florida." }
-        ]
-      },
-      {
-        id: "sen-oh", type: "gop", icon: "OH-SEN", name: "Ohio U.S. Senate (Special)", lat: 40.4173, lng: -82.9071,
-        threatLevel: "POLL LEAD: HUSTED +4.5%", threatPercent: "55%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Ohio Special Senate Matchup: Appointed Sen. Jon Husted (R) 47.5% vs. Democratic Challenger 43.0%.",
-        news: [
-          { time: "Suffolk Poll", headline: "Husted retains 4.5% polling cushion in special election contest." }
-        ]
-      },
-      {
-        id: "sen-al", type: "gop", icon: "AL-SEN", name: "Alabama U.S. Senate", lat: 32.3182, lng: -86.9023,
-        threatLevel: "POLL LEAD: MOORE +19.0%", threatPercent: "69%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Alabama Senate Matchup: Barry Moore (R) 58.5% vs. Everett Wess (D) 39.5%. Solid GOP seat.",
-        news: [
-          { time: "Alabama Daily", headline: "Moore holds commanding lead across state primary voters." }
-        ]
-      },
-      {
-        id: "sen-ia", type: "gop", icon: "IA-SEN", name: "Iowa U.S. Senate", lat: 41.8780, lng: -93.0977,
-        threatLevel: "POLL LEAD: HINSON +6.2%", threatPercent: "56%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Iowa Senate Matchup: Ashley Hinson (R) 49.2% vs. Josh Turek (D) 43.0%. Open seat following Ernst retirement.",
-        news: [
-          { time: "Des Moines Register", headline: "Hinson leads Turek by 6 points in Iowa Poll." }
-        ]
-      },
-      {
-        id: "sen-ks", type: "gop", icon: "KS-SEN", name: "Kansas U.S. Senate", lat: 38.5266, lng: -96.7265,
-        threatLevel: "POLL LEAD: MARSHALL +11.0%", threatPercent: "61%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Kansas Senate Matchup: Roger Marshall (R) 53.0% vs. Adam Hamilton (D) 42.0%.",
-        news: [
-          { time: "KS Politics", headline: "Marshall maintains double-digit lead statewide." }
-        ]
-      },
-      {
-        id: "sen-ky", type: "gop", icon: "KY-SEN", name: "Kentucky U.S. Senate", lat: 37.8393, lng: -84.2700,
-        threatLevel: "POLL LEAD: BARR +14.0%", threatPercent: "64%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Kentucky Senate Matchup: Andy Barr (R) 55.0% vs. Charles Booker (D) 41.0%. McConnell open seat.",
-        news: [
-          { time: "Bluegrass Poll", headline: "Barr leads Booker in open seat contest." }
-        ]
-      },
-      {
-        id: "sen-la", type: "gop", icon: "LA-SEN", name: "Louisiana U.S. Senate", lat: 30.9843, lng: -91.9623,
-        threatLevel: "POLL LEAD: LETLOW +18.5%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Louisiana Senate Matchup: Julia Letlow (R) 57.5% vs. Jamie Davis (D) 39.0%. Jungle primary model.",
-        news: [
-          { time: "LSU Survey", headline: "Letlow clear frontrunner in statewide jungle primary." }
-        ]
-      },
-      {
-        id: "house-mi07", type: "battleground", icon: "MI-07", name: "Michigan 7th Congressional District", lat: 42.7325, lng: -84.5555,
+        id: "house-mi07", type: "battleground", category: "house", icon: "MI-07", name: "Michigan 7th Congressional District", lat: 42.5000, lng: -84.5555,
         threatLevel: "POLL LEAD: LAWRENCE +1.5%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "U.S. House Matchup (MI-07): William Lawrence (D) vs. Tom Barrett (R). Key Mid-Michigan seat.",
         news: [
@@ -545,7 +474,7 @@
         ]
       },
       {
-        id: "house-pa08", type: "battleground", icon: "PA-08", name: "Pennsylvania 8th Congressional District", lat: 41.4089, lng: -75.6624,
+        id: "house-pa08", type: "battleground", category: "house", icon: "PA-08", name: "Pennsylvania 8th Congressional District", lat: 41.4089, lng: -75.6624,
         threatLevel: "POLL LEAD: COGNETTI +0.8%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "U.S. House Matchup (PA-08): Paige Cognetti (D) vs. Rob Bresnahan (R). Scranton sector tie.",
         news: [
@@ -553,7 +482,7 @@
         ]
       },
       {
-        id: "house-ny17", type: "dem", icon: "NY-17", name: "New York 17th Congressional District", lat: 41.1412, lng: -73.9857,
+        id: "house-ny17", type: "dem", category: "house", icon: "NY-17", name: "New York 17th Congressional District", lat: 41.1412, lng: -73.9857,
         threatLevel: "POLL LEAD: CONLEY +2.4%", threatPercent: "52%", barColor: "#388bfd", threatClass: "badge-dem",
         threatDesc: "U.S. House Matchup (NY-17): Cait Conley (D) vs. Rep. Mike Lawler (R). Hudson Valley district.",
         news: [
@@ -653,7 +582,9 @@
       markersGroup.clearLayers();
 
       let items = registryData;
-      if (category !== 'ALL') {
+      if (category === 'gov') {
+        items = registryData.filter(d => d.category === 'gov');
+      } else if (category !== 'ALL') {
         items = registryData.filter(d => d.type === category);
       }
 
@@ -699,7 +630,13 @@
 
       renderLeafletMarkers(category);
 
-      let items = category === 'ALL' ? registryData : registryData.filter(d => d.type === category);
+      let items = registryData;
+      if (category === 'gov') {
+        items = registryData.filter(d => d.category === 'gov');
+      } else if (category !== 'ALL') {
+        items = registryData.filter(d => d.type === category);
+      }
+
       if (items.length > 0) {
         updateTelemetryPanel(items[0]);
       }
@@ -707,8 +644,13 @@
       if (category === 'ALL') {
         if (map) map.flyTo([38, -96], 4);
         if (titleEl) { titleEl.textContent = "National Summary"; titleEl.style.color = "#58a6ff"; }
-        if (coordsEl) coordsEl.textContent = "Senate & House Surveys";
+        if (coordsEl) coordsEl.textContent = "Senate, House & Governor Surveys";
         loadCategoryNews('ALL');
+      } else if (category === 'gov') {
+        if (map) map.flyTo([38, -96], 4);
+        if (titleEl) { titleEl.textContent = "Governor Races"; titleEl.style.color = "#58a6ff"; }
+        if (coordsEl) coordsEl.textContent = "Filtered: State Executive Contests";
+        loadCategoryNews('gov');
       } else if (category === 'battleground') {
         if (map) map.flyTo([39, -84], 4.5);
         if (titleEl) { titleEl.textContent = "Toss-Up Contests"; titleEl.style.color = "#d29922"; }
@@ -779,7 +721,9 @@
       if (!newsFeed) return;
       
       let itemsToDisplay = registryData;
-      if (category && category !== 'ALL') {
+      if (category === 'gov') {
+        itemsToDisplay = registryData.filter(d => d.category === 'gov');
+      } else if (category && category !== 'ALL') {
         itemsToDisplay = registryData.filter(d => d.type === category);
       }
 
