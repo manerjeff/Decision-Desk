@@ -1,0 +1,1052 @@
+[
+  {
+    "id": "alabama",
+    "state": "Alabama",
+    "type": "gop",
+    "category": "senate",
+    "icon": "AL",
+    "name": "Alabama Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "MOORE +19.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Barry Moore (R) leads Everett Wess (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms MOORE +19.0% in Alabama."
+      }
+    ]
+  },
+  {
+    "id": "alaska",
+    "state": "Alaska",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "AL",
+    "name": "Alaska Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "TOSS-UP (+1.2%)",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Dan Sullivan (R) vs. Mary Peltola (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms TOSS-UP (+1.2%) in Alaska."
+      }
+    ]
+  },
+  {
+    "id": "arizona",
+    "state": "Arizona",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "AR",
+    "name": "Arizona Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "HOBBS +1.4%",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Katie Hobbs (D) vs. Andy Biggs (R).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms HOBBS +1.4% in Arizona."
+      }
+    ]
+  },
+  {
+    "id": "arkansas",
+    "state": "Arkansas",
+    "type": "gop",
+    "category": "senate",
+    "icon": "AR",
+    "name": "Arkansas Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "SANDERS +18.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Sarah Huckabee Sanders (R) holds solid lead.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms SANDERS +18.0% in Arkansas."
+      }
+    ]
+  },
+  {
+    "id": "california",
+    "state": "California",
+    "type": "dem",
+    "category": "senate",
+    "icon": "CA",
+    "name": "California Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "BECERRA +19.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Xavier Becerra (D) vs. Steve Hilton (R).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms BECERRA +19.0% in California."
+      }
+    ]
+  },
+  {
+    "id": "colorado",
+    "state": "Colorado",
+    "type": "dem",
+    "category": "senate",
+    "icon": "CO",
+    "name": "Colorado Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "HICKENLOOPER +8.5%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "John Hickenlooper (D) leads Mark Baisley (R).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms HICKENLOOPER +8.5% in Colorado."
+      }
+    ]
+  },
+  {
+    "id": "connecticut",
+    "state": "Connecticut",
+    "type": "dem",
+    "category": "senate",
+    "icon": "CO",
+    "name": "Connecticut Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "LAMONT +11.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Ned Lamont (D) holds comfortable lead.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms LAMONT +11.0% in Connecticut."
+      }
+    ]
+  },
+  {
+    "id": "delaware",
+    "state": "Delaware",
+    "type": "dem",
+    "category": "senate",
+    "icon": "DE",
+    "name": "Delaware Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "DEM +16.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Chris Coons (D) leads Republican challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms DEM +16.0% in Delaware."
+      }
+    ]
+  },
+  {
+    "id": "florida",
+    "state": "Florida",
+    "type": "gop",
+    "category": "senate",
+    "icon": "FL",
+    "name": "Florida Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "DONALDS +5.8%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Byron Donalds (R) vs. David Jolly (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms DONALDS +5.8% in Florida."
+      }
+    ]
+  },
+  {
+    "id": "georgia",
+    "state": "Georgia",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "GE",
+    "name": "Georgia Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "BOTTOMS +1.1%",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Keisha Lance Bottoms (D) vs. Rick Jackson (R).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms BOTTOMS +1.1% in Georgia."
+      }
+    ]
+  },
+  {
+    "id": "hawaii",
+    "state": "Hawaii",
+    "type": "dem",
+    "category": "senate",
+    "icon": "HA",
+    "name": "Hawaii Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GREEN +22.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Josh Green (D) holds solid lead statewide.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GREEN +22.0% in Hawaii."
+      }
+    ]
+  },
+  {
+    "id": "idaho",
+    "state": "Idaho",
+    "type": "gop",
+    "category": "senate",
+    "icon": "ID",
+    "name": "Idaho Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "LITTLE +22.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Brad Little (R) commands strong lead statewide.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms LITTLE +22.0% in Idaho."
+      }
+    ]
+  },
+  {
+    "id": "illinois",
+    "state": "Illinois",
+    "type": "dem",
+    "category": "senate",
+    "icon": "IL",
+    "name": "Illinois Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "PRITZKER +9.5%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "JB Pritzker (D) leads Republican Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms PRITZKER +9.5% in Illinois."
+      }
+    ]
+  },
+  {
+    "id": "indiana",
+    "state": "Indiana",
+    "type": "gop",
+    "category": "senate",
+    "icon": "IN",
+    "name": "Indiana Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +12.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Solid Republican congressional baseline across state.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +12.0% in Indiana."
+      }
+    ]
+  },
+  {
+    "id": "iowa",
+    "state": "Iowa",
+    "type": "gop",
+    "category": "senate",
+    "icon": "IO",
+    "name": "Iowa Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "REYNOLDS +7.5%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Kim Reynolds (R) leads Democratic Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms REYNOLDS +7.5% in Iowa."
+      }
+    ]
+  },
+  {
+    "id": "kansas",
+    "state": "Kansas",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "KA",
+    "name": "Kansas Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "TOSS-UP (+0.5%)",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Open seat contest following Laura Kelly (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms TOSS-UP (+0.5%) in Kansas."
+      }
+    ]
+  },
+  {
+    "id": "kentucky",
+    "state": "Kentucky",
+    "type": "gop",
+    "category": "senate",
+    "icon": "KE",
+    "name": "Kentucky Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "BARR +14.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Andy Barr (R) vs. Charles Booker (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms BARR +14.0% in Kentucky."
+      }
+    ]
+  },
+  {
+    "id": "louisiana",
+    "state": "Louisiana",
+    "type": "gop",
+    "category": "senate",
+    "icon": "LO",
+    "name": "Louisiana Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "LETLOW +18.5%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Julia Letlow (R) vs. Jamie Davis (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms LETLOW +18.5% in Louisiana."
+      }
+    ]
+  },
+  {
+    "id": "maine",
+    "state": "Maine",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "MA",
+    "name": "Maine Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "TOSS-UP (+1.0%)",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Susan Collins (R) vs. Troy Jackson (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms TOSS-UP (+1.0%) in Maine."
+      }
+    ]
+  },
+  {
+    "id": "maryland",
+    "state": "Maryland",
+    "type": "dem",
+    "category": "senate",
+    "icon": "MA",
+    "name": "Maryland Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "MOORE +18.5%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Wes Moore (D) commands solid lead statewide.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms MOORE +18.5% in Maryland."
+      }
+    ]
+  },
+  {
+    "id": "massachusetts",
+    "state": "Massachusetts",
+    "type": "dem",
+    "category": "senate",
+    "icon": "MA",
+    "name": "Massachusetts Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "HEALEY +16.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Maura Healey (D) holds commanding margin.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms HEALEY +16.0% in Massachusetts."
+      }
+    ]
+  },
+  {
+    "id": "michigan",
+    "state": "Michigan",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "MI",
+    "name": "Michigan Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "EL-SAYED +1.8%",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Abdul El-Sayed (D) vs. Mike Rogers (R).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms EL-SAYED +1.8% in Michigan."
+      }
+    ]
+  },
+  {
+    "id": "minnesota",
+    "state": "Minnesota",
+    "type": "dem",
+    "category": "senate",
+    "icon": "MI",
+    "name": "Minnesota Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "WALZ +5.5%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Tim Walz (D) leads Republican Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms WALZ +5.5% in Minnesota."
+      }
+    ]
+  },
+  {
+    "id": "mississippi",
+    "state": "Mississippi",
+    "type": "gop",
+    "category": "senate",
+    "icon": "MI",
+    "name": "Mississippi Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +15.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Solid Republican congressional baseline.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +15.0% in Mississippi."
+      }
+    ]
+  },
+  {
+    "id": "missouri",
+    "state": "Missouri",
+    "type": "gop",
+    "category": "senate",
+    "icon": "MI",
+    "name": "Missouri Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +12.5%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Republican congressional baseline holds steady.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +12.5% in Missouri."
+      }
+    ]
+  },
+  {
+    "id": "montana",
+    "state": "Montana",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "MO",
+    "name": "Montana Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "SHEEHY +2.4%",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Tim Sheehy (R) vs. Democratic Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms SHEEHY +2.4% in Montana."
+      }
+    ]
+  },
+  {
+    "id": "nebraska",
+    "state": "Nebraska",
+    "type": "gop",
+    "category": "senate",
+    "icon": "NE",
+    "name": "Nebraska Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "PILLEN +14.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Jim Pillen (R) holds commanding margin.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms PILLEN +14.0% in Nebraska."
+      }
+    ]
+  },
+  {
+    "id": "nevada",
+    "state": "Nevada",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "NE",
+    "name": "Nevada Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "LOMBARDO +0.8%",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Joe Lombardo (R) vs. Democratic Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms LOMBARDO +0.8% in Nevada."
+      }
+    ]
+  },
+  {
+    "id": "new-hampshire",
+    "state": "New Hampshire",
+    "type": "dem",
+    "category": "senate",
+    "icon": "NE",
+    "name": "New Hampshire Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "DEM +3.4%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Open seat contest following Shaheen retirement.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms DEM +3.4% in New Hampshire."
+      }
+    ]
+  },
+  {
+    "id": "new-jersey",
+    "state": "New Jersey",
+    "type": "dem",
+    "category": "senate",
+    "icon": "NE",
+    "name": "New Jersey Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "DEM +7.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Democratic congressional baseline holds lead.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms DEM +7.0% in New Jersey."
+      }
+    ]
+  },
+  {
+    "id": "new-mexico",
+    "state": "New Mexico",
+    "type": "dem",
+    "category": "senate",
+    "icon": "NE",
+    "name": "New Mexico Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "LUJ\u00c1N +6.8%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Ben Ray Luj\u00e1n (D) vs. Larry Marker (R).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms LUJ\u00c1N +6.8% in New Mexico."
+      }
+    ]
+  },
+  {
+    "id": "new-york",
+    "state": "New York",
+    "type": "dem",
+    "category": "senate",
+    "icon": "NE",
+    "name": "New York Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "HOCHUL +7.2%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Kathy Hochul (D) leads Republican Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms HOCHUL +7.2% in New York."
+      }
+    ]
+  },
+  {
+    "id": "north-carolina",
+    "state": "North Carolina",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "NO",
+    "name": "North Carolina Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "COOPER +2.1%",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Roy Cooper (D) vs. Michael Whatley (R).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms COOPER +2.1% in North Carolina."
+      }
+    ]
+  },
+  {
+    "id": "north-dakota",
+    "state": "North Dakota",
+    "type": "gop",
+    "category": "senate",
+    "icon": "NO",
+    "name": "North Dakota Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "CRAMER +22.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Kevin Cramer (R) holds decisive lead.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms CRAMER +22.0% in North Dakota."
+      }
+    ]
+  },
+  {
+    "id": "ohio",
+    "state": "Ohio",
+    "type": "gop",
+    "category": "senate",
+    "icon": "OH",
+    "name": "Ohio Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "HUSTED +4.5%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Appointed Sen. Jon Husted (R) leads.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms HUSTED +4.5% in Ohio."
+      }
+    ]
+  },
+  {
+    "id": "oklahoma",
+    "state": "Oklahoma",
+    "type": "gop",
+    "category": "senate",
+    "icon": "OK",
+    "name": "Oklahoma Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +16.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Open term-limited contest following Kevin Stitt.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +16.0% in Oklahoma."
+      }
+    ]
+  },
+  {
+    "id": "oregon",
+    "state": "Oregon",
+    "type": "dem",
+    "category": "senate",
+    "icon": "OR",
+    "name": "Oregon Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "KOTEK +4.5%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Tina Kotek (D) vs. Republican Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms KOTEK +4.5% in Oregon."
+      }
+    ]
+  },
+  {
+    "id": "pennsylvania",
+    "state": "Pennsylvania",
+    "type": "dem",
+    "category": "senate",
+    "icon": "PE",
+    "name": "Pennsylvania Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "SHAPIRO +8.4%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Josh Shapiro (D) vs. GOP Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms SHAPIRO +8.4% in Pennsylvania."
+      }
+    ]
+  },
+  {
+    "id": "rhode-island",
+    "state": "Rhode Island",
+    "type": "dem",
+    "category": "senate",
+    "icon": "RH",
+    "name": "Rhode Island Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "MCKEE +12.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Dan McKee (D) holds solid lead statewide.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms MCKEE +12.0% in Rhode Island."
+      }
+    ]
+  },
+  {
+    "id": "south-carolina",
+    "state": "South Carolina",
+    "type": "gop",
+    "category": "senate",
+    "icon": "SO",
+    "name": "South Carolina Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +14.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Open seat following McMaster term limit.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +14.0% in South Carolina."
+      }
+    ]
+  },
+  {
+    "id": "south-dakota",
+    "state": "South Dakota",
+    "type": "gop",
+    "category": "senate",
+    "icon": "SO",
+    "name": "South Dakota Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +18.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Republican nominee holds solid margin.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +18.0% in South Dakota."
+      }
+    ]
+  },
+  {
+    "id": "tennessee",
+    "state": "Tennessee",
+    "type": "gop",
+    "category": "senate",
+    "icon": "TE",
+    "name": "Tennessee Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +16.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Open seat following Bill Lee term limit.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +16.0% in Tennessee."
+      }
+    ]
+  },
+  {
+    "id": "texas",
+    "state": "Texas",
+    "type": "gop",
+    "category": "senate",
+    "icon": "TE",
+    "name": "Texas Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "PAXTON +4.2%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Ken Paxton (R) vs. James Talarico (D).",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms PAXTON +4.2% in Texas."
+      }
+    ]
+  },
+  {
+    "id": "utah",
+    "state": "Utah",
+    "type": "gop",
+    "category": "senate",
+    "icon": "UT",
+    "name": "Utah Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +18.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Solid Republican congressional baseline.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +18.0% in Utah."
+      }
+    ]
+  },
+  {
+    "id": "vermont",
+    "state": "Vermont",
+    "type": "gop",
+    "category": "senate",
+    "icon": "VE",
+    "name": "Vermont Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "SCOTT +24.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Incumbent Phil Scott (R) commands major lead.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms SCOTT +24.0% in Vermont."
+      }
+    ]
+  },
+  {
+    "id": "virginia",
+    "state": "Virginia",
+    "type": "dem",
+    "category": "senate",
+    "icon": "VI",
+    "name": "Virginia Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "WARNER +7.2%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Mark Warner (D) leads Republican challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms WARNER +7.2% in Virginia."
+      }
+    ]
+  },
+  {
+    "id": "washington",
+    "state": "Washington",
+    "type": "dem",
+    "category": "senate",
+    "icon": "WA",
+    "name": "Washington Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "DEM +10.0%",
+    "threatPercent": "52%",
+    "barColor": "#388bfd",
+    "threatClass": "badge-dem",
+    "threatDesc": "Democratic congressional baseline holds strong lead.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms DEM +10.0% in Washington."
+      }
+    ]
+  },
+  {
+    "id": "west-virginia",
+    "state": "West Virginia",
+    "type": "gop",
+    "category": "senate",
+    "icon": "WE",
+    "name": "West Virginia Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "JUSTICE +18.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Jim Justice (R) holds major lead.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms JUSTICE +18.0% in West Virginia."
+      }
+    ]
+  },
+  {
+    "id": "wisconsin",
+    "state": "Wisconsin",
+    "type": "battleground",
+    "category": "senate",
+    "icon": "WI",
+    "name": "Wisconsin Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "EVERS +1.2%",
+    "threatPercent": "52%",
+    "barColor": "#d29922",
+    "threatClass": "badge-tossup",
+    "threatDesc": "Tony Evers (D) vs. GOP Challenger.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms EVERS +1.2% in Wisconsin."
+      }
+    ]
+  },
+  {
+    "id": "wyoming",
+    "state": "Wyoming",
+    "type": "gop",
+    "category": "senate",
+    "icon": "WY",
+    "name": "Wyoming Midterm Polls",
+    "lat": 38.0,
+    "lng": -96.0,
+    "threatLevel": "GOP +25.0%",
+    "threatPercent": "52%",
+    "barColor": "#f85149",
+    "threatClass": "badge-gop",
+    "threatDesc": "Open term-limited contest following Mark Gordon.",
+    "news": [
+      {
+        "time": "Automated Feed",
+        "headline": "Latest polling aggregate confirms GOP +25.0% in Wyoming."
+      }
+    ]
+  }
+]
