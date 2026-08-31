@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>2026 Midterm Election Decision Desk</title>
+  <title>2026 Midterm Polling Dashboard</title>
   <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -197,13 +197,13 @@
     /* CUSTOM LEAFLET DIV MARKERS */
     .leaflet-marker-icon { background: none; border: none; }
     .map-marker {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 8.5px;
+      font-size: 7.5px;
       font-weight: bold;
       cursor: pointer;
       user-select: none;
@@ -264,7 +264,7 @@
       margin-bottom: 3px;
     }
 
-    /* CONGRESSIONAL BALANCE OF POWER PANEL */
+    /* CONGRESSIONAL BALANCE PANEL */
     .chamber-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex: 1; align-items: center; }
     .chamber-card { background: #0d1117; border: 1px solid #21262d; border-radius: 4px; padding: 4px; text-align: center; }
     .chamber-title { font-size: 7.5px; color: #8b949e; text-transform: uppercase; margin-bottom: 2px; }
@@ -287,7 +287,7 @@
 
   <div id="app-container">
     <div class="ticker-wrap">
-      <div class="ticker-title">MIDTERM POLLS</div>
+      <div class="ticker-title">2026 CONGRESSIONAL POLLS</div>
       <div class="ticker-container">
         <div id="tickerTrack" class="ticker-track">
           <div id="tickerBlock1" class="ticker-content">INITIALIZING 2026 MIDTERM POLLING FEEDS...</div>
@@ -299,25 +299,25 @@
     <header>
       <div class="title-group">
         <div class="status-dot"></div>
-        <h1>2026 Midterm Election Decision Desk</h1>
+        <h1>2026 Midterm Election Polling Desk</h1>
       </div>
       <div class="header-actions">
-        <span style="font-size:9.5px; color:#388bfd;">CONGRESSIONAL MAP ACTIVE</span>
+        <span style="font-size:9.5px; color:#388bfd;">SENATE & HOUSE POLLING ACTIVE</span>
       </div>
     </header>
 
     <div class="app-viewport">
       <nav class="side-menu">
-        <div class="side-menu-header">MIDTERM RACES</div>
+        <div class="side-menu-header">MIDTERM CONTESTS</div>
         <div class="menu-item active" onclick="filterCategory('ALL', this)">🌐 All Key Contests</div>
-        <div class="menu-item" onclick="filterCategory('battleground', this)">🟡 Battleground Seats</div>
-        <div class="menu-item" onclick="filterCategory('dem', this)">🔵 Leaning Dem</div>
-        <div class="menu-item" onclick="filterCategory('gop', this)">🔴 Leaning GOP</div>
+        <div class="menu-item" onclick="filterCategory('battleground', this)">🟡 Toss-Up Races</div>
+        <div class="menu-item" onclick="filterCategory('dem', this)">🔵 Dem Poll Lead</div>
+        <div class="menu-item" onclick="filterCategory('gop', this)">🔴 GOP Poll Lead</div>
 
         <div class="sidebar-divider"></div>
 
         <div class="sidebar-news-container">
-          <div class="side-menu-header" style="margin-top:0;">POLLING DISPATCHES</div>
+          <div class="side-menu-header" style="margin-top:0;">CANDIDATE DISPATCHES</div>
           <div id="region-title" style="color:#58a6ff; font-size: 9px; font-weight:bold; margin-bottom: 1px;">National Summary</div>
           <div id="region-coords" style="font-size:7px; color:#8b949e; margin-bottom: 4px;">Senate & House Surveys</div>
           <div id="news-feed" class="news-list"></div>
@@ -329,9 +329,9 @@
         <div id="leafletMap"></div>
 
         <div class="dashboard-grid">
-          <!-- CONGRESSIONAL BALANCE OF POWER -->
+          <!-- SENATE BALANCE OF POWER -->
           <div class="panel-box">
-            <div class="panel-header">Battle for Senate Control (51 Seats)</div>
+            <div class="panel-header">Senate Control Battle (51 Seats)</div>
             <div class="chamber-grid" style="grid-template-columns: 1fr;">
               <div class="chamber-card">
                 <div class="chamber-title">Projected Senate Balance</div>
@@ -346,7 +346,7 @@
 
           <!-- STATE TELEMETRY PANEL -->
           <div class="panel-box">
-            <div class="panel-header">Race Matchup Telemetry</div>
+            <div class="panel-header">Candidate Matchup Telemetry</div>
             <div class="threat-row">
               <span style="font-size:8px;">Status:</span>
               <span id="threat-badge" class="badge badge-tossup">SELECT A RACE</span>
@@ -364,8 +364,8 @@
               <div class="chamber-card">
                 <div class="chamber-title">218 Seats Needed for House Majority</div>
                 <div class="chamber-split">
-                  <span style="color:#388bfd;">DEM: 46.8%</span> &nbsp;vs.&nbsp; 
-                  <span style="color:#f85149;">GOP: 45.9%</span>
+                  <span style="color:#388bfd;">DEM: 48.2%</span> &nbsp;vs.&nbsp; 
+                  <span style="color:#f85149;">GOP: 41.8%</span>
                 </div>
               </div>
             </div>
@@ -381,10 +381,10 @@
     let geojsonLayer;
     let currentActiveCategory = 'ALL';
 
-    // 2026 MIDTERM CANDIDATE MATCHUPS REGISTRY DATA
+    // 2026 SENATE & HOUSE CANDIDATE MATCHUPS DATA
     let registryData = [
       {
-        id: "sen-mi", type: "battleground", icon: "SEN", name: "Michigan U.S. Senate", lat: 44.3148, lng: -85.6024,
+        id: "sen-mi", type: "battleground", icon: "MI-SEN", name: "Michigan U.S. Senate", lat: 44.3148, lng: -85.6024,
         threatLevel: "POLL LEAD: EL-SAYED +1.8%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "Michigan Senate Matchup: Abdul El-Sayed (D) 46.3% vs. Mike Rogers (R) 44.5%. Margin remains within statistical toss-up range.",
         news: [
@@ -394,35 +394,54 @@
         ]
       },
       {
-        id: "sen-nc", type: "battleground", icon: "SEN", name: "North Carolina U.S. Senate", lat: 35.7596, lng: -79.0193,
+        id: "sen-nc", type: "battleground", icon: "NC-SEN", name: "North Carolina U.S. Senate", lat: 35.7596, lng: -79.0193,
         threatLevel: "POLL LEAD: COOPER +2.1%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup",
         threatDesc: "North Carolina Senate Matchup: Roy Cooper (D) 47.5% vs. Michael Whatley (R) 45.4%. Open seat contest.",
         news: [
-          { time: "Marist Poll", headline: "Roy Cooper maintains narrow lead over Whatley in high-budget contest." }
+          { time: "Marist Poll", headline: "Roy Cooper maintains narrow lead over Whatley in high-budget contest." },
+          { time: "High Point Univ", headline: "Cooper retains lead in suburban precincts across Wake and Mecklenburg counties." }
         ]
       },
       {
-        id: "sen-ga", type: "battleground", icon: "SEN", name: "Georgia U.S. Senate", lat: 32.6782, lng: -83.2229,
-        threatLevel: "POLL LEAD: COLLINS +1.2%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
-        threatDesc: "Georgia Senate Matchup: Jon Ossoff (D) 45.8% vs. Mike Collins (R) 47.0%. High turnout expected across Metro Atlanta.",
+        id: "sen-ga", type: "battleground", icon: "GA-SEN", name: "Georgia U.S. Senate", lat: 32.6782, lng: -83.2229,
+        threatLevel: "POLL LEAD: OSSOFF +7.0%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem",
+        threatDesc: "Georgia Senate Matchup: Jon Ossoff (D) leads Rep. Mike Collins (R) across Metro Atlanta sectors.",
         news: [
-          { time: "AJC Poll", headline: "Collins surges slightly in suburban precincts; Ossoff holding youth margins." }
+          { time: "InsiderAdvantage", headline: "Ossoff maintains 7-point lead over Mike Collins in latest survey." },
+          { time: "AJC Poll", headline: "Ossoff holding high margins in suburban young voter demographics." }
         ]
       },
       {
-        id: "sen-oh", type: "gop", icon: "SEN", name: "Ohio U.S. Senate", lat: 40.4173, lng: -82.9071,
-        threatLevel: "POLL LEAD: HUSTED +4.5%", threatPercent: "55%", barColor: "#f85149", threatClass: "badge-gop",
-        threatDesc: "Ohio Special Senate Matchup: Appointed Sen. Jon Husted (R) leads Democratic challenger in statewide aggregate.",
+        id: "sen-me", type: "battleground", icon: "ME-SEN", name: "Maine U.S. Senate", lat: 45.2538, lng: -69.4455,
+        threatLevel: "POLL LEAD: TOSS-UP (+1.0%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "Maine Senate Matchup: Five-term incumbent Susan Collins (R) vs. Troy Jackson (D). Tight split among independents.",
         news: [
-          { time: "Suffolk Poll", headline: "Husted retains 4.5% polling cushion in special election." }
+          { time: "Pan Atlantic", headline: "Collins personal approval rating creates ticket-splitting dynamic." },
+          { time: "State Aggregate", headline: "Troy Jackson within 1 point of Collins in recent Pine Tree State survey." }
         ]
       },
       {
-        id: "sen-me", type: "dem", icon: "SEN", name: "Maine U.S. Senate", lat: 45.2538, lng: -69.4455,
-        threatLevel: "POLL LEAD: COLLINS +3.1%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem",
-        threatDesc: "Maine Senate Matchup: Susan Collins (R) vs. Democratic Challenger. Ranked-choice voting active.",
+        id: "house-mi07", type: "battleground", icon: "MI-07", name: "Michigan 7th Congressional District", lat: 42.7325, lng: -84.5555,
+        threatLevel: "POLL LEAD: LAWRENCE +1.5%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "U.S. House Matchup (MI-07): William Lawrence (D) vs. Tom Barrett (R). Key open battleground seat.",
         news: [
-          { time: "Pan Atlantic", headline: "Statewide poll shows independent voters tilting towards incumbent." }
+          { time: "District Survey", headline: "Lawrence holds narrow 1.5% edge over Barrett in Mid-Michigan." }
+        ]
+      },
+      {
+        id: "house-pa08", type: "battleground", icon: "PA-08", name: "Pennsylvania 8th Congressional District", lat: 41.4089, lng: -75.6624,
+        threatLevel: "POLL LEAD: COGNETTI +0.8%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup",
+        threatDesc: "U.S. House Matchup (PA-08): Paige Cognetti (D) vs. Rob Bresnahan (R). High-volume Northeastern PA contest.",
+        news: [
+          { time: "Scranton Survey", headline: "Cognetti and Bresnahan locked in statistical tie across Lackawanna County." }
+        ]
+      },
+      {
+        id: "house-ny17", type: "dem", icon: "NY-17", name: "New York 17th Congressional District", lat: 41.1412, lng: -73.9857,
+        threatLevel: "POLL LEAD: CONLEY +2.4%", threatPercent: "52%", barColor: "#388bfd", threatClass: "badge-dem",
+        threatDesc: "U.S. House Matchup (NY-17): Cait Conley (D) vs. Rep. Mike Lawler (R). Hudson Valley battleground.",
+        news: [
+          { time: "Hudson Valley Poll", headline: "Conley leads Lawler by 2.4% following elevated suburban turnout models." }
         ]
       }
     ];
@@ -500,7 +519,6 @@
 
       markersGroup = L.layerGroup().addTo(map);
       
-      // Load Open US States GeoJSON for Choropleth Polygons
       fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json')
         .then(res => res.json())
         .then(statesData => {
@@ -527,8 +545,8 @@
         const customIcon = L.divIcon({
           className: 'custom-leaflet-icon',
           html: `<div class="map-marker marker-${item.type}">${item.icon}</div>`,
-          iconSize: [24, 24],
-          iconAnchor: [12, 12]
+          iconSize: [26, 26],
+          iconAnchor: [13, 13]
         });
 
         const marker = L.marker([item.lat, item.lng], { icon: customIcon });
@@ -577,8 +595,8 @@
         loadCategoryNews('ALL');
       } else if (category === 'battleground') {
         if (map) map.flyTo([39, -84], 4.5);
-        if (titleEl) { titleEl.textContent = "Battleground Seats"; titleEl.style.color = "#d29922"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: Toss-Up Contests";
+        if (titleEl) { titleEl.textContent = "Toss-Up Contests"; titleEl.style.color = "#d29922"; }
+        if (coordsEl) coordsEl.textContent = "Filtered: Battleground Seats";
         loadCategoryNews('battleground');
       } else if (category === 'dem') {
         if (map) map.flyTo([38, -96], 4);
@@ -688,7 +706,7 @@
       }
 
       const coordsEl = document.getElementById('region-coords');
-      if (coordsEl) coordsEl.textContent = `LAT: ${item.lat.toFixed(2)} | LNG: ${item.lng.toFixed(2)}`;
+      if (coordsEl) coordsEl.textContent = `SEAT: ${item.icon}`;
 
       const newsFeed = document.getElementById('news-feed');
       if (newsFeed) {
