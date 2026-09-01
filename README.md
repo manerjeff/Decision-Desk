@@ -1,23 +1,15 @@
-# 2026 Midterm Election Polling Desk
+# 2026 Senate Desk
 
-Independent snapshot of 2026 Senate, governor, and House-generic races.
+Independent briefing of the 35 U.S. Senate seats on the 2026 ballot.
 
 Live site: https://manerjeff.github.io/Decision-Desk/
 
-This project is **not affiliated with Decision Desk HQ**.
+## What updates automatically
 
-## What the desk shows
+GitHub Actions runs twice a day and on demand. `fetch_snapshot.py` reads the Predictions table on [Wikipedia’s 2026 Senate elections page](https://en.wikipedia.org/wiki/2026_United_States_Senate_elections) and writes `snapshot.json`. Consensus is the median of Cook, Inside Elections, Sabato, and Silver. Nominees stay in the curated table until you edit them.
 
-- Current Senate: 47 Democratic / 53 Republican
-- 35 Senate seats on the 2026 ballot (Class 2 plus Florida and Ohio specials)
-- Democrats need a net gain of 4 for a majority
-- Featured race per state, with a Senate-only map that leaves non-ballot states gray
-- House generic ballot as vote share, not a seat projection
+This is not an AP or Decision Desk HQ feed. Ratings belong to their publishers. Wikipedia text is CC BY-SA.
 
-Numbers are an editorial snapshot in `fetch_polls.py`. The GitHub Action rebuilds `polls.json` from that table; it does not scrape pollsters yet.
+## Edit a nominee
 
-## Update the snapshot
-
-1. Edit the race table in `fetch_polls.py`
-2. Run `python3 fetch_polls.py`
-3. Commit `fetch_polls.py` and `polls.json`
+Change the race row in `fetch_snapshot.py`, run `python3 fetch_snapshot.py`, commit `snapshot.json`.

@@ -3,285 +3,230 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026 Midterm Election Polling Desk</title>
-  <meta name="description" content="Independent 2026 midterm snapshot: Senate seats on the ballot, governors, and the House generic ballot. Not affiliated with Decision Desk HQ.">
+  <title>2026 Senate Desk</title>
+  <meta name="description" content="Independent 2026 U.S. Senate briefing: chamber math, consensus ratings, and the 35 seats on the ballot. Not affiliated with Decision Desk HQ.">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
+    :root {
+      --bg: #0c0d10;
+      --line: #2a2e37;
+      --text: #e8eaed;
+      --muted: #8b909a;
+      --blue: #4c8dff;
+      --red: #f07178;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background:#0b0e14; color:#c9d1d9; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; height:100dvh; width:100%; overflow:hidden; }
-    #app-container { display:flex; flex-direction:column; height:100dvh; }
-    .ticker-wrap { background:#8e1519; color:#fff; height:26px; display:flex; align-items:center; overflow:hidden; font-size:11px; font-weight:700; flex-shrink:0; }
-    .ticker-title { background:#000; color:#f85149; padding:0 10px; height:100%; display:flex; align-items:center; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; z-index:2; }
-    .ticker-container { flex:1; overflow:hidden; position:relative; height:100%; }
-    .ticker-track { display:flex; white-space:nowrap; position:absolute; left:0; top:50%; will-change:transform; }
-    .ticker-content { padding-right:48px; }
-    header { background:#161b22; border-bottom:1px solid #30363d; padding:6px 14px; display:flex; justify-content:space-between; align-items:center; gap:12px; min-height:40px; flex-shrink:0; }
-    .title-group { display:flex; align-items:center; gap:8px; min-width:0; }
-    .status-dot { width:8px; height:8px; background:#d29922; border-radius:50%; flex-shrink:0; }
-    h1 { color:#58a6ff; font-size:13px; letter-spacing:.8px; text-transform:uppercase; }
-    .header-meta { font-size:11px; color:#8b949e; text-align:right; line-height:1.35; }
-    .header-meta strong { color:#c9d1d9; font-weight:600; }
-    .app-viewport { flex:1; display:flex; min-height:0; }
-    nav.side-menu { width:250px; background:#11151c; border-right:1px solid #21262d; display:flex; flex-direction:column; padding:8px; gap:5px; flex-shrink:0; min-height:0; }
-    .side-menu-header { font-size:10px; font-weight:700; color:#8b949e; text-transform:uppercase; letter-spacing:1px; padding:4px 4px 2px; }
-    .menu-item { min-height:30px; padding:0 10px; font-size:12px; color:#8b949e; cursor:pointer; display:flex; align-items:center; gap:8px; background:#0d1117; border:1px solid #21262d; border-radius:6px; }
-    .menu-item:hover { border-color:#8b949e; color:#c9d1d9; }
-    .menu-item.active { background:rgba(88,166,255,.12); color:#58a6ff; border-color:#58a6ff; }
-    .sidebar-news-container { flex:1; display:flex; flex-direction:column; background:#0d1117; border:1px solid #21262d; border-radius:6px; padding:8px; min-height:0; }
-    .news-list { display:flex; flex-direction:column; gap:6px; overflow-y:auto; flex:1; }
-    .news-card { background:#161b22; border:1px solid #21262d; padding:7px 8px; border-radius:4px; font-size:12px; line-height:1.35; cursor:pointer; }
-    .news-kicker { font-size:10px; font-weight:700; }
-    .news-time-dem { color:#388bfd; } .news-time-gop { color:#f85149; } .news-time-toss { color:#d29922; }
-    .disclaimer { font-size:10px; color:#6e7681; line-height:1.4; padding:6px 4px 2px; }
-    .stage-container { flex:1; display:flex; flex-direction:column; min-width:0; min-height:0; }
-    #leafletMap { flex:1; min-height:0; background:#090d14; }
-    .leaflet-container { background:#090d14 !important; }
-    .leaflet-control-attribution { background:rgba(13,17,23,.85) !important; color:#8b949e !important; font-size:9px !important; }
-    .leaflet-marker-icon { background:none; border:none; }
-    .map-marker { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800; cursor:pointer; }
-    .marker-dem { background:rgba(56,139,253,.45); border:1.5px solid #388bfd; color:#fff; box-shadow:0 0 8px #388bfd; }
-    .marker-gop { background:rgba(248,81,73,.45); border:1.5px solid #f85149; color:#fff; box-shadow:0 0 8px #f85149; }
-    .marker-battleground { background:rgba(210,153,34,.45); border:1.5px solid #d29922; color:#fff; box-shadow:0 0 10px #d29922; }
-    .leaflet-tooltip.custom-state-tooltip { background:#161b22; border:1px solid #30363d; color:#c9d1d9; font-size:11px; font-weight:700; padding:5px 8px; border-radius:4px; }
-    .dashboard-grid { display:grid; grid-template-columns:1.1fr 1.2fr 1fr; gap:6px; padding:6px 8px; background:#0d1117; border-top:1px solid #30363d; flex-shrink:0; }
-    .panel-box { background:#161b22; border:1px solid #30363d; border-radius:6px; padding:8px 10px; min-width:0; }
-    .panel-header { font-size:10px; font-weight:700; color:#8b949e; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; }
-    .chamber-split { font-size:15px; font-weight:800; }
-    .panel-note { font-size:11px; color:#8b949e; margin-top:4px; line-height:1.35; }
-    .badge { padding:2px 6px; border-radius:3px; font-size:10px; font-weight:800; border:1px solid; }
-    .badge-dem { background:rgba(56,139,253,.2); color:#388bfd; border-color:#388bfd; }
-    .badge-gop { background:rgba(248,81,73,.2); color:#f85149; border-color:#f85149; }
-    .badge-tossup { background:rgba(210,153,34,.2); color:#d29922; border-color:#d29922; }
-    .threat-row { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:6px; }
-    .bar-bg { background:#21262d; height:6px; border-radius:3px; overflow:hidden; }
-    .bar-fill { height:100%; width:50%; background:#388bfd; transition:width .3s ease, background-color .3s ease; }
-    @media (max-width:900px) {
-      html, body { overflow:auto; height:auto; }
-      #app-container { height:auto; min-height:100dvh; }
-      header { flex-wrap:wrap; }
-      .app-viewport { flex-direction:column; }
-      nav.side-menu { width:100%; height:auto; border-right:0; border-bottom:1px solid #21262d; }
-      .filter-row { display:flex; flex-wrap:wrap; gap:6px; }
-      .menu-item { flex:1 1 140px; justify-content:center; }
-      .sidebar-news-container { max-height:220px; }
-      #leafletMap { height:420px; flex:none; }
-      .dashboard-grid { grid-template-columns:1fr; }
+    html, body { background: var(--bg); color: var(--text); font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif; }
+    body { min-height: 100dvh; }
+    header {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+      padding: 18px 22px 14px; border-bottom: 1px solid var(--line);
+    }
+    .brand { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 600; letter-spacing: -.02em; line-height: 1; margin-top: 4px; }
+    .meta { text-align: right; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .meta strong { color: var(--text); font-weight: 600; }
+    .board { padding: 18px 22px 8px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; }
+    .split { display: flex; align-items: flex-end; gap: 18px; }
+    .n { font-size: clamp(42px, 7vw, 72px); font-weight: 600; letter-spacing: -.04em; line-height: .9; }
+    .n.d { color: var(--blue); }
+    .n.r { color: var(--red); }
+    .n span { display: block; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .path { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; color: var(--muted); max-width: 36ch; line-height: 1.45; }
+    .path b { color: var(--text); }
+    .chamber { height: 10px; border-radius: 99px; overflow: hidden; display: flex; margin-top: 14px; background: var(--line); }
+    .chamber i:first-child { flex: 47; background: var(--blue); }
+    .chamber i:last-child { flex: 53; background: var(--red); }
+    .buckets { display: flex; flex-wrap: wrap; gap: 8px; align-content: start; }
+    .pill { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+    .pill b { color: var(--text); }
+    .stage { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(280px, .95fr); gap: 0; border-top: 1px solid var(--line); min-height: 62vh; }
+    .list-col { border-right: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--line); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .filters button { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; font-size: 11px; cursor: pointer; }
+    .filters button.on { color: var(--text); border-color: var(--text); }
+    table { width: 100%; border-collapse: collapse; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; }
+    thead th { text-align: left; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); }
+    tbody tr { cursor: pointer; border-bottom: 1px solid #1c1f26; }
+    tbody tr:hover, tbody tr.sel { background: #1a1d24; }
+    td { padding: 9px 10px; vertical-align: top; }
+    .st { font-weight: 650; }
+    .sub { color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .rate { font-weight: 650; white-space: nowrap; }
+    .list-wrap { overflow: auto; flex: 1; max-height: calc(100dvh - 280px); }
+    #map { min-height: 420px; background: #0a0b0e; }
+    .leaflet-container { background: #0a0b0e !important; }
+    .leaflet-control-attribution { background: rgba(12,13,16,.8) !important; color: var(--muted) !important; font-size: 9px !important; }
+    .detail { padding: 14px 16px 18px; border-top: 1px solid var(--line); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .detail h2 { font-family: "Iowan Old Style", Palatino, serif; font-size: 22px; font-weight: 600; }
+    .sources { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .src { font-size: 11px; border: 1px solid var(--line); padding: 4px 7px; border-radius: 4px; color: var(--muted); }
+    footer { padding: 14px 22px 22px; color: var(--muted); font-size: 11px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; border-top: 1px solid var(--line); }
+    @media (max-width: 900px) {
+      header, .board { display: block; }
+      .meta { text-align: left; margin-top: 10px; }
+      .split { margin-bottom: 16px; }
+      .stage { grid-template-columns: 1fr; }
+      .list-col { border-right: 0; border-bottom: 1px solid var(--line); }
+      .list-wrap { max-height: 48vh; }
+      #map { height: 360px; }
     }
   </style>
 </head>
 <body>
-  <div id="app-container">
-    <div class="ticker-wrap">
-      <div class="ticker-title">2026 Midterm Desk</div>
-      <div class="ticker-container">
-        <div id="tickerTrack" class="ticker-track">
-          <div id="tickerBlock1" class="ticker-content">Loading snapshot…</div>
-          <div id="tickerBlock2" class="ticker-content">Loading snapshot…</div>
-        </div>
-      </div>
+  <header>
+    <div>
+      <div class="brand">Independent midterm briefing</div>
+      <h1>2026 Senate Desk</h1>
     </div>
-    <header>
-      <div class="title-group">
-        <div class="status-dot" title="Editorial snapshot"></div>
-        <h1>2026 Midterm Election Polling Desk</h1>
-      </div>
-      <div class="header-meta">
-        <div id="updated-label"><strong>Editorial snapshot</strong></div>
-        <div>Not affiliated with Decision Desk HQ</div>
-      </div>
-    </header>
-    <div class="app-viewport">
-      <nav class="side-menu">
-        <div class="side-menu-header">Filter contests</div>
-        <div class="filter-row">
-          <div class="menu-item active" onclick="filterCategory('ALL', this)">All featured</div>
-          <div class="menu-item" onclick="filterCategory('senate', this)">Senate 2026</div>
-          <div class="menu-item" onclick="filterCategory('gov', this)">Governors</div>
-          <div class="menu-item" onclick="filterCategory('battleground', this)">Toss-ups</div>
-          <div class="menu-item" onclick="filterCategory('dem', this)">Dem lead</div>
-          <div class="menu-item" onclick="filterCategory('gop', this)">GOP lead</div>
-        </div>
-        <div class="sidebar-news-container">
-          <div class="side-menu-header" style="margin-top:0;">Race list</div>
-          <div id="region-title" style="color:#58a6ff;font-size:13px;font-weight:700;">National summary</div>
-          <div id="region-coords" style="font-size:11px;color:#8b949e;margin:2px 0 8px;">Click a state or a card</div>
-          <div id="news-feed" class="news-list"></div>
-        </div>
-        <p class="disclaimer">Leads are an editorial snapshot, not a forecast model. Gray states have no 2026 Senate race when the Senate filter is on.</p>
-      </nav>
-      <div class="stage-container">
-        <div id="leafletMap"></div>
-        <div class="dashboard-grid">
-          <div class="panel-box">
-            <div class="panel-header">Senate — current chamber</div>
-            <div class="chamber-split" id="senate-split"><span style="color:#388bfd;">DEM 47</span> &nbsp;|&nbsp; <span style="color:#f85149;">GOP 53</span></div>
-            <p class="panel-note" id="senate-note">35 seats up (13 D / 22 R). Democrats need net +4 for a majority; the vice president breaks a 50–50 tie for Republicans.</p>
-          </div>
-          <div class="panel-box">
-            <div class="panel-header">Selected race</div>
-            <div class="threat-row">
-              <span style="font-size:12px;" id="selected-office">Status</span>
-              <span id="threat-badge" class="badge badge-tossup">SELECT A RACE</span>
-            </div>
-            <div class="bar-bg"><div id="threat-bar" class="bar-fill"></div></div>
-            <p id="threat-desc" class="panel-note">Click a state. Senate filter colors only seats actually on the 2026 ballot.</p>
-          </div>
-          <div class="panel-box">
-            <div class="panel-header">House generic ballot</div>
-            <div class="chamber-split" id="house-split"><span style="color:#388bfd;">DEM 48.2%</span> &nbsp;vs&nbsp; <span style="color:#f85149;">GOP 41.8%</span></div>
-            <p class="panel-note" id="house-note">About D+6. This is vote share, not seats. 218 needed for a House majority.</p>
-          </div>
-        </div>
-      </div>
+    <div class="meta">
+      <div id="updated"><strong>Loading snapshot…</strong></div>
+      <div>Not affiliated with Decision Desk HQ</div>
     </div>
-  </div>
+  </header>
+  <section class="board">
+    <div>
+      <div class="split">
+        <div class="n d"><span>Democrats</span>47</div>
+        <div class="n r"><span>Republicans</span>53</div>
+      </div>
+      <p class="path" id="path"><b>Net +4</b> for a Democratic majority. The vice president breaks a 50–50 Senate for Republicans.</p>
+      <div class="chamber" aria-hidden="true"><i></i><i></i></div>
+    </div>
+    <div class="buckets" id="buckets"></div>
+  </section>
+  <section class="stage">
+    <div class="list-col">
+      <div class="filters" id="filters"></div>
+      <div class="list-wrap">
+        <table>
+          <thead>
+            <tr><th>State</th><th>Seat</th><th>Consensus</th><th>Matchup</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="detail" id="detail"><div class="sub">Select a race</div></div>
+    </div>
+    <div id="map"></div>
+  </section>
+  <footer>
+    Consensus is the median of Cook, Inside Elections, Sabato, and Silver as published on
+    Wikipedia’s 2026 Senate elections page (CC BY-SA). Nominees are curated and may lag a late primary.
+    This is a briefing, not a forecast model. Ratings belong to their publishers.
+  </footer>
   <script>
-    let map, markersGroup, geojsonLayer, currentFilter = 'ALL', races = [];
-    const FALLBACK = {
-      updatedLabel: 'Editorial snapshot \u00b7 1 Sep 2026',
-      senate: { currentDem:47, currentGop:53, neededForDemMajority:4, seatsUp:35, demSeatsUp:13, gopSeatsUp:22 },
-      house: { dem:48.2, gop:41.8, note:'Generic ballot snapshot, not a seat projection.' },
-      races: []
+    const FILTERS = [
+      ["all", "All 35"],
+      ["toss", "Toss-up"],
+      ["lean", "Lean / tilt"],
+      ["flip", "Hold at risk"],
+      ["d", "Democratic seats"],
+      ["r", "Republican seats"]
+    ];
+    let races = [], filter = "all", map, geo, selected = null;
+    const passes = (r) => {
+      if (filter === "all") return true;
+      if (filter === "toss") return r.score === 0;
+      if (filter === "lean") return Math.abs(r.score) === 1;
+      if (filter === "flip") return (r.held === "R" && r.score <= 0) || (r.held === "D" && r.score >= 0);
+      if (filter === "d") return r.held === "D";
+      if (filter === "r") return r.held === "R";
+      return true;
     };
-    function officeLabel(c){ return c==='senate'?'Senate':c==='gov'?'Governor':c==='house'?'House baseline':c; }
-    function filteredRaces(){
-      if(currentFilter==='ALL') return races.filter(r=>r.featured);
-      if(currentFilter==='senate'||currentFilter==='gov') return races.filter(r=>r.category===currentFilter);
-      if(currentFilter==='battleground') return races.filter(r=>r.type==='battleground');
-      return races.filter(r=>r.type===currentFilter);
+    function colorFor(name) {
+      const r = races.find(x => x.state === name);
+      return r ? r.color : "#22252c";
     }
-    function raceForState(name){
-      const n=(name||'').trim().toLowerCase();
-      return filteredRaces().find(r=>r.state.toLowerCase()===n)
-        || races.find(r=>r.state.toLowerCase()===n && r.featured)
-        || races.find(r=>r.state.toLowerCase()===n);
+    function initMap() {
+      map = L.map("map", { center: [39.5, -96.4], zoom: 4, minZoom: 3, maxZoom: 7, zoomControl: false });
+      L.control.zoom({ position: "topright" }).addTo(map);
+      L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        attribution: "Tiles © Esri", maxZoom: 16
+      }).addTo(map);
+      fetch("https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json")
+        .then(r => r.json())
+        .then(states => {
+          geo = L.geoJson(states, {
+            style: f => ({ fillColor: colorFor(f.properties.name), weight: 1, color: "#2a2e37", fillOpacity: 0.78 }),
+            onEachFeature: (f, layer) => {
+              layer.on("click", () => {
+                const r = races.find(x => x.state === f.properties.name);
+                if (r) select(r);
+              });
+            }
+          }).addTo(map);
+        });
     }
-    function colorForState(name){
-      const n=(name||'').toLowerCase();
-      if(currentFilter==='senate'){
-        const s=races.find(r=>r.state.toLowerCase()===n && r.category==='senate');
-        return s?s.barColor:'#21262d';
-      }
-      if(currentFilter==='gov'){
-        const g=races.find(r=>r.state.toLowerCase()===n && r.category==='gov');
-        return g?g.barColor:'#21262d';
-      }
-      const item=raceForState(name);
-      if(!item) return '#21262d';
-      if(currentFilter==='dem' && item.type!=='dem') return '#21262d';
-      if(currentFilter==='gop' && item.type!=='gop') return '#21262d';
-      if(currentFilter==='battleground' && item.type!=='battleground') return '#21262d';
-      return item.barColor;
+    function paintMap() {
+      if (!geo) return;
+      geo.setStyle(f => ({
+        fillColor: colorFor(f.properties.name),
+        weight: 1, color: "#2a2e37",
+        fillOpacity: races.some(r => r.state === f.properties.name && passes(r)) ? 0.82 : 0.18
+      }));
     }
-    function styleState(f){ return { fillColor:colorForState(f.properties.name), weight:1.2, opacity:1, color:'#30363d', fillOpacity:.62 }; }
-    function highlightState(e){ e.target.setStyle({weight:2.5,color:'#58a6ff',fillOpacity:.8}); e.target.bringToFront(); }
-    function resetState(e){ if(geojsonLayer) geojsonLayer.resetStyle(e.target); }
-    function onStateClick(e){ const item=raceForState(e.target.feature.properties.name); if(item) selectEvent(item); }
-    function onEachState(feature, layer){
-      const item=raceForState(feature.properties.name);
-      let tip='<b>'+feature.properties.name+'</b>';
-      if(item) tip+='<br>'+officeLabel(item.category)+' \u00b7 '+item.lead;
-      else if(currentFilter==='senate') tip+='<br>No Senate race in 2026';
-      layer.bindTooltip(tip,{className:'custom-state-tooltip',sticky:true});
-      layer.on({mouseover:highlightState,mouseout:resetState,click:onStateClick});
+    function renderFilters() {
+      document.getElementById("filters").innerHTML = FILTERS.map(([id, label]) =>
+        `<button class="${id === filter ? "on" : ""}" data-id="${id}">${label}</button>`
+      ).join("");
+      document.getElementById("filters").onclick = (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        filter = btn.dataset.id;
+        renderFilters(); renderRows(); paintMap();
+      };
     }
-    function initMap(){
-      map=L.map('leafletMap',{center:[39.8,-98.5],zoom:4,minZoom:3,maxZoom:8,zoomControl:false});
-      L.control.zoom({position:'topright'}).addTo(map);
-      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:16}).addTo(map);
-      markersGroup=L.layerGroup().addTo(map);
-      fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json')
-        .then(r=>r.json())
-        .then(states=>{ geojsonLayer=L.geoJson(states,{style:styleState,onEachFeature:onEachState}).addTo(map); })
-        .catch(err=>console.error('GeoJSON load failed',err));
+    function renderRows() {
+      const rows = races.filter(passes);
+      document.getElementById("rows").innerHTML = rows.map(r => `
+        <tr data-abbr="${r.abbr}" class="${selected && selected.abbr === r.abbr ? "sel" : ""}">
+          <td><div class="st">${r.state}</div><div class="sub">${r.abbr}${r.special ? " · special" : ""}${r.open ? " · open" : ""}</div></td>
+          <td>${r.held === "D" ? "Dem hold" : "GOP hold"}</td>
+          <td class="rate" style="color:${r.color}">${r.consensus}</td>
+          <td>${r.dem} <span class="sub">vs</span> ${r.gop}</td>
+        </tr>`).join("");
+      document.getElementById("rows").onclick = (e) => {
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+        const r = races.find(x => x.abbr === tr.dataset.abbr);
+        if (r) select(r);
+      };
     }
-    function renderMarkers(){
-      if(!markersGroup) return;
-      markersGroup.clearLayers();
-      filteredRaces().forEach(item=>{
-        if(item.lat==null||item.lng==null) return;
-        if(item.abbr==='AK'||item.abbr==='HI') return;
-        const icon=L.divIcon({className:'custom-leaflet-icon',html:'<div class="map-marker marker-'+item.type+'">'+item.abbr+'</div>',iconSize:[26,26],iconAnchor:[13,13]});
-        const marker=L.marker([item.lat,item.lng],{icon});
-        marker.on('click',()=>selectEvent(item));
-        markersGroup.addLayer(marker);
-      });
+    function select(r) {
+      selected = r;
+      renderRows();
+      document.getElementById("detail").innerHTML = `
+        <h2>${r.state}</h2>
+        <div class="sub" style="margin:4px 0 8px">${r.special ? "Special election · " : ""}${r.open ? "Open seat · " : ""}${r.incumbent}</div>
+        <div class="rate" style="color:${r.color};font-size:18px">${r.consensus}</div>
+        <p style="margin-top:8px;font-size:14px">${r.matchup}</p>
+        <div class="sources">
+          <span class="src">Cook ${r.cook}</span>
+          <span class="src">IE ${r.ie}</span>
+          <span class="src">Sabato ${r.sabato}</span>
+          <span class="src">Silver ${r.silver}</span>
+        </div>`;
+      if (map && r.lat && r.lng && r.abbr !== "AK" && r.abbr !== "HI") map.flyTo([r.lat, r.lng], 5.2);
     }
-    function updateTelemetry(item){
-      const badge=document.getElementById('threat-badge');
-      badge.textContent=item.lead; badge.className='badge '+item.leadClass;
-      const bar=document.getElementById('threat-bar');
-      bar.style.backgroundColor=item.barColor; bar.style.width=item.leadPct||'50%';
-      document.getElementById('threat-desc').textContent=item.desc;
-      document.getElementById('selected-office').textContent=item.abbr+' \u00b7 '+officeLabel(item.category);
+    function renderBoard(data) {
+      const b = data.senate.buckets || {};
+      const order = ["Solid D","Likely D","Lean D","Toss-up","Lean R","Likely R","Solid R"];
+      document.getElementById("buckets").innerHTML = order.filter(k => b[k]).map(k => `<div class="pill"><b>${b[k]}</b> ${k}</div>`).join("");
+      document.getElementById("path").innerHTML = `<b>Net +${data.senate.neededForDemMajority}</b> for a Democratic majority. ${data.senate.tossUpCount} toss-ups among ${data.senate.seatsUp} seats on the ballot.`;
+      document.getElementById("updated").innerHTML = `<strong>${data.updatedLabel}</strong><div>${data.source}</div>`;
     }
-    function loadNewsFeed(){
-      const feed=document.getElementById('news-feed');
-      feed.innerHTML=filteredRaces().map(item=>{
-        const klass=item.type==='gop'?'news-time-gop':item.type==='battleground'?'news-time-toss':'news-time-dem';
-        return '<div class="news-card" onclick="selectEventById(\''+item.id+'\')"><div class="'+klass+' news-kicker">'+item.abbr+' \u00b7 '+officeLabel(item.category)+'</div><div style="font-weight:700;margin-top:2px;">'+item.lead+'</div><div style="color:#8b949e;margin-top:2px;">'+item.desc+'</div></div>';
-      }).join('');
+    async function load() {
+      const res = await fetch("./snapshot.json?v=" + Date.now());
+      const data = await res.json();
+      races = data.races || [];
+      renderBoard(data);
+      renderFilters();
+      renderRows();
+      paintMap();
     }
-    function selectEventById(id){ const item=races.find(r=>r.id===id); if(item) selectEvent(item); }
-    function selectEvent(item){
-      if(map && item.lat && item.lng && item.abbr!=='AK' && item.abbr!=='HI') map.flyTo([item.lat,item.lng],5.4);
-      updateTelemetry(item);
-      document.getElementById('region-title').textContent=item.name;
-      document.getElementById('region-title').style.color=item.barColor;
-      document.getElementById('region-coords').textContent=(item.source||'Snapshot')+' \u00b7 '+item.abbr;
-    }
-    function filterCategory(category, element){
-      currentFilter=category;
-      document.querySelectorAll('.side-menu .menu-item').forEach(el=>el.classList.remove('active'));
-      element.classList.add('active');
-      const titles={ALL:['National summary','Featured race per state'],senate:['Senate 2026','Only Class 2 seats + FL/OH specials'],gov:['Governor races','States with a 2026 governor contest in this snapshot'],battleground:['Toss-up watch','Races inside a few points'],dem:['Democratic leads','Democratic advantages'],gop:['Republican leads','Republican advantages']};
-      document.getElementById('region-title').textContent=titles[category][0];
-      document.getElementById('region-title').style.color='#58a6ff';
-      document.getElementById('region-coords').textContent=titles[category][1];
-      if(geojsonLayer) geojsonLayer.setStyle(styleState);
-      renderMarkers(); loadNewsFeed();
-      if(map) map.flyTo([39.8,-98.5],4);
-    }
-    let tickerPos=0, tickerAnim=null;
-    function startTicker(){
-      const track=document.getElementById('tickerTrack'), block1=document.getElementById('tickerBlock1');
-      if(!track||!block1) return;
-      if(tickerAnim) cancelAnimationFrame(tickerAnim);
-      const step=()=>{ const width=block1.offsetWidth||800; tickerPos-=0.55; if(Math.abs(tickerPos)>=width) tickerPos=0; track.style.transform='translate3d('+tickerPos+'px, -50%, 0)'; tickerAnim=requestAnimationFrame(step); };
-      step();
-    }
-    function updateTicker(){
-      const text=filteredRaces().map(r=>'['+r.abbr+' '+officeLabel(r.category).toUpperCase()+'] '+r.lead).join('    \u2022    ')+'    \u2022    ';
-      document.getElementById('tickerBlock1').textContent=text;
-      document.getElementById('tickerBlock2').textContent=text;
-      startTicker();
-    }
-    function applySnapshot(data){
-      races=data.races||[];
-      document.getElementById('updated-label').innerHTML='<strong>'+(data.updatedLabel||FALLBACK.updatedLabel)+'</strong>';
-      if(data.senate){
-        document.getElementById('senate-split').innerHTML='<span style="color:#388bfd;">DEM '+data.senate.currentDem+'</span> &nbsp;|&nbsp; <span style="color:#f85149;">GOP '+data.senate.currentGop+'</span>';
-        document.getElementById('senate-note').textContent=data.senate.seatsUp+' seats up ('+data.senate.demSeatsUp+' D / '+data.senate.gopSeatsUp+' R). Democrats need net +'+data.senate.neededForDemMajority+' for a majority; the vice president breaks a 50-50 tie for Republicans.';
-      }
-      if(data.house){
-        document.getElementById('house-split').innerHTML='<span style="color:#388bfd;">DEM '+data.house.dem+'%</span> &nbsp;vs&nbsp; <span style="color:#f85149;">GOP '+data.house.gop+'%</span>';
-        document.getElementById('house-note').textContent=data.house.note+' 218 seats needed for a House majority.';
-      }
-      if(geojsonLayer) geojsonLayer.setStyle(styleState);
-      renderMarkers(); loadNewsFeed(); updateTicker();
-    }
-    async function loadData(){
-      try{
-        const res=await fetch('./polls.json?v='+Date.now());
-        if(res.ok){
-          const data=await res.json();
-          if(data && data.races){ applySnapshot(data); return; }
-        }
-      }catch(err){ console.warn('polls.json missing', err); }
-      applySnapshot(FALLBACK);
-    }
-    window.addEventListener('load', ()=>{ initMap(); loadData(); });
+    window.addEventListener("load", () => { initMap(); load(); });
   </script>
 </body>
 </html>
