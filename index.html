@@ -40,6 +40,8 @@
     tbody tr:hover, tbody tr.sel { background:#1a1d24; }
     td { padding:9px 10px; vertical-align:top; }
     .st { font-weight:650; } .sub { color:var(--muted); font-size:11px; margin-top:2px; } .rate { font-weight:650; }
+    .poll { font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .poll .d { color:var(--blue); } .poll .r { color:var(--red); }
     .list-wrap { overflow:auto; flex:1; max-height:calc(100dvh - 320px); }
     #map { min-height:420px; background:#0a0b0e; }
     .leaflet-container { background:#0a0b0e !important; }
@@ -79,7 +81,7 @@
       <div class="filters" id="filters"></div>
       <div class="list-wrap">
         <table>
-          <thead><tr><th>State</th><th>Seat</th><th>Consensus</th><th>Matchup</th></tr></thead>
+          <thead><tr><th>State</th><th>Seat</th><th>Consensus</th><th id="poll-h">Poll</th><th>Matchup</th></tr></thead>
           <tbody id="rows"></tbody>
         </table>
       </div>
@@ -87,7 +89,7 @@
     </div>
     <div id="map"></div>
   </section>
-  <footer>Senate and governor ratings from Wikipedia (CC BY-SA). House map shows every state; it is not a district forecast. Not a forecast model.</footer>
+  <footer>Poll column is the current two-way share (not the rating). Before Election Day it becomes vote percent. Ratings from Wikipedia (CC BY-SA).</footer>
   <script>
     const MODES=[["senate","Senate"],["gov","Governors"],["house","House"]];
     const FILTERS=[["all","All"],["toss","Toss-up"],["lean","Lean / tilt"],["flip","Hold at risk"],["d","Democratic seats"],["r","Republican seats"]];
@@ -95,6 +97,11 @@
     function list(){ if(mode==="senate") return data.races||[]; if(mode==="gov") return (data.governors&&data.governors.races)||[]; return []; }
     const passes=r=> filter==="all"|| (filter==="toss"&&r.score===0)|| (filter==="lean"&&Math.abs(r.score)===1)|| (filter==="flip"&&((r.held==="R"&&r.score<=0)||(r.held==="D"&&r.score>=0)))|| (filter==="d"&&r.held==="D")|| (filter==="r"&&r.held==="R");
     function colorFor(name){ const r=list().find(x=>x.state===name); return r?r.color:"#22252c"; }
+    function pollCell(r){
+      if(r.pollD==null || r.pollR==null) return "<span class='sub'>—</span>";
+      const label = (data.phase==="results") ? "Vote" : "Poll";
+      return `<div class="poll"><span class="d">${r.pollD}%</span> – <span class="r">${r.pollR}%</span></div><div class="sub">${label}</div>`;
+    }
     function initMap(){
       map=L.map("map",{center:[39.5,-96.4],zoom:4,minZoom:3,maxZoom:7,zoomControl:false});
       L.control.zoom({position:"topright"}).addTo(map);
@@ -106,24 +113,23 @@
     }
     function paintMap(){
       if(!geo) return;
-      if(mode==="house"){
-        geo.setStyle(f=>({fillColor:"#5a6270",weight:1,color:"#2a2e37",fillOpacity:0.78}));
-        return;
-      }
+      if(mode==="house"){ geo.setStyle(f=>({fillColor:"#5a6270",weight:1,color:"#2a2e37",fillOpacity:0.78})); return; }
       const rows=list();
       geo.setStyle(f=>({fillColor:colorFor(f.properties.name),weight:1,color:"#2a2e37",fillOpacity:rows.some(r=>r.state===f.properties.name&&passes(r))?0.82:0.16}));
     }
     function renderModes(){ document.getElementById("modes").innerHTML=MODES.map(([id,l])=>`<button class="${id===mode?"on":""}" data-id="${id}">${l}</button>`).join(""); document.getElementById("modes").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; mode=b.dataset.id; filter="all"; selected=null; renderModes(); renderBoard(); renderFilters(); renderRows(); paintMap(); if(map) map.flyTo([39.5,-96.4],4); }; }
     function renderFilters(){ if(mode==="house"){ document.getElementById("filters").innerHTML=""; return; } document.getElementById("filters").innerHTML=FILTERS.map(([id,l])=>`<button class="${id===filter?"on":""}" data-id="${id}">${l}</button>`).join(""); document.getElementById("filters").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; filter=b.dataset.id; renderFilters(); renderRows(); paintMap(); }; }
     function renderRows(){
-      if(mode==="house"){ const w=(data.house&&data.house.watch)||[]; document.getElementById("rows").innerHTML=w.map(x=>`<tr><td colspan="4"><div class="st">${x.label}</div><div class="sub">${x.detail}</div></td></tr>`).join(""); return; }
+      document.getElementById("poll-h").textContent = (data && data.phase==="results") ? "Vote" : "Poll";
+      if(mode==="house"){ const w=(data.house&&data.house.watch)||[]; document.getElementById("rows").innerHTML=w.map(x=>`<tr><td colspan="5"><div class="st">${x.label}</div><div class="sub">${x.detail}</div></td></tr>`).join(""); return; }
       const rows=list().filter(passes);
-      document.getElementById("rows").innerHTML=rows.map(r=>`<tr data-abbr="${r.abbr}" class="${selected&&selected.abbr===r.abbr?"sel":""}"><td><div class="st">${r.state}</div><div class="sub">${r.abbr}${r.special?" · special":""}${r.open?" · open":""}</div></td><td>${r.held==="D"?"Dem hold":"GOP hold"}</td><td class="rate" style="color:${r.color}">${r.consensus}</td><td>${r.dem} <span class="sub">vs</span> ${r.gop}</td></tr>`).join("");
+      document.getElementById("rows").innerHTML=rows.map(r=>`<tr data-abbr="${r.abbr}" class="${selected&&selected.abbr===r.abbr?"sel":""}"><td><div class="st">${r.state}</div><div class="sub">${r.abbr}${r.special?" · special":""}${r.open?" · open":""}</div></td><td>${r.held==="D"?"Dem hold":"GOP hold"}</td><td class="rate" style="color:${r.color}">${r.consensus}</td><td>${pollCell(r)}</td><td>${r.dem} <span class="sub">vs</span> ${r.gop}</td></tr>`).join("");
       document.getElementById("rows").onclick=e=>{ const tr=e.target.closest("tr"); if(!tr||!tr.dataset.abbr) return; const r=list().find(x=>x.abbr===tr.dataset.abbr); if(r) select(r); };
     }
     function select(r){
       selected=r; renderRows();
-      document.getElementById("detail").innerHTML=`<h2>${r.state}</h2><div class="sub" style="margin:4px 0 8px">${mode==="gov"?"Governor · ":""}${r.special?"Special · ":""}${r.open?"Open seat · ":""}${r.incumbent}</div><div class="rate" style="color:${r.color};font-size:18px">${r.consensus}</div><p style="margin-top:8px">${r.matchup}</p><div class="sources"><span class="src">Cook ${r.cook}</span><span class="src">IE ${r.ie}</span><span class="src">Sabato ${r.sabato}</span><span class="src">Silver ${r.silver}</span></div>`;
+      const share = (r.pollD!=null)?`<div class="poll" style="font-size:18px;margin-top:8px"><span class="d">${r.pollD}%</span> – <span class="r">${r.pollR}%</span></div><div class="sub">${data.phase==="results"?"Counted vote share":"Current polling share"}${r.pollSource?" · "+r.pollSource:""}</div>`:"";
+      document.getElementById("detail").innerHTML=`<h2>${r.state}</h2><div class="sub" style="margin:4px 0 8px">${mode==="gov"?"Governor · ":""}${r.special?"Special · ":""}${r.open?"Open seat · ":""}${r.incumbent}</div><div class="rate" style="color:${r.color};font-size:18px">${r.consensus}</div>${share}<p style="margin-top:8px">${r.matchup}</p><div class="sources"><span class="src">Cook ${r.cook}</span><span class="src">IE ${r.ie}</span><span class="src">Sabato ${r.sabato}</span><span class="src">Silver ${r.silver}</span></div>`;
       if(map && r.lat && r.lng && r.abbr!=="AK" && r.abbr!=="HI") map.flyTo([r.lat,r.lng],5.2);
     }
     function renderBoard(){
@@ -142,6 +148,7 @@
       if(house) data.house=house; else if(snap&&snap.house) data.house=snap.house;
       if(!data.updatedLabel && snap) data.updatedLabel=snap.updatedLabel;
       if(!data.source && snap) data.source=snap.source;
+      if(!data.phase) data.phase="polls";
       renderModes(); renderBoard(); renderFilters(); renderRows(); paintMap();
     }
     window.addEventListener("load",()=>{ initMap(); load(); });
