@@ -189,7 +189,7 @@
     function initMap(){
       map=L.map('leafletMap',{center:[39.8,-98.5],zoom:4,minZoom:3,maxZoom:8,zoomControl:false});
       L.control.zoom({position:'topright'}).addTo(map);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:16}).addTo(map);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:16}).addTo(map);
       markersGroup=L.layerGroup().addTo(map);
       fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json')
         .then(r=>r.json())
