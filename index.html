@@ -87,7 +87,7 @@
     </div>
     <div id="map"></div>
   </section>
-  <footer>Senate and governor ratings from Wikipedia (CC BY-SA). House is the generic ballot, not a district map. Not a forecast model.</footer>
+  <footer>Senate and governor ratings from Wikipedia (CC BY-SA). House map shows every state; it is not a district forecast. Not a forecast model.</footer>
   <script>
     const MODES=[["senate","Senate"],["gov","Governors"],["house","House"]];
     const FILTERS=[["all","All"],["toss","Toss-up"],["lean","Lean / tilt"],["flip","Hold at risk"],["d","Democratic seats"],["r","Republican seats"]];
@@ -101,9 +101,18 @@
       L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",{attribution:"Tiles © Esri",maxZoom:16}).addTo(map);
       fetch("https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json").then(r=>r.json()).then(states=>{
         geo=L.geoJson(states,{style:f=>({fillColor:colorFor(f.properties.name),weight:1,color:"#2a2e37",fillOpacity:.78}),onEachFeature:(f,layer)=>{layer.on("click",()=>{const r=list().find(x=>x.state===f.properties.name); if(r) select(r);});}}).addTo(map);
+        paintMap();
       });
     }
-    function paintMap(){ if(!geo) return; const rows=list(); geo.setStyle(f=>({fillColor:colorFor(f.properties.name),weight:1,color:"#2a2e37",fillOpacity:rows.some(r=>r.state===f.properties.name&&passes(r))?0.82:0.16})); }
+    function paintMap(){
+      if(!geo) return;
+      if(mode==="house"){
+        geo.setStyle(f=>({fillColor:"#5a6270",weight:1,color:"#2a2e37",fillOpacity:0.78}));
+        return;
+      }
+      const rows=list();
+      geo.setStyle(f=>({fillColor:colorFor(f.properties.name),weight:1,color:"#2a2e37",fillOpacity:rows.some(r=>r.state===f.properties.name&&passes(r))?0.82:0.16}));
+    }
     function renderModes(){ document.getElementById("modes").innerHTML=MODES.map(([id,l])=>`<button class="${id===mode?"on":""}" data-id="${id}">${l}</button>`).join(""); document.getElementById("modes").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; mode=b.dataset.id; filter="all"; selected=null; renderModes(); renderBoard(); renderFilters(); renderRows(); paintMap(); if(map) map.flyTo([39.5,-96.4],4); }; }
     function renderFilters(){ if(mode==="house"){ document.getElementById("filters").innerHTML=""; return; } document.getElementById("filters").innerHTML=FILTERS.map(([id,l])=>`<button class="${id===filter?"on":""}" data-id="${id}">${l}</button>`).join(""); document.getElementById("filters").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; filter=b.dataset.id; renderFilters(); renderRows(); paintMap(); }; }
     function renderRows(){
@@ -122,7 +131,7 @@
       document.getElementById("updated").innerHTML=`<strong>${data.updatedLabel||""}</strong><div>${data.source||""}</div>`;
       if(mode==="senate"){ const s=data.senate; document.getElementById("page-title").textContent="2026 Senate Desk"; document.getElementById("lab-d").textContent="Democrats"; document.getElementById("lab-r").textContent="Republicans"; document.getElementById("num-d").textContent=s.currentDem; document.getElementById("num-r").textContent=s.currentGop; document.getElementById("path").innerHTML=`<b>Net +${s.neededForDemMajority}</b> for a Democratic majority. ${s.tossUpCount} toss-ups among ${s.seatsUp} Senate seats.`; document.getElementById("bar-d").style.flex=s.currentDem; document.getElementById("bar-r").style.flex=s.currentGop; document.getElementById("buckets").innerHTML=order.filter(k=>s.buckets[k]).map(k=>`<div class="pill"><b>${s.buckets[k]}</b> ${k}</div>`).join(""); }
       else if(mode==="gov"){ const g=data.governors; document.getElementById("page-title").textContent="2026 Governors Desk"; document.getElementById("lab-d").textContent="Dem governors"; document.getElementById("lab-r").textContent="GOP governors"; document.getElementById("num-d").textContent=g.currentDem; document.getElementById("num-r").textContent=g.currentGop; document.getElementById("path").innerHTML=`<b>${g.seatsUp} chairs</b> on the 2026 ballot (${g.demSeatsUp} D / ${g.gopSeatsUp} R). ${g.tossUpCount} toss-ups.`; document.getElementById("bar-d").style.flex=g.currentDem; document.getElementById("bar-r").style.flex=g.currentGop; document.getElementById("buckets").innerHTML=order.filter(k=>g.buckets[k]).map(k=>`<div class="pill"><b>${g.buckets[k]}</b> ${k}</div>`).join(""); }
-      else { const h=data.house; document.getElementById("page-title").textContent="2026 House Desk"; document.getElementById("lab-d").textContent="Generic D"; document.getElementById("lab-r").textContent="Generic R"; document.getElementById("num-d").textContent=h.genericDem; document.getElementById("num-r").textContent=h.genericGop; document.getElementById("path").innerHTML=`<b>${h.needed} seats</b> to organize the House. ${h.genericNote}`; document.getElementById("bar-d").style.flex=h.genericDem; document.getElementById("bar-r").style.flex=h.genericGop; document.getElementById("buckets").innerHTML=`<div class="pill"><b>${h.currentDem}</b> Dem seats now</div><div class="pill"><b>${h.currentGop}</b> GOP seats now</div><div class="pill">No district map</div>`; document.getElementById("detail").innerHTML=`<div class="sub">${h.note}</div>`; }
+      else { const h=data.house; document.getElementById("page-title").textContent="2026 House Desk"; document.getElementById("lab-d").textContent="Generic D"; document.getElementById("lab-r").textContent="Generic R"; document.getElementById("num-d").textContent=h.genericDem; document.getElementById("num-r").textContent=h.genericGop; document.getElementById("path").innerHTML=`<b>${h.needed} seats</b> to organize the House. ${h.genericNote}`; document.getElementById("bar-d").style.flex=h.genericDem; document.getElementById("bar-r").style.flex=h.genericGop; document.getElementById("buckets").innerHTML=`<div class="pill"><b>${h.currentDem}</b> Dem seats now</div><div class="pill"><b>${h.currentGop}</b> GOP seats now</div><div class="pill">Map shows all 50 states</div>`; document.getElementById("detail").innerHTML=`<div class="sub">${h.note} The map is the country, not a district forecast.</div>`; }
     }
     async function load(){
       const stamp=Date.now();
