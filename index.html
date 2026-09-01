@@ -2,819 +2,286 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2026 Midterm Election Polling Desk</title>
-  <!-- Leaflet CSS & JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta name="description" content="Independent 2026 midterm snapshot: Senate seats on the ballot, governors, and the House generic ballot. Not affiliated with Decision Desk HQ.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html, body {
-      background-color: #0b0e14;
-      color: #c9d1d9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
-      height: 100dvh;
-      width: 100vw;
-      overflow: hidden;
+    html, body { background:#0b0e14; color:#c9d1d9; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; height:100dvh; width:100%; overflow:hidden; }
+    #app-container { display:flex; flex-direction:column; height:100dvh; }
+    .ticker-wrap { background:#8e1519; color:#fff; height:26px; display:flex; align-items:center; overflow:hidden; font-size:11px; font-weight:700; flex-shrink:0; }
+    .ticker-title { background:#000; color:#f85149; padding:0 10px; height:100%; display:flex; align-items:center; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; z-index:2; }
+    .ticker-container { flex:1; overflow:hidden; position:relative; height:100%; }
+    .ticker-track { display:flex; white-space:nowrap; position:absolute; left:0; top:50%; will-change:transform; }
+    .ticker-content { padding-right:48px; }
+    header { background:#161b22; border-bottom:1px solid #30363d; padding:6px 14px; display:flex; justify-content:space-between; align-items:center; gap:12px; min-height:40px; flex-shrink:0; }
+    .title-group { display:flex; align-items:center; gap:8px; min-width:0; }
+    .status-dot { width:8px; height:8px; background:#d29922; border-radius:50%; flex-shrink:0; }
+    h1 { color:#58a6ff; font-size:13px; letter-spacing:.8px; text-transform:uppercase; }
+    .header-meta { font-size:11px; color:#8b949e; text-align:right; line-height:1.35; }
+    .header-meta strong { color:#c9d1d9; font-weight:600; }
+    .app-viewport { flex:1; display:flex; min-height:0; }
+    nav.side-menu { width:250px; background:#11151c; border-right:1px solid #21262d; display:flex; flex-direction:column; padding:8px; gap:5px; flex-shrink:0; min-height:0; }
+    .side-menu-header { font-size:10px; font-weight:700; color:#8b949e; text-transform:uppercase; letter-spacing:1px; padding:4px 4px 2px; }
+    .menu-item { min-height:30px; padding:0 10px; font-size:12px; color:#8b949e; cursor:pointer; display:flex; align-items:center; gap:8px; background:#0d1117; border:1px solid #21262d; border-radius:6px; }
+    .menu-item:hover { border-color:#8b949e; color:#c9d1d9; }
+    .menu-item.active { background:rgba(88,166,255,.12); color:#58a6ff; border-color:#58a6ff; }
+    .sidebar-news-container { flex:1; display:flex; flex-direction:column; background:#0d1117; border:1px solid #21262d; border-radius:6px; padding:8px; min-height:0; }
+    .news-list { display:flex; flex-direction:column; gap:6px; overflow-y:auto; flex:1; }
+    .news-card { background:#161b22; border:1px solid #21262d; padding:7px 8px; border-radius:4px; font-size:12px; line-height:1.35; cursor:pointer; }
+    .news-kicker { font-size:10px; font-weight:700; }
+    .news-time-dem { color:#388bfd; } .news-time-gop { color:#f85149; } .news-time-toss { color:#d29922; }
+    .disclaimer { font-size:10px; color:#6e7681; line-height:1.4; padding:6px 4px 2px; }
+    .stage-container { flex:1; display:flex; flex-direction:column; min-width:0; min-height:0; }
+    #leafletMap { flex:1; min-height:0; background:#090d14; }
+    .leaflet-container { background:#090d14 !important; }
+    .leaflet-control-attribution { background:rgba(13,17,23,.85) !important; color:#8b949e !important; font-size:9px !important; }
+    .leaflet-marker-icon { background:none; border:none; }
+    .map-marker { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800; cursor:pointer; }
+    .marker-dem { background:rgba(56,139,253,.45); border:1.5px solid #388bfd; color:#fff; box-shadow:0 0 8px #388bfd; }
+    .marker-gop { background:rgba(248,81,73,.45); border:1.5px solid #f85149; color:#fff; box-shadow:0 0 8px #f85149; }
+    .marker-battleground { background:rgba(210,153,34,.45); border:1.5px solid #d29922; color:#fff; box-shadow:0 0 10px #d29922; }
+    .leaflet-tooltip.custom-state-tooltip { background:#161b22; border:1px solid #30363d; color:#c9d1d9; font-size:11px; font-weight:700; padding:5px 8px; border-radius:4px; }
+    .dashboard-grid { display:grid; grid-template-columns:1.1fr 1.2fr 1fr; gap:6px; padding:6px 8px; background:#0d1117; border-top:1px solid #30363d; flex-shrink:0; }
+    .panel-box { background:#161b22; border:1px solid #30363d; border-radius:6px; padding:8px 10px; min-width:0; }
+    .panel-header { font-size:10px; font-weight:700; color:#8b949e; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; }
+    .chamber-split { font-size:15px; font-weight:800; }
+    .panel-note { font-size:11px; color:#8b949e; margin-top:4px; line-height:1.35; }
+    .badge { padding:2px 6px; border-radius:3px; font-size:10px; font-weight:800; border:1px solid; }
+    .badge-dem { background:rgba(56,139,253,.2); color:#388bfd; border-color:#388bfd; }
+    .badge-gop { background:rgba(248,81,73,.2); color:#f85149; border-color:#f85149; }
+    .badge-tossup { background:rgba(210,153,34,.2); color:#d29922; border-color:#d29922; }
+    .threat-row { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:6px; }
+    .bar-bg { background:#21262d; height:6px; border-radius:3px; overflow:hidden; }
+    .bar-fill { height:100%; width:50%; background:#388bfd; transition:width .3s ease, background-color .3s ease; }
+    @media (max-width:900px) {
+      html, body { overflow:auto; height:auto; }
+      #app-container { height:auto; min-height:100dvh; }
+      header { flex-wrap:wrap; }
+      .app-viewport { flex-direction:column; }
+      nav.side-menu { width:100%; height:auto; border-right:0; border-bottom:1px solid #21262d; }
+      .filter-row { display:flex; flex-wrap:wrap; gap:6px; }
+      .menu-item { flex:1 1 140px; justify-content:center; }
+      .sidebar-news-container { max-height:220px; }
+      #leafletMap { height:420px; flex:none; }
+      .dashboard-grid { grid-template-columns:1fr; }
     }
-
-    #app-container {
-      display: flex;
-      flex-direction: column;
-      height: 100dvh;
-      width: 100vw;
-    }
-    
-    /* Top Ticker Bar */
-    .ticker-wrap {
-      background: #8e1519;
-      color: #fff;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      font-size: 10.5px;
-      font-weight: bold;
-      flex-shrink: 0;
-      border-bottom: 1px solid #b31d23;
-      position: relative;
-    }
-    .ticker-title {
-      background: #000;
-      color: #f85149;
-      padding: 0 10px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      z-index: 10;
-      flex-shrink: 0;
-    }
-    .ticker-container {
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-    
-    /* JS DYNAMIC SCROLLING TRACK */
-    .ticker-track {
-      display: flex;
-      white-space: nowrap;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      will-change: transform;
-    }
-    .ticker-content {
-      display: flex;
-      white-space: nowrap;
-      padding-right: 60px;
-    }
-
-    /* Header Bar */
-    header {
-      background: #161b22;
-      border-bottom: 1px solid #30363d;
-      padding: 4px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 36px;
-      flex-shrink: 0;
-    }
-    .title-group { display: flex; align-items: center; gap: 8px; }
-    .status-dot {
-      width: 8px; height: 8px; background: #388bfd;
-      border-radius: 50%; box-shadow: 0 0 6px #388bfd;
-      animation: pulse 1.5s infinite;
-    }
-    h1 { color: #58a6ff; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
-
-    /* Main Viewport */
-    .app-viewport {
-      height: calc(100dvh - 62px);
-      width: 100vw;
-      display: flex;
-    }
-
-    /* Left Sidebar Navigation */
-    nav.side-menu {
-      width: 230px;
-      background: #11151c;
-      border-right: 1px solid #21262d;
-      display: flex;
-      flex-direction: column;
-      padding: 8px;
-      gap: 5px;
-      flex-shrink: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    .side-menu-header {
-      font-size: 8.5px;
-      font-weight: bold;
-      color: #8b949e;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 4px;
-      margin-bottom: 2px;
-      padding-left: 4px;
-    }
-    .menu-item {
-      height: 28px;
-      padding: 0 10px;
-      font-size: 8.5px;
-      color: #8b949e;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #0d1117;
-      border: 1px solid #21262d;
-      border-radius: 6px;
-      flex-shrink: 0;
-    }
-    .menu-item:hover { border-color: #8b949e; color: #c9d1d9; }
-    .menu-item.active {
-      background: rgba(88, 166, 255, 0.12);
-      color: #58a6ff;
-      border-color: #58a6ff;
-      box-shadow: 0 0 8px rgba(88, 166, 255, 0.2);
-    }
-
-    /* Sidebar Section Divider */
-    .sidebar-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #30363d 20%, #30363d 80%, transparent);
-      margin: 4px 0;
-      flex-shrink: 0;
-    }
-
-    /* Sidebar News Feed */
-    .sidebar-news-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background: #0d1117;
-      border: 1px solid #21262d;
-      border-radius: 6px;
-      padding: 6px;
-      overflow: hidden;
-    }
-    .news-list { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; flex: 1; }
-    .news-card { background: #161b22; border: 1px solid #21262d; padding: 4px 6px; border-radius: 4px; font-size: 8px; line-height: 1.3; cursor: pointer; }
-    .news-time-dem { color: #388bfd; font-size: 7px; font-weight: bold; }
-    .news-time-gop { color: #f85149; font-size: 7px; font-weight: bold; }
-    .news-time-toss { color: #d29922; font-size: 7px; font-weight: bold; }
-
-    /* Stage Container */
-    .stage-container {
-      width: calc(100vw - 230px);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    /* LEAFLET TACTICAL MAP CONTAINER */
-    #leafletMap {
-      flex: 1;
-      width: 100%;
-      background: #090d14;
-      min-height: 0;
-    }
-    .leaflet-container { background: #090d14 !important; }
-    .leaflet-control-attribution { display: none !important; }
-
-    /* CUSTOM LEAFLET DIV MARKERS */
-    .leaflet-marker-icon { background: none; border: none; }
-    .map-marker {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 7px;
-      font-weight: bold;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.2s ease;
-    }
-    .map-marker:hover { transform: scale(1.25); }
-
-    .marker-dem {
-      background: rgba(56, 139, 253, 0.4);
-      border: 1.5px solid #388bfd;
-      color: #fff;
-      box-shadow: 0 0 10px #388bfd;
-    }
-    .marker-gop {
-      background: rgba(248, 81, 73, 0.4);
-      border: 1.5px solid #f85149;
-      color: #fff;
-      box-shadow: 0 0 10px #f85149;
-    }
-    .marker-tossup {
-      background: rgba(210, 153, 34, 0.4);
-      border: 1.5px solid #d29922;
-      color: #fff;
-      box-shadow: 0 0 12px #d29922;
-      animation: ping 2s infinite;
-    }
-
-    /* STATE HOVER TOOLTIP STYLING */
-    .leaflet-tooltip.custom-state-tooltip {
-      background: #161b22;
-      border: 1px solid #30363d;
-      color: #c9d1d9;
-      font-family: monospace;
-      font-size: 9px;
-      font-weight: bold;
-      padding: 4px 8px;
-      border-radius: 4px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.5);
-    }
-
-    /* DOCKED BOTTOM DASHBOARD PANEL */
-    .dashboard-grid {
-      height: 140px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 280px 1fr 1fr;
-      gap: 6px;
-      padding: 5px 8px;
-      background: #0d1117;
-      border-top: 1px solid #30363d;
-      flex-shrink: 0;
-      z-index: 100;
-    }
-
-    .panel-box {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 6px;
-      padding: 5px 7px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .panel-header {
-      font-size: 8.5px;
-      font-weight: bold;
-      color: #8b949e;
-      text-transform: uppercase;
-      border-bottom: 1px solid #21262d;
-      padding-bottom: 2px;
-      margin-bottom: 3px;
-    }
-
-    /* CONGRESSIONAL BALANCE PANEL */
-    .chamber-grid { display: grid; grid-template-columns: 1fr; gap: 6px; flex: 1; align-items: center; }
-    .chamber-card { background: #0d1117; border: 1px solid #21262d; border-radius: 4px; padding: 4px 6px; text-align: center; }
-    .chamber-title { font-size: 7.5px; color: #8b949e; text-transform: uppercase; margin-bottom: 2px; }
-    .chamber-split { font-size: 11.5px; font-weight: bold; white-space: nowrap; }
-
-    .threat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-    .badge { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; border: 1px solid; }
-    .badge-dem { background: rgba(56, 139, 253, 0.2); color: #388bfd; border-color: #388bfd; }
-    .badge-gop { background: rgba(248, 81, 73, 0.2); color: #f85149; border-color: #f85149; }
-    .badge-tossup { background: rgba(210, 153, 34, 0.2); color: #d29922; border-color: #d29922; }
-
-    .bar-bg { background: #21262d; height: 4px; border-radius: 2px; overflow: hidden; margin-bottom: 3px; }
-    .bar-fill { height: 100%; background: #388bfd; width: 50%; transition: width 0.4s ease, background-color 0.4s ease; }
-
-    @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
-    @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(210, 153, 34, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(210, 153, 34, 0); } 100% { box-shadow: 0 0 0 0 rgba(210, 153, 34, 0); } }
   </style>
 </head>
 <body>
-
   <div id="app-container">
     <div class="ticker-wrap">
-      <div class="ticker-title">2026 MIDTERM FEEDS</div>
+      <div class="ticker-title">2026 Midterm Desk</div>
       <div class="ticker-container">
         <div id="tickerTrack" class="ticker-track">
-          <div id="tickerBlock1" class="ticker-content">INITIALIZING FULL 50-STATE FEEDS...</div>
-          <div id="tickerBlock2" class="ticker-content">INITIALIZING FULL 50-STATE FEEDS...</div>
+          <div id="tickerBlock1" class="ticker-content">Loading snapshot…</div>
+          <div id="tickerBlock2" class="ticker-content">Loading snapshot…</div>
         </div>
       </div>
     </div>
-
     <header>
       <div class="title-group">
-        <div class="status-dot"></div>
+        <div class="status-dot" title="Editorial snapshot"></div>
         <h1>2026 Midterm Election Polling Desk</h1>
       </div>
-      <div class="header-actions">
-        <span style="font-size:9.5px; color:#388bfd;">AUTOMATED PIPELINE ACTIVE</span>
+      <div class="header-meta">
+        <div id="updated-label"><strong>Editorial snapshot</strong></div>
+        <div>Not affiliated with Decision Desk HQ</div>
       </div>
     </header>
-
     <div class="app-viewport">
       <nav class="side-menu">
-        <div class="side-menu-header">MIDTERM CONTESTS</div>
-        <div class="menu-item active" onclick="filterCategory('ALL', this)">🌐 All Key Contests</div>
-        <div class="menu-item" onclick="filterCategory('battleground', this)">🟡 Toss-Up Races</div>
-        <div class="menu-item" onclick="filterCategory('gov', this)">🏛️ Governor Races</div>
-        <div class="menu-item" onclick="filterCategory('dem', this)">🔵 Dem Poll Lead</div>
-        <div class="menu-item" onclick="filterCategory('gop', this)">🔴 GOP Poll Lead</div>
-
-        <div class="sidebar-divider"></div>
-
+        <div class="side-menu-header">Filter contests</div>
+        <div class="filter-row">
+          <div class="menu-item active" onclick="filterCategory('ALL', this)">All featured</div>
+          <div class="menu-item" onclick="filterCategory('senate', this)">Senate 2026</div>
+          <div class="menu-item" onclick="filterCategory('gov', this)">Governors</div>
+          <div class="menu-item" onclick="filterCategory('battleground', this)">Toss-ups</div>
+          <div class="menu-item" onclick="filterCategory('dem', this)">Dem lead</div>
+          <div class="menu-item" onclick="filterCategory('gop', this)">GOP lead</div>
+        </div>
         <div class="sidebar-news-container">
-          <div class="side-menu-header" style="margin-top:0;">CANDIDATE DISPATCHES</div>
-          <div id="region-title" style="color:#58a6ff; font-size: 9px; font-weight:bold; margin-bottom: 1px;">National Summary</div>
-          <div id="region-coords" style="font-size:7px; color:#8b949e; margin-bottom: 4px;">Senate, House & Governor Surveys</div>
+          <div class="side-menu-header" style="margin-top:0;">Race list</div>
+          <div id="region-title" style="color:#58a6ff;font-size:13px;font-weight:700;">National summary</div>
+          <div id="region-coords" style="font-size:11px;color:#8b949e;margin:2px 0 8px;">Click a state or a card</div>
           <div id="news-feed" class="news-list"></div>
         </div>
+        <p class="disclaimer">Leads are an editorial snapshot, not a forecast model. Gray states have no 2026 Senate race when the Senate filter is on.</p>
       </nav>
-
       <div class="stage-container">
-        <!-- LEAFLET MAP STAGE -->
         <div id="leafletMap"></div>
-
         <div class="dashboard-grid">
-          <!-- SENATE BALANCE OF POWER -->
           <div class="panel-box">
-            <div class="panel-header">Senate Control Battle (51 Seats)</div>
-            <div class="chamber-grid">
-              <div class="chamber-card">
-                <div class="chamber-title">Projected Senate Balance</div>
-                <div class="chamber-split">
-                  <span style="color:#388bfd;">DEM: 47</span> &nbsp;|&nbsp; 
-                  <span style="color:#d29922;">5 TOSS-UPS</span> &nbsp;|&nbsp; 
-                  <span style="color:#f85149;">GOP: 48</span>
-                </div>
-              </div>
-            </div>
+            <div class="panel-header">Senate — current chamber</div>
+            <div class="chamber-split" id="senate-split"><span style="color:#388bfd;">DEM 47</span> &nbsp;|&nbsp; <span style="color:#f85149;">GOP 53</span></div>
+            <p class="panel-note" id="senate-note">35 seats up (13 D / 22 R). Democrats need net +4 for a majority; the vice president breaks a 50–50 tie for Republicans.</p>
           </div>
-
-          <!-- STATE TELEMETRY PANEL -->
           <div class="panel-box">
-            <div class="panel-header">Candidate Matchup Telemetry</div>
+            <div class="panel-header">Selected race</div>
             <div class="threat-row">
-              <span style="font-size:8px;">Status:</span>
+              <span style="font-size:12px;" id="selected-office">Status</span>
               <span id="threat-badge" class="badge badge-tossup">SELECT A RACE</span>
             </div>
-            <div class="bar-bg">
-              <div id="threat-bar" class="bar-fill"></div>
-            </div>
-            <p id="threat-desc" style="font-size:7.5px; color:#8b949e; margin-top:2px;">Click any state boundary or marker to inspect candidate polling matchups.</p>
+            <div class="bar-bg"><div id="threat-bar" class="bar-fill"></div></div>
+            <p id="threat-desc" class="panel-note">Click a state. Senate filter colors only seats actually on the 2026 ballot.</p>
           </div>
-
-          <!-- HOUSE GENERIC BALLOT -->
           <div class="panel-box">
-            <div class="panel-header" style="color:#58a6ff;">🏛️ House Generic Ballot Average</div>
-            <div class="chamber-grid">
-              <div class="chamber-card">
-                <div class="chamber-title">218 Seats Needed for House Majority</div>
-                <div class="chamber-split">
-                  <span style="color:#388bfd;">DEM: 48.2%</span> &nbsp;vs.&nbsp; 
-                  <span style="color:#f85149;">GOP: 41.8%</span>
-                </div>
-              </div>
-            </div>
+            <div class="panel-header">House generic ballot</div>
+            <div class="chamber-split" id="house-split"><span style="color:#388bfd;">DEM 48.2%</span> &nbsp;vs&nbsp; <span style="color:#f85149;">GOP 41.8%</span></div>
+            <p class="panel-note" id="house-note">About D+6. This is vote share, not seats. 218 needed for a House majority.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <script>
-    let map;
-    let markersGroup;
-    let geojsonLayer;
-    let currentActiveCategory = 'ALL';
-
-    // 50-STATE BASELINE STATE-COLOR DICTIONARY
-    const stateBaselineColors = {
-      "alabama": "#f85149", "alaska": "#d29922", "arizona": "#d29922", "arkansas": "#f85149",
-      "california": "#388bfd", "colorado": "#388bfd", "connecticut": "#388bfd", "delaware": "#388bfd",
-      "florida": "#f85149", "georgia": "#d29922", "hawaii": "#388bfd", "idaho": "#f85149",
-      "illinois": "#388bfd", "indiana": "#f85149", "iowa": "#f85149", "kansas": "#d29922",
-      "kentucky": "#f85149", "louisiana": "#f85149", "maine": "#d29922", "maryland": "#388bfd",
-      "massachusetts": "#388bfd", "michigan": "#d29922", "minnesota": "#388bfd", "mississippi": "#f85149",
-      "missouri": "#f85149", "montana": "#d29922", "nebraska": "#f85149", "nevada": "#d29922",
-      "new hampshire": "#388bfd", "new jersey": "#388bfd", "new mexico": "#388bfd", "new york": "#388bfd",
-      "north carolina": "#d29922", "north dakota": "#f85149", "ohio": "#f85149", "oklahoma": "#f85149",
-      "oregon": "#388bfd", "pennsylvania": "#388bfd", "rhode island": "#388bfd", "south carolina": "#f85149",
-      "south dakota": "#f85149", "tennessee": "#f85149", "texas": "#f85149", "utah": "#f85149",
-      "vermont": "#f85149", "virginia": "#388bfd", "washington": "#388bfd", "west virginia": "#f85149",
-      "wisconsin": "#d29922", "wyoming": "#f85149"
+    let map, markersGroup, geojsonLayer, currentFilter = 'ALL', races = [];
+    const FALLBACK = {
+      updatedLabel: 'Editorial snapshot \u00b7 1 Sep 2026',
+      senate: { currentDem:47, currentGop:53, neededForDemMajority:4, seatsUp:35, demSeatsUp:13, gopSeatsUp:22 },
+      house: { dem:48.2, gop:41.8, note:'Generic ballot snapshot, not a seat projection.' },
+      races: []
     };
-
-    // BUILT-IN FALLBACK DATASET (Guarantees every state click responds immediately)
-    let fallbackData = [
-      { id: "al", state: "Alabama", type: "gop", category: "senate", icon: "AL", name: "Alabama Midterm Polls", lat: 32.3182, lng: -86.9023, threatLevel: "POLL LEAD: MOORE +19.0%", threatPercent: "69%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Barry Moore (R) leads Everett Wess (D).", news: [{ time: "State Poll", headline: "Solid Republican advantage across all state districts." }] },
-      { id: "ak", state: "Alaska", type: "battleground", category: "senate", icon: "AK", name: "Alaska Midterm Polls", lat: 64.2008, lng: -149.4937, threatLevel: "POLL LEAD: TOSS-UP (+1.2%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Dan Sullivan (R) vs. Mary Peltola (D).", news: [{ time: "Alaska Survey", headline: "Peltola and Sullivan neck-and-neck." }] },
-      { id: "az", state: "Arizona", type: "battleground", category: "gov", icon: "AZ", name: "Arizona Midterm Polls", lat: 34.0489, lng: -111.0937, threatLevel: "POLL LEAD: HOBBS +1.4%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Katie Hobbs (D) vs. Andy Biggs (R).", news: [{ time: "OH Predictive", headline: "Hobbs holds narrow lead in Maricopa county." }] },
-      { id: "ar", state: "Arkansas", type: "gop", category: "gov", icon: "AR", name: "Arkansas Midterm Polls", lat: 34.7465, lng: -92.2896, threatLevel: "POLL LEAD: SANDERS +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Sarah Huckabee Sanders (R) holds solid lead.", news: [{ time: "AR Survey", headline: "Sanders commands 18-point lead." }] },
-      { id: "ca", state: "California", type: "dem", category: "gov", icon: "CA", name: "California Midterm Polls", lat: 36.7783, lng: -119.4179, threatLevel: "POLL LEAD: BECERRA +19.0%", threatPercent: "61%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Xavier Becerra (D) vs. Steve Hilton (R).", news: [{ time: "PPIC Survey", headline: "Becerra leads Hilton 61% to 36% statewide." }] },
-      { id: "co", state: "Colorado", type: "dem", category: "senate", icon: "CO", name: "Colorado Midterm Polls", lat: 39.5501, lng: -105.7821, threatLevel: "POLL LEAD: HICKENLOOPER +8.5%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "John Hickenlooper (D) leads Mark Baisley (R).", news: [{ time: "Keating Poll", headline: "Hickenlooper holds solid lead in Denver Metro." }] },
-      { id: "ct", state: "Connecticut", type: "dem", category: "gov", icon: "CT", name: "Connecticut Midterm Polls", lat: 41.6032, lng: -73.0877, threatLevel: "POLL LEAD: LAMONT +11.0%", threatPercent: "61%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Ned Lamont (D) holds comfortable lead.", news: [{ time: "Quinnipiac", headline: "Lamont maintains double-digit polling advantage." }] },
-      { id: "de", state: "Delaware", type: "dem", category: "senate", icon: "DE", name: "Delaware Midterm Polls", lat: 38.9108, lng: -75.5277, threatLevel: "POLL LEAD: DEM +16.0%", threatPercent: "66%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Chris Coons (D) leads Republican challenger.", news: [{ time: "DE Survey", headline: "Democratic baseline holds strong." }] },
-      { id: "fl", state: "Florida", type: "gop", category: "gov", icon: "FL", name: "Florida Midterm Polls", lat: 27.6648, lng: -81.5158, threatLevel: "POLL LEAD: DONALDS +5.8%", threatPercent: "56%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Byron Donalds (R) vs. David Jolly (D).", news: [{ time: "Mason-Dixon", headline: "Donalds commands 5.8% polling advantage." }] },
-      { id: "ga", state: "Georgia", type: "battleground", category: "gov", icon: "GA", name: "Georgia Midterm Polls", lat: 32.6782, lng: -83.2229, threatLevel: "POLL LEAD: BOTTOMS +1.1%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Keisha Lance Bottoms (D) vs. Rick Jackson (R).", news: [{ time: "AJC Survey", headline: "Statistical tie across Metro Atlanta districts." }] },
-      { id: "hi", state: "Hawaii", type: "dem", category: "gov", icon: "HI", name: "Hawaii Midterm Polls", lat: 19.8987, lng: -155.6659, threatLevel: "POLL LEAD: GREEN +22.0%", threatPercent: "72%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Josh Green (D) holds solid lead statewide.", news: [{ time: "Honolulu Poll", headline: "Green maintains strong approval rating." }] },
-      { id: "id", state: "Idaho", type: "gop", category: "gov", icon: "ID", name: "Idaho Midterm Polls", lat: 44.0682, lng: -114.7420, threatLevel: "POLL LEAD: LITTLE +22.0%", threatPercent: "72%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Brad Little (R) commands strong lead statewide.", news: [{ time: "Boise State", headline: "Little leads across all rural districts." }] },
-      { id: "il", state: "Illinois", type: "dem", category: "gov", icon: "IL", name: "Illinois Midterm Polls", lat: 40.6331, lng: -89.3985, threatLevel: "POLL LEAD: PRITZKER +9.5%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "JB Pritzker (D) leads Republican Challenger.", news: [{ time: "Chicago Sun", headline: "Pritzker holds steady lead in Cook county." }] },
-      { id: "in", state: "Indiana", type: "gop", category: "house", icon: "IN", name: "Indiana Midterm Polls", lat: 40.2672, lng: -86.1349, threatLevel: "POLL LEAD: GOP +12.0%", threatPercent: "62%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Solid Republican congressional baseline.", news: [{ time: "Indy Survey", headline: "Republican candidates hold lead in key districts." }] },
-      { id: "ia", state: "Iowa", type: "gop", category: "gov", icon: "IA", name: "Iowa Midterm Polls", lat: 41.8780, lng: -93.0977, threatLevel: "POLL LEAD: REYNOLDS +7.5%", threatPercent: "57%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Kim Reynolds (R) leads Democratic Challenger.", news: [{ time: "Des Moines Register", headline: "Reynolds holds lead across rural counties." }] },
-      { id: "ks", state: "Kansas", type: "battleground", category: "gov", icon: "KS", name: "Kansas Midterm Polls", lat: 38.5266, lng: -96.7265, threatLevel: "POLL LEAD: TOSS-UP (+0.5%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Open seat contest following Laura Kelly (D).", news: [{ time: "KS Politics", headline: "Statistical tie in open governor race." }] },
-      { id: "ky", state: "Kentucky", type: "gop", category: "senate", icon: "KY", name: "Kentucky Midterm Polls", lat: 37.8393, lng: -84.2700, threatLevel: "POLL LEAD: BARR +14.0%", threatPercent: "64%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Andy Barr (R) vs. Charles Booker (D).", news: [{ time: "Bluegrass Poll", headline: "Barr leads Booker in open seat contest." }] },
-      { id: "la", state: "Louisiana", type: "gop", category: "senate", icon: "LA", name: "Louisiana Midterm Polls", lat: 30.9843, lng: -91.9623, threatLevel: "POLL LEAD: LETLOW +18.5%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Julia Letlow (R) vs. Jamie Davis (D).", news: [{ time: "LSU Survey", headline: "Letlow clear frontrunner in jungle primary." }] },
-      { id: "me", state: "Maine", type: "battleground", category: "senate", icon: "ME", name: "Maine Midterm Polls", lat: 45.2538, lng: -69.4455, threatLevel: "POLL LEAD: TOSS-UP (+1.0%)", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Susan Collins (R) vs. Troy Jackson (D).", news: [{ time: "Pan Atlantic", headline: "Collins personal approval rating key." }] },
-      { id: "md", state: "Maryland", type: "dem", category: "gov", icon: "MD", name: "Maryland Midterm Polls", lat: 39.0458, lng: -76.6413, threatLevel: "POLL LEAD: MOORE +18.5%", threatPercent: "68%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Wes Moore (D) commands solid lead statewide.", news: [{ time: "Goucher Poll", headline: "Moore holds high approval across Maryland." }] },
-      { id: "ma", state: "Massachusetts", type: "dem", category: "gov", icon: "MA", name: "Massachusetts Midterm Polls", lat: 42.4072, lng: -71.3824, threatLevel: "POLL LEAD: HEALEY +16.0%", threatPercent: "66%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Maura Healey (D) holds commanding margin.", news: [{ time: "Boston Globe", headline: "Healey maintains double-digit lead." }] },
-      { id: "mi", state: "Michigan", type: "battleground", category: "senate", icon: "MI", name: "Michigan Midterm Polls", lat: 44.3148, lng: -85.6024, threatLevel: "POLL LEAD: EL-SAYED +1.8%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Abdul El-Sayed (D) vs. Mike Rogers (R).", news: [{ time: "EPIC-MRA", headline: "El-Sayed leads Rogers 47% to 43%." }] },
-      { id: "mn", state: "Minnesota", type: "dem", category: "gov", icon: "MN", name: "Minnesota Midterm Polls", lat: 46.7296, lng: -94.6859, threatLevel: "POLL LEAD: WALZ +5.5%", threatPercent: "55%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Tim Walz (D) leads Republican Challenger.", news: [{ time: "Star Tribune", headline: "Walz holds 5.5-point margin in Twin Cities." }] },
-      { id: "ms", state: "Mississippi", type: "gop", category: "house", icon: "MS", name: "Mississippi Midterm Polls", lat: 32.3547, lng: -89.3985, threatLevel: "POLL LEAD: GOP +15.0%", threatPercent: "65%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Solid Republican congressional baseline.", news: [{ time: "MS Poll", headline: "Republican candidates hold lead statewide." }] },
-      { id: "mo", state: "Missouri", type: "gop", category: "house", icon: "MO", name: "Missouri Midterm Polls", lat: 37.9643, lng: -91.8318, threatLevel: "POLL LEAD: GOP +12.5%", threatPercent: "62%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Republican congressional baseline holds steady.", news: [{ time: "MO Survey", headline: "GOP leads in suburban and rural districts." }] },
-      { id: "mt", state: "Montana", type: "battleground", category: "senate", icon: "MT", name: "Montana Midterm Polls", lat: 46.8797, lng: -110.3626, threatLevel: "POLL LEAD: SHEEHY +2.4%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Tim Sheehy (R) vs. Democratic Challenger.", news: [{ time: "MSU Poll", headline: "Sheehy retains slight margin across rural counties." }] },
-      { id: "ne", state: "Nebraska", type: "gop", category: "gov", icon: "NE", name: "Nebraska Midterm Polls", lat: 41.4925, lng: -99.9018, threatLevel: "POLL LEAD: PILLEN +14.0%", threatPercent: "64%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Jim Pillen (R) holds commanding margin.", news: [{ time: "Omaha World", headline: "Pillens maintains strong lead." }] },
-      { id: "nv", state: "Nevada", type: "battleground", category: "gov", icon: "NV", name: "Nevada Midterm Polls", lat: 38.8026, lng: -116.4194, threatLevel: "POLL LEAD: LOMBARDO +0.8%", threatPercent: "50%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Joe Lombardo (R) vs. Democratic Challenger.", news: [{ time: "Nevada Poll", headline: "Lombardo tied in Clark County aggregate." }] },
-      { id: "nh", state: "New Hampshire", type: "dem", category: "senate", icon: "NH", name: "New Hampshire Midterm Polls", lat: 43.1939, lng: -71.5724, threatLevel: "POLL LEAD: DEM +3.4%", threatPercent: "53%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Open seat contest following Shaheen retirement.", news: [{ time: "UNH Survey", headline: "Democratic nominee maintains narrow lead." }] },
-      { id: "nj", state: "New Jersey", type: "dem", category: "house", icon: "NJ", name: "New Jersey Midterm Polls", lat: 40.0583, lng: -74.4057, threatLevel: "POLL LEAD: DEM +7.0%", threatPercent: "57%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Democratic congressional baseline holds lead.", news: [{ time: "Monmouth Poll", headline: "Democrats lead in suburban North Jersey." }] },
-      { id: "nm", state: "New Mexico", type: "dem", category: "senate", icon: "NM", name: "New Mexico Midterm Polls", lat: 34.5199, lng: -105.8701, threatLevel: "POLL LEAD: LUJÁN +6.8%", threatPercent: "56%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Ben Ray Luján (D) vs. Larry Marker (R).", news: [{ time: "Research & Polling", headline: "Luján leads statewide survey by nearly 7 points." }] },
-      { id: "ny", state: "New York", type: "dem", category: "gov", icon: "NY", name: "New York Midterm Polls", lat: 42.8000, lng: -75.5000, threatLevel: "POLL LEAD: HOCHUL +7.2%", threatPercent: "57%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Kathy Hochul (D) leads Republican Challenger.", news: [{ time: "Siena Poll", headline: "Hochul holds 7.2% margin statewide." }] },
-      { id: "nc", state: "North Carolina", type: "battleground", category: "senate", icon: "NC", name: "North Carolina Midterm Polls", lat: 35.7596, lng: -79.0193, threatLevel: "POLL LEAD: COOPER +2.1%", threatPercent: "52%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Roy Cooper (D) vs. Michael Whatley (R).", news: [{ time: "Marist Poll", headline: "Roy Cooper maintains narrow lead over Whatley." }] },
-      { id: "nd", state: "North Dakota", type: "gop", category: "senate", icon: "ND", name: "North Dakota Midterm Polls", lat: 47.5515, lng: -101.0020, threatLevel: "POLL LEAD: CRAMER +22.0%", threatPercent: "71%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Kevin Cramer (R) holds decisive lead.", news: [{ time: "ND Poll", headline: "Cramer holds major advantage." }] },
-      { id: "oh", state: "Ohio", type: "gop", category: "senate", icon: "OH", name: "Ohio Midterm Polls", lat: 40.4173, lng: -82.9071, threatLevel: "POLL LEAD: HUSTED +4.5%", threatPercent: "55%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Appointed Sen. Jon Husted (R) leads.", news: [{ time: "Suffolk Poll", headline: "Husted retains 4.5% polling cushion." }] },
-      { id: "ok", state: "Oklahoma", type: "gop", category: "gov", icon: "OK", name: "Oklahoma Midterm Polls", lat: 35.5000, lng: -97.5164, threatLevel: "POLL LEAD: GOP +16.0%", threatPercent: "66%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open term-limited contest following Kevin Stitt.", news: [{ time: "Tulsa World", headline: "Republican candidate commands major lead." }] },
-      { id: "or", state: "Oregon", type: "dem", category: "gov", icon: "OR", name: "Oregon Midterm Polls", lat: 43.8041, lng: -120.5542, threatLevel: "POLL LEAD: KOTEK +4.5%", threatPercent: "54%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Tina Kotek (D) vs. Republican Challenger.", news: [{ time: "DHM Research", headline: "Kotek maintains lead in Willamette Valley." }] },
-      { id: "pa", state: "Pennsylvania", type: "dem", category: "gov", icon: "PA", name: "Pennsylvania Midterm Polls", lat: 40.8781, lng: -77.7996, threatLevel: "POLL LEAD: SHAPIRO +8.4%", threatPercent: "58%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Josh Shapiro (D) vs. GOP Challenger.", news: [{ time: "F&M Poll", headline: "Shapiro maintains strong job approval and lead." }] },
-      { id: "ri", state: "Rhode Island", type: "dem", category: "gov", icon: "RI", name: "Rhode Island Midterm Polls", lat: 41.5801, lng: -71.4774, threatLevel: "POLL LEAD: MCKEE +12.0%", threatPercent: "62%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Dan McKee (D) holds solid lead statewide.", news: [{ time: "RI Survey", headline: "McKee leads in Providence area." }] },
-      { id: "sc", state: "South Carolina", type: "gop", category: "gov", icon: "SC", name: "South Carolina Midterm Polls", lat: 33.8361, lng: -81.1637, threatLevel: "POLL LEAD: GOP +14.0%", threatPercent: "64%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open seat following McMaster term limit.", news: [{ time: "SC Poll", headline: "Republican frontrunner holds double-digit lead." }] },
-      { id: "sd", state: "South Dakota", type: "gop", category: "gov", icon: "SD", name: "South Dakota Midterm Polls", lat: 43.9695, lng: -99.9018, threatLevel: "POLL LEAD: GOP +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Republican nominee holds solid margin.", news: [{ time: "Argus Leader", headline: "Solid Republican lead statewide." }] },
-      { id: "tn", state: "Tennessee", type: "gop", category: "gov", icon: "TN", name: "Tennessee Midterm Polls", lat: 35.5175, lng: -86.5804, threatLevel: "POLL LEAD: GOP +16.0%", threatPercent: "66%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open seat following Bill Lee term limit.", news: [{ time: "TN Survey", headline: "GOP candidate leads in open race." }] },
-      { id: "tx", state: "Texas", type: "gop", category: "senate", icon: "TX", name: "Texas Midterm Polls", lat: 31.9686, lng: -99.9018, threatLevel: "POLL LEAD: PAXTON +4.2%", threatPercent: "54%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Ken Paxton (R) vs. James Talarico (D).", news: [{ time: "UT/Texas Politics", headline: "Paxton holds lead following primary runoff." }] },
-      { id: "ut", state: "Utah", type: "gop", category: "house", icon: "UT", name: "Utah Midterm Polls", lat: 39.3210, lng: -111.0937, threatLevel: "POLL LEAD: GOP +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Solid Republican congressional baseline.", news: [{ time: "Salt Lake Poll", headline: "GOP candidates lead statewide." }] },
-      { id: "vt", state: "Vermont", type: "gop", category: "gov", icon: "VT", name: "Vermont Midterm Polls", lat: 44.0000, lng: -72.7000, threatLevel: "POLL LEAD: SCOTT +24.0%", threatPercent: "74%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Incumbent Phil Scott (R) commands major lead.", news: [{ time: "VT Survey", headline: "Scott holds high bipartisan approval." }] },
-      { id: "va", state: "Virginia", type: "dem", category: "senate", icon: "VA", name: "Virginia Midterm Polls", lat: 37.4316, lng: -78.6569, threatLevel: "POLL LEAD: WARNER +7.2%", threatPercent: "57%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Mark Warner (D) leads Republican challenger.", news: [{ time: "Roanoke Poll", headline: "Warner maintains solid lead in NoVA." }] },
-      { id: "wa", state: "Washington", type: "dem", category: "house", icon: "WA", name: "Washington Midterm Polls", lat: 47.7511, lng: -120.7401, threatLevel: "POLL LEAD: DEM +10.0%", threatPercent: "60%", barColor: "#388bfd", threatClass: "badge-dem", threatDesc: "Democratic congressional baseline holds strong lead.", news: [{ time: "Seattle Survey", headline: "Democrats hold comfortable margin." }] },
-      { id: "wv", state: "West Virginia", type: "gop", category: "senate", icon: "WV", name: "West Virginia Midterm Polls", lat: 38.5976, lng: -80.4549, threatLevel: "POLL LEAD: JUSTICE +18.0%", threatPercent: "68%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Jim Justice (R) holds major lead.", news: [{ time: "MetroNews", headline: "Justice commands major lead statewide." }] },
-      { id: "wi", state: "Wisconsin", type: "battleground", category: "gov", icon: "WI", name: "Wisconsin Midterm Polls", lat: 43.7844, lng: -88.7879, threatLevel: "POLL LEAD: EVERS +1.2%", threatPercent: "51%", barColor: "#d29922", threatClass: "badge-tossup", threatDesc: "Tony Evers (D) vs. GOP Challenger.", news: [{ time: "Marquette Law", headline: "Evers leads within margin of error." }] },
-      { id: "wy", state: "Wyoming", type: "gop", category: "gov", icon: "WY", name: "Wyoming Midterm Polls", lat: 43.0759, lng: -107.2903, threatLevel: "POLL LEAD: GOP +25.0%", threatPercent: "75%", barColor: "#f85149", threatClass: "badge-gop", threatDesc: "Open term-limited contest following Mark Gordon.", news: [{ time: "WY Survey", headline: "Solid Republican advantage statewide." }] }
-    ];
-
-    // Initialize with built-in fallback dataset
-    registryData = fallbackData;
-
-    function getStateColor(stateName) {
-      if (!stateName) return '#21262d';
-      const normalized = stateName.trim().toLowerCase();
-
-      // 1. Direct 50-State Dictionary Lookup
-      if (stateBaselineColors[normalized]) {
-        return stateBaselineColors[normalized];
-      }
-      
-      // 2. Fallback Registry Data Lookup
-      const item = registryData.find(d => d.state && (d.state.toLowerCase() === normalized || d.name.toLowerCase().includes(normalized)));
-      if (!item) return '#21262d';
-      if (item.type === 'dem') return '#388bfd';
-      if (item.type === 'gop') return '#f85149';
-      if (item.type === 'battleground') return '#d29922';
-      return '#21262d';
+    function officeLabel(c){ return c==='senate'?'Senate':c==='gov'?'Governor':c==='house'?'House baseline':c; }
+    function filteredRaces(){
+      if(currentFilter==='ALL') return races.filter(r=>r.featured);
+      if(currentFilter==='senate'||currentFilter==='gov') return races.filter(r=>r.category===currentFilter);
+      if(currentFilter==='battleground') return races.filter(r=>r.type==='battleground');
+      return races.filter(r=>r.type===currentFilter);
     }
-
-    function styleStateFeature(feature) {
-      return {
-        fillColor: getStateColor(feature.properties.name),
-        weight: 1.5,
-        opacity: 0.9,
-        color: '#30363d',
-        dashArray: '1',
-        fillOpacity: 0.55
-      };
+    function raceForState(name){
+      const n=(name||'').trim().toLowerCase();
+      return filteredRaces().find(r=>r.state.toLowerCase()===n)
+        || races.find(r=>r.state.toLowerCase()===n && r.featured)
+        || races.find(r=>r.state.toLowerCase()===n);
     }
-
-    function highlightState(e) {
-      const layer = e.target;
-      layer.setStyle({
-        weight: 3,
-        color: '#58a6ff',
-        fillOpacity: 0.75
-      });
-      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
+    function colorForState(name){
+      const n=(name||'').toLowerCase();
+      if(currentFilter==='senate'){
+        const s=races.find(r=>r.state.toLowerCase()===n && r.category==='senate');
+        return s?s.barColor:'#21262d';
       }
+      if(currentFilter==='gov'){
+        const g=races.find(r=>r.state.toLowerCase()===n && r.category==='gov');
+        return g?g.barColor:'#21262d';
+      }
+      const item=raceForState(name);
+      if(!item) return '#21262d';
+      if(currentFilter==='dem' && item.type!=='dem') return '#21262d';
+      if(currentFilter==='gop' && item.type!=='gop') return '#21262d';
+      if(currentFilter==='battleground' && item.type!=='battleground') return '#21262d';
+      return item.barColor;
     }
-
-    function resetStateHighlight(e) {
-      if (geojsonLayer) {
-        geojsonLayer.resetStyle(e.target);
-      }
+    function styleState(f){ return { fillColor:colorForState(f.properties.name), weight:1.2, opacity:1, color:'#30363d', fillOpacity:.62 }; }
+    function highlightState(e){ e.target.setStyle({weight:2.5,color:'#58a6ff',fillOpacity:.8}); e.target.bringToFront(); }
+    function resetState(e){ if(geojsonLayer) geojsonLayer.resetStyle(e.target); }
+    function onStateClick(e){ const item=raceForState(e.target.feature.properties.name); if(item) selectEvent(item); }
+    function onEachState(feature, layer){
+      const item=raceForState(feature.properties.name);
+      let tip='<b>'+feature.properties.name+'</b>';
+      if(item) tip+='<br>'+officeLabel(item.category)+' \u00b7 '+item.lead;
+      else if(currentFilter==='senate') tip+='<br>No Senate race in 2026';
+      layer.bindTooltip(tip,{className:'custom-state-tooltip',sticky:true});
+      layer.on({mouseover:highlightState,mouseout:resetState,click:onStateClick});
     }
-
-    function onStateClick(e) {
-      const stateName = e.target.feature.properties.name;
-      const normalized = stateName ? stateName.trim().toLowerCase() : '';
-      
-      // Smart lookup by state name
-      let item = registryData.find(d => d.state && d.state.toLowerCase() === normalized);
-      if (!item) {
-        item = registryData.find(d => d.name && d.name.toLowerCase().includes(normalized));
-      }
-      
-      if (item) {
-        selectEvent(item);
-      }
-    }
-
-    function onEachStateFeature(feature, layer) {
-      const stateName = feature.properties.name;
-      const normalized = stateName ? stateName.trim().toLowerCase() : '';
-      const item = registryData.find(d => d.state && (d.state.toLowerCase() === normalized || d.name.toLowerCase().includes(normalized)));
-      
-      let tooltipText = `<b>${stateName}</b>`;
-      if (item) {
-        tooltipText += `<br/>${item.threatLevel}`;
-      }
-      
-      layer.bindTooltip(tooltipText, {
-        className: 'custom-state-tooltip',
-        direction: 'auto',
-        sticky: true
-      });
-
-      layer.on({
-        mouseover: highlightState,
-        mouseout: resetStateHighlight,
-        click: onStateClick
-      });
-    }
-
-    function initLeafletMap() {
-      map = L.map('leafletMap', {
-        center: [38, -96],
-        zoom: 4,
-        minZoom: 3,
-        maxZoom: 7,
-        zoomControl: false
-      });
-
-      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 16
-      }).addTo(map);
-
-      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 16
-      }).addTo(map);
-
-      markersGroup = L.layerGroup().addTo(map);
-      
+    function initMap(){
+      map=L.map('leafletMap',{center:[39.8,-98.5],zoom:4,minZoom:3,maxZoom:8,zoomControl:false});
+      L.control.zoom({position:'topright'}).addTo(map);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:16}).addTo(map);
+      markersGroup=L.layerGroup().addTo(map);
       fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json')
-        .then(res => res.json())
-        .then(statesData => {
-          geojsonLayer = L.geoJson(statesData, {
-            style: styleStateFeature,
-            onEachFeature: onEachStateFeature
-          }).addTo(map);
-        })
-        .catch(err => console.error("GeoJSON Polygon Load Error:", err));
-
-      renderLeafletMarkers(currentActiveCategory);
-      loadNewsFeed(currentActiveCategory);
-      updateLiveTicker();
+        .then(r=>r.json())
+        .then(states=>{ geojsonLayer=L.geoJson(states,{style:styleState,onEachFeature:onEachState}).addTo(map); })
+        .catch(err=>console.error('GeoJSON load failed',err));
     }
-
-    function renderLeafletMarkers(category = currentActiveCategory) {
-      if (!markersGroup) return;
+    function renderMarkers(){
+      if(!markersGroup) return;
       markersGroup.clearLayers();
-
-      let items = registryData;
-      if (category === 'gov') {
-        items = registryData.filter(d => d.category === 'gov');
-      } else if (category !== 'ALL') {
-        items = registryData.filter(d => d.type === category);
-      }
-
-      items.forEach(item => {
-        if (!item.lat || !item.lng) return;
-        const customIcon = L.divIcon({
-          className: 'custom-leaflet-icon',
-          html: `<div class="map-marker marker-${item.type}">${item.icon}</div>`,
-          iconSize: [24, 24],
-          iconAnchor: [12, 12]
-        });
-
-        const marker = L.marker([item.lat, item.lng], { icon: customIcon });
-        marker.on('click', () => selectEvent(item));
+      filteredRaces().forEach(item=>{
+        if(item.lat==null||item.lng==null) return;
+        if(item.abbr==='AK'||item.abbr==='HI') return;
+        const icon=L.divIcon({className:'custom-leaflet-icon',html:'<div class="map-marker marker-'+item.type+'">'+item.abbr+'</div>',iconSize:[26,26],iconAnchor:[13,13]});
+        const marker=L.marker([item.lat,item.lng],{icon});
+        marker.on('click',()=>selectEvent(item));
         markersGroup.addLayer(marker);
       });
     }
-
-    function updateTelemetryPanel(item) {
-      const badge = document.getElementById('threat-badge');
-      if (badge) {
-        badge.textContent = item.threatLevel;
-        badge.className = `badge ${item.threatClass}`;
-      }
-
-      const bar = document.getElementById('threat-bar');
-      if (bar) {
-        bar.style.backgroundColor = item.barColor;
-        bar.style.width = item.threatPercent;
-      }
-
-      const descEl = document.getElementById('threat-desc');
-      if (descEl) descEl.textContent = item.threatDesc;
+    function updateTelemetry(item){
+      const badge=document.getElementById('threat-badge');
+      badge.textContent=item.lead; badge.className='badge '+item.leadClass;
+      const bar=document.getElementById('threat-bar');
+      bar.style.backgroundColor=item.barColor; bar.style.width=item.leadPct||'50%';
+      document.getElementById('threat-desc').textContent=item.desc;
+      document.getElementById('selected-office').textContent=item.abbr+' \u00b7 '+officeLabel(item.category);
     }
-
-    function filterCategory(category, element) {
-      currentActiveCategory = category;
-      
-      document.querySelectorAll('.side-menu .menu-item').forEach(el => el.classList.remove('active'));
-      element.classList.add('active');
-
-      const titleEl = document.getElementById('region-title');
-      const coordsEl = document.getElementById('region-coords');
-
-      renderLeafletMarkers(category);
-
-      let items = registryData;
-      if (category === 'gov') {
-        items = registryData.filter(d => d.category === 'gov');
-      } else if (category !== 'ALL') {
-        items = registryData.filter(d => d.type === category);
-      }
-
-      if (items.length > 0) {
-        updateTelemetryPanel(items[0]);
-      }
-
-      if (category === 'ALL') {
-        if (map) map.flyTo([38, -96], 4);
-        if (titleEl) { titleEl.textContent = "National Summary"; titleEl.style.color = "#58a6ff"; }
-        if (coordsEl) coordsEl.textContent = "Senate, House & Governor Surveys";
-        loadNewsFeed('ALL');
-      } else if (category === 'gov') {
-        if (map) map.flyTo([38, -96], 4);
-        if (titleEl) { titleEl.textContent = "Governor Races"; titleEl.style.color = "#58a6ff"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: State Executive Contests";
-        loadNewsFeed('gov');
-      } else if (category === 'battleground') {
-        if (map) map.flyTo([39, -84], 4.5);
-        if (titleEl) { titleEl.textContent = "Toss-Up Contests"; titleEl.style.color = "#d29922"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: Battleground Seats";
-        loadNewsFeed('battleground');
-      } else if (category === 'dem') {
-        if (map) map.flyTo([38, -96], 4);
-        if (titleEl) { titleEl.textContent = "Leaning Dem Seats"; titleEl.style.color = "#388bfd"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: Dem Poll Lead";
-        loadNewsFeed('dem');
-      } else if (category === 'gop') {
-        if (map) map.flyTo([38, -96], 4);
-        if (titleEl) { titleEl.textContent = "Leaning GOP Seats"; titleEl.style.color = "#f85149"; }
-        if (coordsEl) coordsEl.textContent = "Filtered: GOP Poll Lead";
-        loadNewsFeed('gop');
-      }
-    }
-
-    // JS PRECISION TICKER ENGINE
-    let tickerPos = 0;
-    let tickerAnimId = null;
-
-    function startTickerAnimation() {
-      const track = document.getElementById('tickerTrack');
-      const block1 = document.getElementById('tickerBlock1');
-      if (!track || !block1) return;
-
-      if (tickerAnimId) cancelAnimationFrame(tickerAnimId);
-
-      function step() {
-        const singleWidth = block1.offsetWidth;
-        tickerPos -= 0.6;
-        
-        if (Math.abs(tickerPos) >= singleWidth) {
-          tickerPos = 0;
-        }
-        
-        track.style.transform = `translate3d(${tickerPos}px, -50%, 0)`;
-        tickerAnimId = requestAnimationFrame(step);
-      }
-      step();
-    }
-
-    function updateLiveTicker() {
-      const b1 = document.getElementById('tickerBlock1');
-      const b2 = document.getElementById('tickerBlock2');
-      if (!b1 || !b2) return;
-
-      let headlines = [];
-      registryData.forEach(item => {
-        if (item.news && Array.isArray(item.news)) {
-          item.news.forEach(n => {
-            headlines.push(`[${item.name.toUpperCase()}] ${n.headline}`);
-          });
-        }
-      });
-
-      if (headlines.length > 0) {
-        const textString = headlines.join(' &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp; ';
-        b1.innerHTML = textString;
-        b2.innerHTML = textString;
-        startTickerAnimation();
-      }
-    }
-
-    function loadNewsFeed(category = currentActiveCategory) {
-      const newsFeed = document.getElementById('news-feed');
-      if (!newsFeed) return;
-      
-      let itemsToDisplay = registryData;
-      if (category === 'gov') {
-        itemsToDisplay = registryData.filter(d => d.category === 'gov');
-      } else if (category && category !== 'ALL') {
-        itemsToDisplay = registryData.filter(d => d.type === category);
-      }
-
-      let allNews = [];
-      itemsToDisplay.forEach(item => {
-        if (item.news && Array.isArray(item.news)) {
-          item.news.forEach(n => {
-            allNews.push({
-              time: n.time,
-              headline: n.headline,
-              source: item.name,
-              type: item.type
-            });
-          });
-        }
-      });
-
-      newsFeed.innerHTML = allNews.map(n => {
-        let timeClass = 'news-time-dem';
-        if (n.type === 'gop') timeClass = 'news-time-gop';
-        if (n.type === 'battleground') timeClass = 'news-time-toss';
-        return `
-          <div class="news-card">
-            <span class="${timeClass}">[${n.time}] ${n.source}:</span>
-            <p style="margin-top:1px; color:#c9d1d9;">${n.headline}</p>
-          </div>
-        `;
+    function loadNewsFeed(){
+      const feed=document.getElementById('news-feed');
+      feed.innerHTML=filteredRaces().map(item=>{
+        const klass=item.type==='gop'?'news-time-gop':item.type==='battleground'?'news-time-toss':'news-time-dem';
+        return '<div class="news-card" onclick="selectEventById(\''+item.id+'\')"><div class="'+klass+' news-kicker">'+item.abbr+' \u00b7 '+officeLabel(item.category)+'</div><div style="font-weight:700;margin-top:2px;">'+item.lead+'</div><div style="color:#8b949e;margin-top:2px;">'+item.desc+'</div></div>';
       }).join('');
     }
-
-    function selectEvent(item) {
-      if (map && item.lat && item.lng) map.flyTo([item.lat, item.lng], 5.5);
-
-      updateTelemetryPanel(item);
-
-      const titleEl = document.getElementById('region-title');
-      if (titleEl) {
-        titleEl.textContent = item.name;
-        titleEl.style.color = item.barColor;
-      }
-
-      const coordsEl = document.getElementById('region-coords');
-      if (coordsEl) coordsEl.textContent = `SEAT: ${item.icon}`;
-
-      const newsFeed = document.getElementById('news-feed');
-      if (newsFeed && item.news) {
-        newsFeed.innerHTML = item.news.map(n => `
-          <div class="news-card">
-            <span class="news-time-dem">[${n.time}]</span>
-            <p style="margin-top:1px; color:#c9d1d9;">${n.headline}</p>
-          </div>
-        `).join('');
-      }
+    function selectEventById(id){ const item=races.find(r=>r.id===id); if(item) selectEvent(item); }
+    function selectEvent(item){
+      if(map && item.lat && item.lng && item.abbr!=='AK' && item.abbr!=='HI') map.flyTo([item.lat,item.lng],5.4);
+      updateTelemetry(item);
+      document.getElementById('region-title').textContent=item.name;
+      document.getElementById('region-title').style.color=item.barColor;
+      document.getElementById('region-coords').textContent=(item.source||'Snapshot')+' \u00b7 '+item.abbr;
     }
-
-    // DYNAMIC POLLING DATA LOADER FROM PIPELINE
-    async function loadDynamicPollingData() {
-      try {
-        const response = await fetch('./polls.json?v=' + new Date().getTime());
-        if (response.ok) {
-          const liveData = await response.json();
-          if (liveData && liveData.length > 0) {
-            registryData = liveData;
-          }
+    function filterCategory(category, element){
+      currentFilter=category;
+      document.querySelectorAll('.side-menu .menu-item').forEach(el=>el.classList.remove('active'));
+      element.classList.add('active');
+      const titles={ALL:['National summary','Featured race per state'],senate:['Senate 2026','Only Class 2 seats + FL/OH specials'],gov:['Governor races','States with a 2026 governor contest in this snapshot'],battleground:['Toss-up watch','Races inside a few points'],dem:['Democratic leads','Democratic advantages'],gop:['Republican leads','Republican advantages']};
+      document.getElementById('region-title').textContent=titles[category][0];
+      document.getElementById('region-title').style.color='#58a6ff';
+      document.getElementById('region-coords').textContent=titles[category][1];
+      if(geojsonLayer) geojsonLayer.setStyle(styleState);
+      renderMarkers(); loadNewsFeed();
+      if(map) map.flyTo([39.8,-98.5],4);
+    }
+    let tickerPos=0, tickerAnim=null;
+    function startTicker(){
+      const track=document.getElementById('tickerTrack'), block1=document.getElementById('tickerBlock1');
+      if(!track||!block1) return;
+      if(tickerAnim) cancelAnimationFrame(tickerAnim);
+      const step=()=>{ const width=block1.offsetWidth||800; tickerPos-=0.55; if(Math.abs(tickerPos)>=width) tickerPos=0; track.style.transform='translate3d('+tickerPos+'px, -50%, 0)'; tickerAnim=requestAnimationFrame(step); };
+      step();
+    }
+    function updateTicker(){
+      const text=filteredRaces().map(r=>'['+r.abbr+' '+officeLabel(r.category).toUpperCase()+'] '+r.lead).join('    \u2022    ')+'    \u2022    ';
+      document.getElementById('tickerBlock1').textContent=text;
+      document.getElementById('tickerBlock2').textContent=text;
+      startTicker();
+    }
+    function applySnapshot(data){
+      races=data.races||[];
+      document.getElementById('updated-label').innerHTML='<strong>'+(data.updatedLabel||FALLBACK.updatedLabel)+'</strong>';
+      if(data.senate){
+        document.getElementById('senate-split').innerHTML='<span style="color:#388bfd;">DEM '+data.senate.currentDem+'</span> &nbsp;|&nbsp; <span style="color:#f85149;">GOP '+data.senate.currentGop+'</span>';
+        document.getElementById('senate-note').textContent=data.senate.seatsUp+' seats up ('+data.senate.demSeatsUp+' D / '+data.senate.gopSeatsUp+' R). Democrats need net +'+data.senate.neededForDemMajority+' for a majority; the vice president breaks a 50-50 tie for Republicans.';
+      }
+      if(data.house){
+        document.getElementById('house-split').innerHTML='<span style="color:#388bfd;">DEM '+data.house.dem+'%</span> &nbsp;vs&nbsp; <span style="color:#f85149;">GOP '+data.house.gop+'%</span>';
+        document.getElementById('house-note').textContent=data.house.note+' 218 seats needed for a House majority.';
+      }
+      if(geojsonLayer) geojsonLayer.setStyle(styleState);
+      renderMarkers(); loadNewsFeed(); updateTicker();
+    }
+    async function loadData(){
+      try{
+        const res=await fetch('./polls.json?v='+Date.now());
+        if(res.ok){
+          const data=await res.json();
+          if(data && data.races){ applySnapshot(data); return; }
         }
-      } catch (err) {
-        console.warn("Using built-in fallback polling dataset:", err);
-      }
-
-      if (geojsonLayer) geojsonLayer.setStyle(styleStateFeature);
-      renderLeafletMarkers(currentActiveCategory);
-      loadNewsFeed(currentActiveCategory);
-      updateLiveTicker();
+      }catch(err){ console.warn('polls.json missing', err); }
+      applySnapshot(FALLBACK);
     }
-
-    window.addEventListener('load', () => {
-      initLeafletMap();
-      loadDynamicPollingData();
-    });
+    window.addEventListener('load', ()=>{ initMap(); loadData(); });
   </script>
 </body>
 </html>
