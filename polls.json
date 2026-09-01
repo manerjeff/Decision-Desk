@@ -1,1052 +1,1680 @@
-[
-  {
-    "id": "alabama",
-    "state": "Alabama",
-    "type": "gop",
-    "category": "senate",
-    "icon": "AL",
-    "name": "Alabama Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "MOORE +19.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Barry Moore (R) leads Everett Wess (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms MOORE +19.0% in Alabama."
-      }
+{
+  "updated": "2026-09-01",
+  "updatedLabel": "Editorial snapshot \u00b7 1 Sep 2026",
+  "disclaimer": "Independent project. Not affiliated with Decision Desk HQ.",
+  "senate": {
+    "currentDem": 47,
+    "currentGop": 53,
+    "neededForDemMajority": 4,
+    "seatsUp": 35,
+    "gopSeatsUp": 22,
+    "demSeatsUp": 13,
+    "watch": [
+      "Alaska",
+      "Maine",
+      "Michigan",
+      "Georgia",
+      "North Carolina",
+      "Ohio",
+      "Texas",
+      "Iowa"
     ]
   },
-  {
-    "id": "alaska",
-    "state": "Alaska",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "AL",
-    "name": "Alaska Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "TOSS-UP (+1.2%)",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Dan Sullivan (R) vs. Mary Peltola (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms TOSS-UP (+1.2%) in Alaska."
-      }
-    ]
+  "house": {
+    "dem": 48.2,
+    "gop": 41.8,
+    "note": "Generic ballot snapshot, not a seat projection. ~D+6."
   },
-  {
-    "id": "arizona",
-    "state": "Arizona",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "AR",
-    "name": "Arizona Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "HOBBS +1.4%",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Katie Hobbs (D) vs. Andy Biggs (R).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms HOBBS +1.4% in Arizona."
-      }
-    ]
-  },
-  {
-    "id": "arkansas",
-    "state": "Arkansas",
-    "type": "gop",
-    "category": "senate",
-    "icon": "AR",
-    "name": "Arkansas Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "SANDERS +18.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Sarah Huckabee Sanders (R) holds solid lead.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms SANDERS +18.0% in Arkansas."
-      }
-    ]
-  },
-  {
-    "id": "california",
-    "state": "California",
-    "type": "dem",
-    "category": "senate",
-    "icon": "CA",
-    "name": "California Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "BECERRA +19.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Xavier Becerra (D) vs. Steve Hilton (R).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms BECERRA +19.0% in California."
-      }
-    ]
-  },
-  {
-    "id": "colorado",
-    "state": "Colorado",
-    "type": "dem",
-    "category": "senate",
-    "icon": "CO",
-    "name": "Colorado Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "HICKENLOOPER +8.5%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "John Hickenlooper (D) leads Mark Baisley (R).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms HICKENLOOPER +8.5% in Colorado."
-      }
-    ]
-  },
-  {
-    "id": "connecticut",
-    "state": "Connecticut",
-    "type": "dem",
-    "category": "senate",
-    "icon": "CO",
-    "name": "Connecticut Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "LAMONT +11.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Ned Lamont (D) holds comfortable lead.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms LAMONT +11.0% in Connecticut."
-      }
-    ]
-  },
-  {
-    "id": "delaware",
-    "state": "Delaware",
-    "type": "dem",
-    "category": "senate",
-    "icon": "DE",
-    "name": "Delaware Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "DEM +16.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Chris Coons (D) leads Republican challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms DEM +16.0% in Delaware."
-      }
-    ]
-  },
-  {
-    "id": "florida",
-    "state": "Florida",
-    "type": "gop",
-    "category": "senate",
-    "icon": "FL",
-    "name": "Florida Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "DONALDS +5.8%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Byron Donalds (R) vs. David Jolly (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms DONALDS +5.8% in Florida."
-      }
-    ]
-  },
-  {
-    "id": "georgia",
-    "state": "Georgia",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "GE",
-    "name": "Georgia Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "BOTTOMS +1.1%",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Keisha Lance Bottoms (D) vs. Rick Jackson (R).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms BOTTOMS +1.1% in Georgia."
-      }
-    ]
-  },
-  {
-    "id": "hawaii",
-    "state": "Hawaii",
-    "type": "dem",
-    "category": "senate",
-    "icon": "HA",
-    "name": "Hawaii Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GREEN +22.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Josh Green (D) holds solid lead statewide.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GREEN +22.0% in Hawaii."
-      }
-    ]
-  },
-  {
-    "id": "idaho",
-    "state": "Idaho",
-    "type": "gop",
-    "category": "senate",
-    "icon": "ID",
-    "name": "Idaho Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "LITTLE +22.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Brad Little (R) commands strong lead statewide.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms LITTLE +22.0% in Idaho."
-      }
-    ]
-  },
-  {
-    "id": "illinois",
-    "state": "Illinois",
-    "type": "dem",
-    "category": "senate",
-    "icon": "IL",
-    "name": "Illinois Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "PRITZKER +9.5%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "JB Pritzker (D) leads Republican Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms PRITZKER +9.5% in Illinois."
-      }
-    ]
-  },
-  {
-    "id": "indiana",
-    "state": "Indiana",
-    "type": "gop",
-    "category": "senate",
-    "icon": "IN",
-    "name": "Indiana Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +12.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Solid Republican congressional baseline across state.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +12.0% in Indiana."
-      }
-    ]
-  },
-  {
-    "id": "iowa",
-    "state": "Iowa",
-    "type": "gop",
-    "category": "senate",
-    "icon": "IO",
-    "name": "Iowa Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "REYNOLDS +7.5%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Kim Reynolds (R) leads Democratic Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms REYNOLDS +7.5% in Iowa."
-      }
-    ]
-  },
-  {
-    "id": "kansas",
-    "state": "Kansas",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "KA",
-    "name": "Kansas Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "TOSS-UP (+0.5%)",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Open seat contest following Laura Kelly (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms TOSS-UP (+0.5%) in Kansas."
-      }
-    ]
-  },
-  {
-    "id": "kentucky",
-    "state": "Kentucky",
-    "type": "gop",
-    "category": "senate",
-    "icon": "KE",
-    "name": "Kentucky Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "BARR +14.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Andy Barr (R) vs. Charles Booker (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms BARR +14.0% in Kentucky."
-      }
-    ]
-  },
-  {
-    "id": "louisiana",
-    "state": "Louisiana",
-    "type": "gop",
-    "category": "senate",
-    "icon": "LO",
-    "name": "Louisiana Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "LETLOW +18.5%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Julia Letlow (R) vs. Jamie Davis (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms LETLOW +18.5% in Louisiana."
-      }
-    ]
-  },
-  {
-    "id": "maine",
-    "state": "Maine",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "MA",
-    "name": "Maine Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "TOSS-UP (+1.0%)",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Susan Collins (R) vs. Troy Jackson (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms TOSS-UP (+1.0%) in Maine."
-      }
-    ]
-  },
-  {
-    "id": "maryland",
-    "state": "Maryland",
-    "type": "dem",
-    "category": "senate",
-    "icon": "MA",
-    "name": "Maryland Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "MOORE +18.5%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Wes Moore (D) commands solid lead statewide.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms MOORE +18.5% in Maryland."
-      }
-    ]
-  },
-  {
-    "id": "massachusetts",
-    "state": "Massachusetts",
-    "type": "dem",
-    "category": "senate",
-    "icon": "MA",
-    "name": "Massachusetts Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "HEALEY +16.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Maura Healey (D) holds commanding margin.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms HEALEY +16.0% in Massachusetts."
-      }
-    ]
-  },
-  {
-    "id": "michigan",
-    "state": "Michigan",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "MI",
-    "name": "Michigan Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "EL-SAYED +1.8%",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Abdul El-Sayed (D) vs. Mike Rogers (R).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms EL-SAYED +1.8% in Michigan."
-      }
-    ]
-  },
-  {
-    "id": "minnesota",
-    "state": "Minnesota",
-    "type": "dem",
-    "category": "senate",
-    "icon": "MI",
-    "name": "Minnesota Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "WALZ +5.5%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Tim Walz (D) leads Republican Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms WALZ +5.5% in Minnesota."
-      }
-    ]
-  },
-  {
-    "id": "mississippi",
-    "state": "Mississippi",
-    "type": "gop",
-    "category": "senate",
-    "icon": "MI",
-    "name": "Mississippi Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +15.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Solid Republican congressional baseline.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +15.0% in Mississippi."
-      }
-    ]
-  },
-  {
-    "id": "missouri",
-    "state": "Missouri",
-    "type": "gop",
-    "category": "senate",
-    "icon": "MI",
-    "name": "Missouri Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +12.5%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Republican congressional baseline holds steady.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +12.5% in Missouri."
-      }
-    ]
-  },
-  {
-    "id": "montana",
-    "state": "Montana",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "MO",
-    "name": "Montana Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "SHEEHY +2.4%",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Tim Sheehy (R) vs. Democratic Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms SHEEHY +2.4% in Montana."
-      }
-    ]
-  },
-  {
-    "id": "nebraska",
-    "state": "Nebraska",
-    "type": "gop",
-    "category": "senate",
-    "icon": "NE",
-    "name": "Nebraska Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "PILLEN +14.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Jim Pillen (R) holds commanding margin.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms PILLEN +14.0% in Nebraska."
-      }
-    ]
-  },
-  {
-    "id": "nevada",
-    "state": "Nevada",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "NE",
-    "name": "Nevada Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "LOMBARDO +0.8%",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Joe Lombardo (R) vs. Democratic Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms LOMBARDO +0.8% in Nevada."
-      }
-    ]
-  },
-  {
-    "id": "new-hampshire",
-    "state": "New Hampshire",
-    "type": "dem",
-    "category": "senate",
-    "icon": "NE",
-    "name": "New Hampshire Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "DEM +3.4%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Open seat contest following Shaheen retirement.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms DEM +3.4% in New Hampshire."
-      }
-    ]
-  },
-  {
-    "id": "new-jersey",
-    "state": "New Jersey",
-    "type": "dem",
-    "category": "senate",
-    "icon": "NE",
-    "name": "New Jersey Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "DEM +7.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Democratic congressional baseline holds lead.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms DEM +7.0% in New Jersey."
-      }
-    ]
-  },
-  {
-    "id": "new-mexico",
-    "state": "New Mexico",
-    "type": "dem",
-    "category": "senate",
-    "icon": "NE",
-    "name": "New Mexico Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "LUJ\u00c1N +6.8%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Ben Ray Luj\u00e1n (D) vs. Larry Marker (R).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms LUJ\u00c1N +6.8% in New Mexico."
-      }
-    ]
-  },
-  {
-    "id": "new-york",
-    "state": "New York",
-    "type": "dem",
-    "category": "senate",
-    "icon": "NE",
-    "name": "New York Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "HOCHUL +7.2%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Kathy Hochul (D) leads Republican Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms HOCHUL +7.2% in New York."
-      }
-    ]
-  },
-  {
-    "id": "north-carolina",
-    "state": "North Carolina",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "NO",
-    "name": "North Carolina Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "COOPER +2.1%",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Roy Cooper (D) vs. Michael Whatley (R).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms COOPER +2.1% in North Carolina."
-      }
-    ]
-  },
-  {
-    "id": "north-dakota",
-    "state": "North Dakota",
-    "type": "gop",
-    "category": "senate",
-    "icon": "NO",
-    "name": "North Dakota Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "CRAMER +22.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Kevin Cramer (R) holds decisive lead.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms CRAMER +22.0% in North Dakota."
-      }
-    ]
-  },
-  {
-    "id": "ohio",
-    "state": "Ohio",
-    "type": "gop",
-    "category": "senate",
-    "icon": "OH",
-    "name": "Ohio Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "HUSTED +4.5%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Appointed Sen. Jon Husted (R) leads.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms HUSTED +4.5% in Ohio."
-      }
-    ]
-  },
-  {
-    "id": "oklahoma",
-    "state": "Oklahoma",
-    "type": "gop",
-    "category": "senate",
-    "icon": "OK",
-    "name": "Oklahoma Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +16.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Open term-limited contest following Kevin Stitt.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +16.0% in Oklahoma."
-      }
-    ]
-  },
-  {
-    "id": "oregon",
-    "state": "Oregon",
-    "type": "dem",
-    "category": "senate",
-    "icon": "OR",
-    "name": "Oregon Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "KOTEK +4.5%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Tina Kotek (D) vs. Republican Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms KOTEK +4.5% in Oregon."
-      }
-    ]
-  },
-  {
-    "id": "pennsylvania",
-    "state": "Pennsylvania",
-    "type": "dem",
-    "category": "senate",
-    "icon": "PE",
-    "name": "Pennsylvania Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "SHAPIRO +8.4%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Josh Shapiro (D) vs. GOP Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms SHAPIRO +8.4% in Pennsylvania."
-      }
-    ]
-  },
-  {
-    "id": "rhode-island",
-    "state": "Rhode Island",
-    "type": "dem",
-    "category": "senate",
-    "icon": "RH",
-    "name": "Rhode Island Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "MCKEE +12.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Dan McKee (D) holds solid lead statewide.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms MCKEE +12.0% in Rhode Island."
-      }
-    ]
-  },
-  {
-    "id": "south-carolina",
-    "state": "South Carolina",
-    "type": "gop",
-    "category": "senate",
-    "icon": "SO",
-    "name": "South Carolina Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +14.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Open seat following McMaster term limit.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +14.0% in South Carolina."
-      }
-    ]
-  },
-  {
-    "id": "south-dakota",
-    "state": "South Dakota",
-    "type": "gop",
-    "category": "senate",
-    "icon": "SO",
-    "name": "South Dakota Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +18.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Republican nominee holds solid margin.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +18.0% in South Dakota."
-      }
-    ]
-  },
-  {
-    "id": "tennessee",
-    "state": "Tennessee",
-    "type": "gop",
-    "category": "senate",
-    "icon": "TE",
-    "name": "Tennessee Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +16.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Open seat following Bill Lee term limit.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +16.0% in Tennessee."
-      }
-    ]
-  },
-  {
-    "id": "texas",
-    "state": "Texas",
-    "type": "gop",
-    "category": "senate",
-    "icon": "TE",
-    "name": "Texas Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "PAXTON +4.2%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Ken Paxton (R) vs. James Talarico (D).",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms PAXTON +4.2% in Texas."
-      }
-    ]
-  },
-  {
-    "id": "utah",
-    "state": "Utah",
-    "type": "gop",
-    "category": "senate",
-    "icon": "UT",
-    "name": "Utah Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +18.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Solid Republican congressional baseline.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +18.0% in Utah."
-      }
-    ]
-  },
-  {
-    "id": "vermont",
-    "state": "Vermont",
-    "type": "gop",
-    "category": "senate",
-    "icon": "VE",
-    "name": "Vermont Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "SCOTT +24.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Incumbent Phil Scott (R) commands major lead.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms SCOTT +24.0% in Vermont."
-      }
-    ]
-  },
-  {
-    "id": "virginia",
-    "state": "Virginia",
-    "type": "dem",
-    "category": "senate",
-    "icon": "VI",
-    "name": "Virginia Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "WARNER +7.2%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Mark Warner (D) leads Republican challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms WARNER +7.2% in Virginia."
-      }
-    ]
-  },
-  {
-    "id": "washington",
-    "state": "Washington",
-    "type": "dem",
-    "category": "senate",
-    "icon": "WA",
-    "name": "Washington Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "DEM +10.0%",
-    "threatPercent": "52%",
-    "barColor": "#388bfd",
-    "threatClass": "badge-dem",
-    "threatDesc": "Democratic congressional baseline holds strong lead.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms DEM +10.0% in Washington."
-      }
-    ]
-  },
-  {
-    "id": "west-virginia",
-    "state": "West Virginia",
-    "type": "gop",
-    "category": "senate",
-    "icon": "WE",
-    "name": "West Virginia Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "JUSTICE +18.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Jim Justice (R) holds major lead.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms JUSTICE +18.0% in West Virginia."
-      }
-    ]
-  },
-  {
-    "id": "wisconsin",
-    "state": "Wisconsin",
-    "type": "battleground",
-    "category": "senate",
-    "icon": "WI",
-    "name": "Wisconsin Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "EVERS +1.2%",
-    "threatPercent": "52%",
-    "barColor": "#d29922",
-    "threatClass": "badge-tossup",
-    "threatDesc": "Tony Evers (D) vs. GOP Challenger.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms EVERS +1.2% in Wisconsin."
-      }
-    ]
-  },
-  {
-    "id": "wyoming",
-    "state": "Wyoming",
-    "type": "gop",
-    "category": "senate",
-    "icon": "WY",
-    "name": "Wyoming Midterm Polls",
-    "lat": 38.0,
-    "lng": -96.0,
-    "threatLevel": "GOP +25.0%",
-    "threatPercent": "52%",
-    "barColor": "#f85149",
-    "threatClass": "badge-gop",
-    "threatDesc": "Open term-limited contest following Mark Gordon.",
-    "news": [
-      {
-        "time": "Automated Feed",
-        "headline": "Latest polling aggregate confirms GOP +25.0% in Wyoming."
-      }
-    ]
-  }
-]
+  "races": [
+    {
+      "id": "alabama-senate",
+      "state": "Alabama",
+      "abbr": "AL",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "AL",
+      "name": "Alabama Senate",
+      "lat": 32.8067,
+      "lng": -86.7911,
+      "lead": "MOORE +19.0%",
+      "leadPct": "60%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Barry Moore (R) leads Everett Wess (D) for the open Sessions seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "MOORE +19.0% \u2014 Barry Moore (R) leads Everett Wess (D) for the open Sessions seat."
+        }
+      ]
+    },
+    {
+      "id": "alaska-senate",
+      "state": "Alaska",
+      "abbr": "AK",
+      "type": "battleground",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "AK",
+      "name": "Alaska Senate",
+      "lat": 63.5888,
+      "lng": -154.4933,
+      "lead": "TOSS-UP +1.2%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Dan Sullivan (R) vs. Mary Peltola (D). Ranked-choice final four.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "TOSS-UP +1.2% \u2014 Dan Sullivan (R) vs. Mary Peltola (D). Ranked-choice final four."
+        }
+      ]
+    },
+    {
+      "id": "arizona-gov",
+      "state": "Arizona",
+      "abbr": "AZ",
+      "type": "battleground",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "AZ",
+      "name": "Arizona Gov",
+      "lat": 34.0489,
+      "lng": -111.0937,
+      "lead": "HOBBS +1.4%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Katie Hobbs (D) vs. Andy Biggs (R). No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "HOBBS +1.4% \u2014 Katie Hobbs (D) vs. Andy Biggs (R). No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "arkansas-senate",
+      "state": "Arkansas",
+      "abbr": "AR",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "AR",
+      "name": "Arkansas Senate",
+      "lat": 34.9697,
+      "lng": -92.3731,
+      "lead": "BOOZMAN +18.0%",
+      "leadPct": "59%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "John Boozman (R) is heavily favored in this Class 2 seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "BOOZMAN +18.0% \u2014 John Boozman (R) is heavily favored in this Class 2 seat."
+        }
+      ]
+    },
+    {
+      "id": "arkansas-gov",
+      "state": "Arkansas",
+      "abbr": "AR",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "AR",
+      "name": "Arkansas Gov",
+      "lat": 34.9697,
+      "lng": -92.3731,
+      "lead": "SANDERS +18.0%",
+      "leadPct": "59%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Sarah Huckabee Sanders (R) remains the clear favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "SANDERS +18.0% \u2014 Sarah Huckabee Sanders (R) remains the clear favorite."
+        }
+      ]
+    },
+    {
+      "id": "california-gov",
+      "state": "California",
+      "abbr": "CA",
+      "type": "dem",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "CA",
+      "name": "California Gov",
+      "lat": 36.7783,
+      "lng": -119.4179,
+      "lead": "BECERRA +19.0%",
+      "leadPct": "60%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Xavier Becerra (D) vs. Steve Hilton (R). No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "BECERRA +19.0% \u2014 Xavier Becerra (D) vs. Steve Hilton (R). No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "colorado-senate",
+      "state": "Colorado",
+      "abbr": "CO",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "CO",
+      "name": "Colorado Senate",
+      "lat": 39.0598,
+      "lng": -105.3111,
+      "lead": "HICKENLOOPER +8.5%",
+      "leadPct": "54%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "John Hickenlooper (D) leads Mark Baisley (R).",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "HICKENLOOPER +8.5% \u2014 John Hickenlooper (D) leads Mark Baisley (R)."
+        }
+      ]
+    },
+    {
+      "id": "connecticut-gov",
+      "state": "Connecticut",
+      "abbr": "CT",
+      "type": "dem",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "CT",
+      "name": "Connecticut Gov",
+      "lat": 41.5978,
+      "lng": -72.7554,
+      "lead": "LAMONT +11.0%",
+      "leadPct": "56%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Ned Lamont (D) holds a comfortable lead. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "LAMONT +11.0% \u2014 Ned Lamont (D) holds a comfortable lead. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "delaware-senate",
+      "state": "Delaware",
+      "abbr": "DE",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "DE",
+      "name": "Delaware Senate",
+      "lat": 38.9108,
+      "lng": -75.5277,
+      "lead": "COONS +16.0%",
+      "leadPct": "58%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Chris Coons (D) is a strong favorite for a third term.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "COONS +16.0% \u2014 Chris Coons (D) is a strong favorite for a third term."
+        }
+      ]
+    },
+    {
+      "id": "florida-senate",
+      "state": "Florida",
+      "abbr": "FL",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "FL",
+      "name": "Florida Senate",
+      "lat": 27.7663,
+      "lng": -81.6868,
+      "lead": "MOODY +8.0%",
+      "leadPct": "54%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Special election: Ashley Moody (R) defends the Rubio seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "MOODY +8.0% \u2014 Special election: Ashley Moody (R) defends the Rubio seat."
+        }
+      ]
+    },
+    {
+      "id": "florida-gov",
+      "state": "Florida",
+      "abbr": "FL",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "FL",
+      "name": "Florida Gov",
+      "lat": 27.7663,
+      "lng": -81.6868,
+      "lead": "DONALDS +5.8%",
+      "leadPct": "53%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Byron Donalds (R) vs. David Jolly (D) for open governor.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "DONALDS +5.8% \u2014 Byron Donalds (R) vs. David Jolly (D) for open governor."
+        }
+      ]
+    },
+    {
+      "id": "georgia-senate",
+      "state": "Georgia",
+      "abbr": "GA",
+      "type": "battleground",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "GA",
+      "name": "Georgia Senate",
+      "lat": 32.6782,
+      "lng": -83.223,
+      "lead": "OSSOFF +1.0%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Jon Ossoff (D) defends a Trump-won state.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OSSOFF +1.0% \u2014 Jon Ossoff (D) defends a Trump-won state."
+        }
+      ]
+    },
+    {
+      "id": "georgia-gov",
+      "state": "Georgia",
+      "abbr": "GA",
+      "type": "battleground",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "GA",
+      "name": "Georgia Gov",
+      "lat": 32.6782,
+      "lng": -83.223,
+      "lead": "BOTTOMS +1.1%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Keisha Lance Bottoms (D) vs. Rick Jackson (R) for open governor.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "BOTTOMS +1.1% \u2014 Keisha Lance Bottoms (D) vs. Rick Jackson (R) for open governor."
+        }
+      ]
+    },
+    {
+      "id": "hawaii-gov",
+      "state": "Hawaii",
+      "abbr": "HI",
+      "type": "dem",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "HI",
+      "name": "Hawaii Gov",
+      "lat": 19.8968,
+      "lng": -155.5828,
+      "lead": "GREEN +22.0%",
+      "leadPct": "61%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Josh Green (D) is strongly favored. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "GREEN +22.0% \u2014 Josh Green (D) is strongly favored. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "idaho-senate",
+      "state": "Idaho",
+      "abbr": "ID",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "ID",
+      "name": "Idaho Senate",
+      "lat": 44.2405,
+      "lng": -114.4788,
+      "lead": "RISH +22.0%",
+      "leadPct": "61%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Jim Risch (R) is a heavy favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "RISH +22.0% \u2014 Jim Risch (R) is a heavy favorite."
+        }
+      ]
+    },
+    {
+      "id": "idaho-gov",
+      "state": "Idaho",
+      "abbr": "ID",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "ID",
+      "name": "Idaho Gov",
+      "lat": 44.2405,
+      "lng": -114.4788,
+      "lead": "LITTLE +22.0%",
+      "leadPct": "61%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Brad Little (R) remains strongly favored.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "LITTLE +22.0% \u2014 Brad Little (R) remains strongly favored."
+        }
+      ]
+    },
+    {
+      "id": "illinois-senate",
+      "state": "Illinois",
+      "abbr": "IL",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "IL",
+      "name": "Illinois Senate",
+      "lat": 40.3495,
+      "lng": -88.9861,
+      "lead": "DURBIN OPEN +9.0%",
+      "leadPct": "54%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Open Class 2 seat after Dick Durbin retirement; Democratic baseline is strong.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "DURBIN OPEN +9.0% \u2014 Open Class 2 seat after Dick Durbin retirement; Democratic baseline is strong."
+        }
+      ]
+    },
+    {
+      "id": "illinois-gov",
+      "state": "Illinois",
+      "abbr": "IL",
+      "type": "dem",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "IL",
+      "name": "Illinois Gov",
+      "lat": 40.3495,
+      "lng": -88.9861,
+      "lead": "PRITZKER +9.5%",
+      "leadPct": "55%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "JB Pritzker (D) leads the Republican field.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "PRITZKER +9.5% \u2014 JB Pritzker (D) leads the Republican field."
+        }
+      ]
+    },
+    {
+      "id": "indiana-house",
+      "state": "Indiana",
+      "abbr": "IN",
+      "type": "gop",
+      "category": "house",
+      "featured": true,
+      "senateUp": false,
+      "icon": "IN",
+      "name": "Indiana House",
+      "lat": 39.8494,
+      "lng": -86.2583,
+      "lead": "GOP +12.0%",
+      "leadPct": "56%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "No Senate seat on the 2026 ballot. House baseline remains Republican.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "GOP +12.0% \u2014 No Senate seat on the 2026 ballot. House baseline remains Republican."
+        }
+      ]
+    },
+    {
+      "id": "iowa-senate",
+      "state": "Iowa",
+      "abbr": "IA",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "IA",
+      "name": "Iowa Senate",
+      "lat": 42.0115,
+      "lng": -93.2105,
+      "lead": "OPEN +3.5%",
+      "leadPct": "52%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Open seat after Joni Ernst retirement. Competitive but still GOP-leaning.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OPEN +3.5% \u2014 Open seat after Joni Ernst retirement. Competitive but still GOP-leaning."
+        }
+      ]
+    },
+    {
+      "id": "iowa-gov",
+      "state": "Iowa",
+      "abbr": "IA",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "IA",
+      "name": "Iowa Gov",
+      "lat": 42.0115,
+      "lng": -93.2105,
+      "lead": "OPEN +4.0%",
+      "leadPct": "52%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Open governor race after Kim Reynolds declined another term.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OPEN +4.0% \u2014 Open governor race after Kim Reynolds declined another term."
+        }
+      ]
+    },
+    {
+      "id": "kansas-senate",
+      "state": "Kansas",
+      "abbr": "KS",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "KS",
+      "name": "Kansas Senate",
+      "lat": 38.5266,
+      "lng": -96.7265,
+      "lead": "MARSHALL +7.0%",
+      "leadPct": "54%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Roger Marshall (R) starts with a Republican lean.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "MARSHALL +7.0% \u2014 Roger Marshall (R) starts with a Republican lean."
+        }
+      ]
+    },
+    {
+      "id": "kansas-gov",
+      "state": "Kansas",
+      "abbr": "KS",
+      "type": "battleground",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "KS",
+      "name": "Kansas Gov",
+      "lat": 38.5266,
+      "lng": -96.7265,
+      "lead": "TOSS-UP +0.5%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Open governor race after Laura Kelly is term-limited.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "TOSS-UP +0.5% \u2014 Open governor race after Laura Kelly is term-limited."
+        }
+      ]
+    },
+    {
+      "id": "kentucky-senate",
+      "state": "Kentucky",
+      "abbr": "KY",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "KY",
+      "name": "Kentucky Senate",
+      "lat": 37.6681,
+      "lng": -84.6701,
+      "lead": "BARR +14.0%",
+      "leadPct": "57%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Andy Barr (R) vs. Charles Booker (D) for the McConnell seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "BARR +14.0% \u2014 Andy Barr (R) vs. Charles Booker (D) for the McConnell seat."
+        }
+      ]
+    },
+    {
+      "id": "louisiana-senate",
+      "state": "Louisiana",
+      "abbr": "LA",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "LA",
+      "name": "Louisiana Senate",
+      "lat": 31.1695,
+      "lng": -91.8678,
+      "lead": "CASSIDY +12.0%",
+      "leadPct": "56%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Bill Cassidy (R) is favored in the jungle primary / runoff system.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "CASSIDY +12.0% \u2014 Bill Cassidy (R) is favored in the jungle primary / runoff system."
+        }
+      ]
+    },
+    {
+      "id": "maine-senate",
+      "state": "Maine",
+      "abbr": "ME",
+      "type": "battleground",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "ME",
+      "name": "Maine Senate",
+      "lat": 44.6939,
+      "lng": -69.3819,
+      "lead": "TOSS-UP +1.0%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Susan Collins (R) in a state Democrats usually carry statewide.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "TOSS-UP +1.0% \u2014 Susan Collins (R) in a state Democrats usually carry statewide."
+        }
+      ]
+    },
+    {
+      "id": "maryland-gov",
+      "state": "Maryland",
+      "abbr": "MD",
+      "type": "dem",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "MD",
+      "name": "Maryland Gov",
+      "lat": 39.0639,
+      "lng": -76.8021,
+      "lead": "MOORE +18.5%",
+      "leadPct": "59%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Wes Moore (D) is strongly favored. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "MOORE +18.5% \u2014 Wes Moore (D) is strongly favored. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "massachusetts-senate",
+      "state": "Massachusetts",
+      "abbr": "MA",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "MA",
+      "name": "Massachusetts Senate",
+      "lat": 42.2302,
+      "lng": -71.5301,
+      "lead": "MARKEY +16.0%",
+      "leadPct": "58%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Ed Markey (D) is a strong favorite for the Class 2 seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "MARKEY +16.0% \u2014 Ed Markey (D) is a strong favorite for the Class 2 seat."
+        }
+      ]
+    },
+    {
+      "id": "massachusetts-gov",
+      "state": "Massachusetts",
+      "abbr": "MA",
+      "type": "dem",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "MA",
+      "name": "Massachusetts Gov",
+      "lat": 42.2302,
+      "lng": -71.5301,
+      "lead": "HEALEY +16.0%",
+      "leadPct": "58%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Maura Healey (D) holds a commanding margin.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "HEALEY +16.0% \u2014 Maura Healey (D) holds a commanding margin."
+        }
+      ]
+    },
+    {
+      "id": "michigan-senate",
+      "state": "Michigan",
+      "abbr": "MI",
+      "type": "battleground",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "MI",
+      "name": "Michigan Senate",
+      "lat": 43.3266,
+      "lng": -84.5361,
+      "lead": "EL-SAYED +1.8%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Open seat after Gary Peters retired. Abdul El-Sayed (D) vs. Mike Rogers (R).",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "EL-SAYED +1.8% \u2014 Open seat after Gary Peters retired. Abdul El-Sayed (D) vs. Mike Rogers (R)."
+        }
+      ]
+    },
+    {
+      "id": "minnesota-senate",
+      "state": "Minnesota",
+      "abbr": "MN",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "MN",
+      "name": "Minnesota Senate",
+      "lat": 45.6945,
+      "lng": -93.9002,
+      "lead": "SMITH +6.0%",
+      "leadPct": "53%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Tina Smith (D) is favored in this Class 2 seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "SMITH +6.0% \u2014 Tina Smith (D) is favored in this Class 2 seat."
+        }
+      ]
+    },
+    {
+      "id": "minnesota-gov",
+      "state": "Minnesota",
+      "abbr": "MN",
+      "type": "dem",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "MN",
+      "name": "Minnesota Gov",
+      "lat": 45.6945,
+      "lng": -93.9002,
+      "lead": "WALZ +5.5%",
+      "leadPct": "53%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Tim Walz (D) leads the Republican field.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "WALZ +5.5% \u2014 Tim Walz (D) leads the Republican field."
+        }
+      ]
+    },
+    {
+      "id": "mississippi-senate",
+      "state": "Mississippi",
+      "abbr": "MS",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "MS",
+      "name": "Mississippi Senate",
+      "lat": 32.7416,
+      "lng": -89.6787,
+      "lead": "HYDE-SMITH +15.0%",
+      "leadPct": "58%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Cindy Hyde-Smith (R) is a heavy favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "HYDE-SMITH +15.0% \u2014 Cindy Hyde-Smith (R) is a heavy favorite."
+        }
+      ]
+    },
+    {
+      "id": "missouri-house",
+      "state": "Missouri",
+      "abbr": "MO",
+      "type": "gop",
+      "category": "house",
+      "featured": true,
+      "senateUp": false,
+      "icon": "MO",
+      "name": "Missouri House",
+      "lat": 38.4561,
+      "lng": -92.2884,
+      "lead": "GOP +12.5%",
+      "leadPct": "56%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "No Senate seat on the 2026 ballot. House baseline remains Republican.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "GOP +12.5% \u2014 No Senate seat on the 2026 ballot. House baseline remains Republican."
+        }
+      ]
+    },
+    {
+      "id": "montana-senate",
+      "state": "Montana",
+      "abbr": "MT",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "MT",
+      "name": "Montana Senate",
+      "lat": 46.9219,
+      "lng": -110.4544,
+      "lead": "DAINES +6.0%",
+      "leadPct": "53%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Steve Daines (R) defends the Class 2 seat. Sheehy holds the other seat until 2030.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "DAINES +6.0% \u2014 Steve Daines (R) defends the Class 2 seat. Sheehy holds the other seat until 2030."
+        }
+      ]
+    },
+    {
+      "id": "nebraska-senate",
+      "state": "Nebraska",
+      "abbr": "NE",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "NE",
+      "name": "Nebraska Senate",
+      "lat": 41.1254,
+      "lng": -98.2681,
+      "lead": "RICKETTS +14.0%",
+      "leadPct": "57%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Pete Ricketts (R) is strongly favored.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "RICKETTS +14.0% \u2014 Pete Ricketts (R) is strongly favored."
+        }
+      ]
+    },
+    {
+      "id": "nebraska-gov",
+      "state": "Nebraska",
+      "abbr": "NE",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "NE",
+      "name": "Nebraska Gov",
+      "lat": 41.1254,
+      "lng": -98.2681,
+      "lead": "PILLEN +14.0%",
+      "leadPct": "57%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Jim Pillen (R) holds a wide lead.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "PILLEN +14.0% \u2014 Jim Pillen (R) holds a wide lead."
+        }
+      ]
+    },
+    {
+      "id": "nevada-gov",
+      "state": "Nevada",
+      "abbr": "NV",
+      "type": "battleground",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "NV",
+      "name": "Nevada Gov",
+      "lat": 38.4199,
+      "lng": -117.1219,
+      "lead": "LOMBARDO +0.8%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Joe Lombardo (R) vs. the Democratic nominee. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "LOMBARDO +0.8% \u2014 Joe Lombardo (R) vs. the Democratic nominee. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "new-hampshire-senate",
+      "state": "New Hampshire",
+      "abbr": "NH",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "NH",
+      "name": "New Hampshire Senate",
+      "lat": 43.4525,
+      "lng": -71.5639,
+      "lead": "OPEN +3.4%",
+      "leadPct": "52%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Open seat after Jeanne Shaheen retired. Democratic nominee starts narrowly ahead.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OPEN +3.4% \u2014 Open seat after Jeanne Shaheen retired. Democratic nominee starts narrowly ahead."
+        }
+      ]
+    },
+    {
+      "id": "new-jersey-senate",
+      "state": "New Jersey",
+      "abbr": "NJ",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "NJ",
+      "name": "New Jersey Senate",
+      "lat": 40.2989,
+      "lng": -74.521,
+      "lead": "BOOKER +7.0%",
+      "leadPct": "54%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Cory Booker (D) is favored in this Class 2 seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "BOOKER +7.0% \u2014 Cory Booker (D) is favored in this Class 2 seat."
+        }
+      ]
+    },
+    {
+      "id": "new-mexico-senate",
+      "state": "New Mexico",
+      "abbr": "NM",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "NM",
+      "name": "New Mexico Senate",
+      "lat": 34.8405,
+      "lng": -106.2485,
+      "lead": "LUJAN +6.8%",
+      "leadPct": "53%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Ben Ray Lujan (D) vs. Larry Marker (R).",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "LUJAN +6.8% \u2014 Ben Ray Lujan (D) vs. Larry Marker (R)."
+        }
+      ]
+    },
+    {
+      "id": "new-york-gov",
+      "state": "New York",
+      "abbr": "NY",
+      "type": "dem",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "NY",
+      "name": "New York Gov",
+      "lat": 42.1657,
+      "lng": -74.9481,
+      "lead": "HOCHUL +7.2%",
+      "leadPct": "54%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Kathy Hochul (D) leads. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "HOCHUL +7.2% \u2014 Kathy Hochul (D) leads. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "north-carolina-senate",
+      "state": "North Carolina",
+      "abbr": "NC",
+      "type": "battleground",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "NC",
+      "name": "North Carolina Senate",
+      "lat": 35.6301,
+      "lng": -79.8064,
+      "lead": "COOPER +2.1%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Open GOP seat: Roy Cooper (D) vs. Michael Whatley (R).",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "COOPER +2.1% \u2014 Open GOP seat: Roy Cooper (D) vs. Michael Whatley (R)."
+        }
+      ]
+    },
+    {
+      "id": "north-dakota-house",
+      "state": "North Dakota",
+      "abbr": "ND",
+      "type": "gop",
+      "category": "house",
+      "featured": true,
+      "senateUp": false,
+      "icon": "ND",
+      "name": "North Dakota House",
+      "lat": 47.5289,
+      "lng": -99.784,
+      "lead": "GOP +20.0%",
+      "leadPct": "60%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "No Senate seat on the 2026 ballot (Cramer is Class 1, next up in 2030).",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "GOP +20.0% \u2014 No Senate seat on the 2026 ballot (Cramer is Class 1, next up in 2030)."
+        }
+      ]
+    },
+    {
+      "id": "ohio-senate",
+      "state": "Ohio",
+      "abbr": "OH",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "OH",
+      "name": "Ohio Senate",
+      "lat": 40.3888,
+      "lng": -82.7649,
+      "lead": "HUSTED +4.5%",
+      "leadPct": "52%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Special election: appointed Sen. Jon Husted (R) vs. the Democratic nominee.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "HUSTED +4.5% \u2014 Special election: appointed Sen. Jon Husted (R) vs. the Democratic nominee."
+        }
+      ]
+    },
+    {
+      "id": "oklahoma-senate",
+      "state": "Oklahoma",
+      "abbr": "OK",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "OK",
+      "name": "Oklahoma Senate",
+      "lat": 35.5653,
+      "lng": -96.9289,
+      "lead": "LANKFORD +16.0%",
+      "leadPct": "58%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "James Lankford (R) is a heavy favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "LANKFORD +16.0% \u2014 James Lankford (R) is a heavy favorite."
+        }
+      ]
+    },
+    {
+      "id": "oklahoma-gov",
+      "state": "Oklahoma",
+      "abbr": "OK",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "OK",
+      "name": "Oklahoma Gov",
+      "lat": 35.5653,
+      "lng": -96.9289,
+      "lead": "OPEN +16.0%",
+      "leadPct": "58%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Open governor race after Kevin Stitt is term-limited.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OPEN +16.0% \u2014 Open governor race after Kevin Stitt is term-limited."
+        }
+      ]
+    },
+    {
+      "id": "oregon-senate",
+      "state": "Oregon",
+      "abbr": "OR",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "OR",
+      "name": "Oregon Senate",
+      "lat": 44.572,
+      "lng": -122.0709,
+      "lead": "MERKLEY +8.0%",
+      "leadPct": "54%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Jeff Merkley (D) is favored in this Class 2 seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "MERKLEY +8.0% \u2014 Jeff Merkley (D) is favored in this Class 2 seat."
+        }
+      ]
+    },
+    {
+      "id": "oregon-gov",
+      "state": "Oregon",
+      "abbr": "OR",
+      "type": "dem",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "OR",
+      "name": "Oregon Gov",
+      "lat": 44.572,
+      "lng": -122.0709,
+      "lead": "KOTEK +4.5%",
+      "leadPct": "52%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Tina Kotek (D) vs. the Republican nominee.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "KOTEK +4.5% \u2014 Tina Kotek (D) vs. the Republican nominee."
+        }
+      ]
+    },
+    {
+      "id": "pennsylvania-gov",
+      "state": "Pennsylvania",
+      "abbr": "PA",
+      "type": "dem",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "PA",
+      "name": "Pennsylvania Gov",
+      "lat": 40.5908,
+      "lng": -77.2098,
+      "lead": "SHAPIRO +8.4%",
+      "leadPct": "54%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Josh Shapiro (D) is favored. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "SHAPIRO +8.4% \u2014 Josh Shapiro (D) is favored. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "rhode-island-senate",
+      "state": "Rhode Island",
+      "abbr": "RI",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "RI",
+      "name": "Rhode Island Senate",
+      "lat": 41.6809,
+      "lng": -71.5118,
+      "lead": "REED +12.0%",
+      "leadPct": "56%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Jack Reed (D) is a strong favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "REED +12.0% \u2014 Jack Reed (D) is a strong favorite."
+        }
+      ]
+    },
+    {
+      "id": "rhode-island-gov",
+      "state": "Rhode Island",
+      "abbr": "RI",
+      "type": "dem",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "RI",
+      "name": "Rhode Island Gov",
+      "lat": 41.6809,
+      "lng": -71.5118,
+      "lead": "MCKEE +12.0%",
+      "leadPct": "56%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Dan McKee (D) holds a solid lead.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "MCKEE +12.0% \u2014 Dan McKee (D) holds a solid lead."
+        }
+      ]
+    },
+    {
+      "id": "south-carolina-senate",
+      "state": "South Carolina",
+      "abbr": "SC",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "SC",
+      "name": "South Carolina Senate",
+      "lat": 33.8569,
+      "lng": -80.945,
+      "lead": "GRAHAM +10.0%",
+      "leadPct": "55%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Lindsey Graham (R) is favored in this Class 2 seat.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "GRAHAM +10.0% \u2014 Lindsey Graham (R) is favored in this Class 2 seat."
+        }
+      ]
+    },
+    {
+      "id": "south-carolina-gov",
+      "state": "South Carolina",
+      "abbr": "SC",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "SC",
+      "name": "South Carolina Gov",
+      "lat": 33.8569,
+      "lng": -80.945,
+      "lead": "OPEN +14.0%",
+      "leadPct": "57%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Open governor race after Henry McMaster is term-limited.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OPEN +14.0% \u2014 Open governor race after Henry McMaster is term-limited."
+        }
+      ]
+    },
+    {
+      "id": "south-dakota-senate",
+      "state": "South Dakota",
+      "abbr": "SD",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "SD",
+      "name": "South Dakota Senate",
+      "lat": 44.2998,
+      "lng": -99.4388,
+      "lead": "ROUNDS +18.0%",
+      "leadPct": "59%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Mike Rounds (R) is a heavy favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "ROUNDS +18.0% \u2014 Mike Rounds (R) is a heavy favorite."
+        }
+      ]
+    },
+    {
+      "id": "tennessee-senate",
+      "state": "Tennessee",
+      "abbr": "TN",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "TN",
+      "name": "Tennessee Senate",
+      "lat": 35.7478,
+      "lng": -86.6923,
+      "lead": "HAGERTY +16.0%",
+      "leadPct": "58%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Bill Hagerty (R) is a heavy favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "HAGERTY +16.0% \u2014 Bill Hagerty (R) is a heavy favorite."
+        }
+      ]
+    },
+    {
+      "id": "tennessee-gov",
+      "state": "Tennessee",
+      "abbr": "TN",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "TN",
+      "name": "Tennessee Gov",
+      "lat": 35.7478,
+      "lng": -86.6923,
+      "lead": "OPEN +16.0%",
+      "leadPct": "58%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Open governor race after Bill Lee is term-limited.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OPEN +16.0% \u2014 Open governor race after Bill Lee is term-limited."
+        }
+      ]
+    },
+    {
+      "id": "texas-senate",
+      "state": "Texas",
+      "abbr": "TX",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "TX",
+      "name": "Texas Senate",
+      "lat": 31.0545,
+      "lng": -97.5635,
+      "lead": "PAXTON +4.2%",
+      "leadPct": "52%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Ken Paxton (R) vs. James Talarico (D) after the GOP primary.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "PAXTON +4.2% \u2014 Ken Paxton (R) vs. James Talarico (D) after the GOP primary."
+        }
+      ]
+    },
+    {
+      "id": "utah-house",
+      "state": "Utah",
+      "abbr": "UT",
+      "type": "gop",
+      "category": "house",
+      "featured": true,
+      "senateUp": false,
+      "icon": "UT",
+      "name": "Utah House",
+      "lat": 40.15,
+      "lng": -111.8624,
+      "lead": "GOP +18.0%",
+      "leadPct": "59%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "No Senate seat on the 2026 ballot. House baseline remains Republican.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "GOP +18.0% \u2014 No Senate seat on the 2026 ballot. House baseline remains Republican."
+        }
+      ]
+    },
+    {
+      "id": "vermont-gov",
+      "state": "Vermont",
+      "abbr": "VT",
+      "type": "gop",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "VT",
+      "name": "Vermont Gov",
+      "lat": 44.0459,
+      "lng": -72.7107,
+      "lead": "SCOTT +24.0%",
+      "leadPct": "62%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Phil Scott (R) remains broadly popular. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "SCOTT +24.0% \u2014 Phil Scott (R) remains broadly popular. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "virginia-senate",
+      "state": "Virginia",
+      "abbr": "VA",
+      "type": "dem",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "VA",
+      "name": "Virginia Senate",
+      "lat": 37.7693,
+      "lng": -78.17,
+      "lead": "WARNER +7.2%",
+      "leadPct": "54%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "Mark Warner (D) leads the Republican challenger.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "WARNER +7.2% \u2014 Mark Warner (D) leads the Republican challenger."
+        }
+      ]
+    },
+    {
+      "id": "washington-house",
+      "state": "Washington",
+      "abbr": "WA",
+      "type": "dem",
+      "category": "house",
+      "featured": true,
+      "senateUp": false,
+      "icon": "WA",
+      "name": "Washington House",
+      "lat": 47.4009,
+      "lng": -121.4905,
+      "lead": "DEM +10.0%",
+      "leadPct": "55%",
+      "barColor": "#388bfd",
+      "leadClass": "badge-dem",
+      "desc": "No Senate seat on the 2026 ballot. House baseline remains Democratic.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "DEM +10.0% \u2014 No Senate seat on the 2026 ballot. House baseline remains Democratic."
+        }
+      ]
+    },
+    {
+      "id": "west-virginia-senate",
+      "state": "West Virginia",
+      "abbr": "WV",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "WV",
+      "name": "West Virginia Senate",
+      "lat": 38.4912,
+      "lng": -80.9545,
+      "lead": "CAPITO +18.0%",
+      "leadPct": "59%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Shelley Moore Capito (R) defends the Class 2 seat. Justice holds the other seat until 2030.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "CAPITO +18.0% \u2014 Shelley Moore Capito (R) defends the Class 2 seat. Justice holds the other seat until 2030."
+        }
+      ]
+    },
+    {
+      "id": "wisconsin-gov",
+      "state": "Wisconsin",
+      "abbr": "WI",
+      "type": "battleground",
+      "category": "gov",
+      "featured": true,
+      "senateUp": false,
+      "icon": "WI",
+      "name": "Wisconsin Gov",
+      "lat": 44.2685,
+      "lng": -89.6165,
+      "lead": "EVERS +1.2%",
+      "leadPct": "50%",
+      "barColor": "#d29922",
+      "leadClass": "badge-tossup",
+      "desc": "Tony Evers (D) vs. the GOP nominee. No Senate seat on the 2026 ballot.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "EVERS +1.2% \u2014 Tony Evers (D) vs. the GOP nominee. No Senate seat on the 2026 ballot."
+        }
+      ]
+    },
+    {
+      "id": "wyoming-senate",
+      "state": "Wyoming",
+      "abbr": "WY",
+      "type": "gop",
+      "category": "senate",
+      "featured": true,
+      "senateUp": true,
+      "icon": "WY",
+      "name": "Wyoming Senate",
+      "lat": 42.7559,
+      "lng": -107.3025,
+      "lead": "LUMMIS +25.0%",
+      "leadPct": "62%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Cynthia Lummis (R) is a heavy favorite.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "LUMMIS +25.0% \u2014 Cynthia Lummis (R) is a heavy favorite."
+        }
+      ]
+    },
+    {
+      "id": "wyoming-gov",
+      "state": "Wyoming",
+      "abbr": "WY",
+      "type": "gop",
+      "category": "gov",
+      "featured": false,
+      "senateUp": true,
+      "icon": "WY",
+      "name": "Wyoming Gov",
+      "lat": 42.7559,
+      "lng": -107.3025,
+      "lead": "OPEN +25.0%",
+      "leadPct": "62%",
+      "barColor": "#f85149",
+      "leadClass": "badge-gop",
+      "desc": "Open governor race after Mark Gordon is term-limited.",
+      "source": "Editorial snapshot",
+      "news": [
+        {
+          "time": "Editorial snapshot",
+          "headline": "OPEN +25.0% \u2014 Open governor race after Mark Gordon is term-limited."
+        }
+      ]
+    }
+  ]
+}
